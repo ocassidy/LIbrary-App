@@ -1,0 +1,24 @@
+.loginForm {
+    margin-left: auto;
+    margin-right: auto;
+    min-width: 275px;
+    max-width: 275px;
+    padding: 10px;
+}
+
+.loginTermsConditionsCheckboxText, .formInfoText {
+    font-size: 14px;
+    line-height: 2rem;
+}
+
+.loginTermsConditionsCheckbox {
+    font-size: 14px;
+    line-height: 2rem;
+    font-weight: bold;
+}
+
+.form-label:after {
+    content:"*";
+    color:red;
+    font-size: 20px;
+}
