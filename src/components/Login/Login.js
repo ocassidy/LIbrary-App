@@ -1,18 +1,7 @@
 import React, {Component} from 'react'
-import {Form} from "react-bootstrap";
-import Button from "react-bootstrap/Button";
-import axios from 'axios'
-import toastr from 'toastr'
+import {Form, Button} from "react-bootstrap";
 import './Login.css'
-import {ACCESS_TOKEN, API_BASE_URL} from "../../constants";
 import {withRouter} from "react-router-dom";
-
-let axiosConfig = {
-  headers: {
-    'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*'
-  }
-};
 
 class Login extends Component {
   constructor(props) {
@@ -23,32 +12,6 @@ class Login extends Component {
     }
   }
 
-  postLogin = () => {
-    return axios.post(API_BASE_URL + "/auth/login", {
-        usernameOrEmail: this.state.usernameOrEmail,
-        password: this.state.password
-      },
-      axiosConfig)
-      .then(response => {
-        if (response.status === 200) {
-          localStorage.setItem("ACCESS_TOKEN", response.data.token);
-          toastr.success('Login Successful!', 'Success');
-          this.props.history.push('/user/' + this.props.getCurrentUser);
-        }
-        else {
-          toastr.error('User Does Not Exist', 'Error');
-        }
-      })
-      .catch(error => {
-        toastr.error(error.message, 'Error')
-      })
-  };
-
-  handleLogin = (e) => {
-    e.preventDefault();
-    return this.postLogin();
-  };
-
   handleUsernameOrEmailOnChange = (e) => {
     this.setState({usernameOrEmail: e.target.value})
   };
@@ -57,11 +20,10 @@ class Login extends Component {
     this.setState({password: e.target.value})
   };
 
-  componentDidMount() {
-    if (localStorage.getItem(ACCESS_TOKEN)) {
-      this.loadCurrentUser();
-    }
-  }
+  handleLogin = (e) => {
+    e.preventDefault();
+    return this.props.onHandleLogin(this.state.usernameOrEmail, this.state.password);
+  };
 
   render() {
     return (
