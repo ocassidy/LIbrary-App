@@ -1,9 +1,8 @@
-import {connect} from 'react-redux'
-import {postLogin} from '../actions'
-import Login from '../../components/Login/Login'
+import {connect} from "react-redux";
+import App from "../../App";
+import {getCurrentUser} from "../actions";
 
 const mapStateToProps = (state, props) => {
-
   return {
     currentUser: state.login[0] ? state.login[0].currentUser : null,
     isAuthenticated: state.login[0] ? state.login[0].isAuthenticated : false,
@@ -13,10 +12,10 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onHandleLogin: (usernameOrEmail, password) => {
-      dispatch(postLogin(usernameOrEmail, password));
+    onStartAppCheckForCurrentUser: () => {
+      dispatch(getCurrentUser());
     }
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default connect(mapStateToProps, mapDispatchToProps)(App)

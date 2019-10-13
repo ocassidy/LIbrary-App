@@ -1,17 +1,8 @@
 import React, {Component} from 'react'
 import {Form} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import {API_BASE_URL} from "../../constants";
-import axios from "axios";
 import toastr from "toastr";
 import './Register.css'
-
-let axiosConfig = {
-  headers: {
-    'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
-  }
-};
 
 export default class Register extends Component {
   constructor(props) {
@@ -25,34 +16,22 @@ export default class Register extends Component {
     }
   }
 
-  postRegister = () => {
-    if (this.state.password !== this.state.retypePassword) {
-      toastr.error('Passwords do not match', 'Error');
-    } else {
-      return axios.post(API_BASE_URL + "/auth/register", {
-          name: this.state.name,
-          username: this.state.username,
-          password: this.state.password,
-          email: this.state.email
-        },
-        axiosConfig)
-        .then(response => {
-          if (response.data.success === false) {
-            toastr.error(response.data.message, 'Error');
-          } else {
-            toastr.success(response.data.message, 'Success');
-            this.props.history.push(`/user/${this.state.username}`);
-          }
-        })
-        .catch(error => {
-          toastr.error(error.message, 'Error')
-        })
-    }
-  }
-
   handleRegister = (e) => {
     e.preventDefault();
-    return this.postRegister();
+
+    if (this.state.password !== this.state.retypePassword) {
+      toastr.error('Passwords do not match!', 'Error', {timeOut: 5000})
+    }
+    else {
+      let registerRequest = {
+        username: this.state.username,
+        name: this.state.name,
+        password: this.state.password,
+        email: this.state.email
+      };
+
+      return this.props.onHandleRegister(registerRequest);
+    }
   };
 
   handleUsernameOnChange = (e) => {
@@ -80,6 +59,9 @@ export default class Register extends Component {
       <div className="registerForm">
         <h2>Register</h2>
         <div>
+          <div>
+            Please Register to use the library system.
+          </div>
           <Form onSubmit={this.handleRegister}>
             <Form.Group controlId="registerUsernameFormGroup">
               <Form.Label>Username</Form.Label>

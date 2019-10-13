@@ -6,6 +6,12 @@
   height: 40vmin;
 }
 
+.isLoadingSpinner {
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 250px;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

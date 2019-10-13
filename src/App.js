@@ -1,26 +1,40 @@
 import React, {Component} from 'react';
 import './App.css';
-import {Route, BrowserRouter as Router, Redirect, Switch} from "react-router-dom";
-import Register from "./components/Register/Register";
-import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
-import Home from "./components/Home/Home";
+import {Route, Redirect, Switch} from "react-router-dom";
 import LoginContainer from "./redux/containers/LoginContainer";
+import RegisterContainer from "./redux/containers/RegisterContainer";
+import Spinner from "react-bootstrap/Spinner";
+import HomeContainer from "./redux/containers/HomeContainer";
+import {ConnectedRouter} from "connected-react-router";
 
 export default class App extends Component {
+  componentDidMount() {
+    this.props.onStartAppCheckForCurrentUser();
+  }
+
   render() {
     return (
       <div className="App">
-        <Router>
-          <Switch>
-            <Redirect exact from="/" to="/login"/>
-            <Route path="/login"
-                   exact component={() => <LoginContainer />}/>
-            <Route path="/register"
-                   exact component={() => <Register />}/>
-            <ProtectedRoute path="/user/home/*"
-                            exact component={() => <Home/>}/>
-          </Switch>
-        </Router>
+        {this.props.isLoading && this.props.currentUser ?
+          <div>
+            <Spinner animation="border" role="status" className="isLoadingSpinner"/>
+            <div>
+              Loading Please Wait...
+            </div>
+          </div>
+          :
+          <ConnectedRouter history={this.props.history}>
+            <Switch>
+              <Redirect exact from="/" to="/login"/>
+              <Route path="/login"
+                     exact component={() => <LoginContainer currentUser={this.props.currentUser}/>}/>
+              <Route path="/register"
+                     exact component={() => <RegisterContainer currentUser={this.props.currentUser}/>}/>
+              <Route path="/user/home/*"
+                     exact component={(props) => <HomeContainer {...props}/>}/>
+            </Switch>
+          </ConnectedRouter>
+        }
       </div>
     )
   }
