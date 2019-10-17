@@ -6,6 +6,7 @@ import RegisterContainer from "./redux/containers/RegisterContainer";
 import Spinner from "react-bootstrap/Spinner";
 import HomeContainer from "./redux/containers/HomeContainer";
 import {ConnectedRouter} from "connected-react-router";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 export default class App extends Component {
   componentDidMount() {
@@ -26,12 +27,9 @@ export default class App extends Component {
           <ConnectedRouter history={this.props.history}>
             <Switch>
               <Redirect exact from="/" to="/login"/>
-              <Route path="/login"
-                     exact component={() => <LoginContainer currentUser={this.props.currentUser}/>}/>
-              <Route path="/register"
-                     exact component={() => <RegisterContainer currentUser={this.props.currentUser}/>}/>
-              <Route path="/user/home/*"
-                     exact component={(props) => <HomeContainer {...props}/>}/>
+              <Route exact path="/login" component={() => <LoginContainer currentUser={this.props.currentUser}/>}/>
+              <Route exact path="/register" component={() => <RegisterContainer currentUser={this.props.currentUser}/>}/>
+              <ProtectedRoute exact path="/user/home/:username" component={HomeContainer}/>
             </Switch>
           </ConnectedRouter>
         }

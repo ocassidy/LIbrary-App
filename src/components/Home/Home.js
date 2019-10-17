@@ -5,7 +5,8 @@ export default class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: true
+      isLoading: true,
+      error: false
     }
   }
 
@@ -15,6 +16,12 @@ export default class Home extends Component {
     if (this.props.location.state.currentUser) {
       this.setState({
         isLoading: false
+      })
+    }
+    else if (this.props.location.state.currentUser === null) {
+      this.setState({
+        isLoading: false,
+        error: true
       })
     }
   }

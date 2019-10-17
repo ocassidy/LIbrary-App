@@ -51,7 +51,7 @@ export const getCurrentUser = () => {
       .then(response => {
         if (response.status === 200) {
           dispatch(getCurrentUserSuccess(response.data));
-          dispatch(push(`/user/home/${response.data}`, {currentUser: response.data}));
+          dispatch(push(`/user/home/${response.data}`, {currentUser: response.data, isAuthenticated: true}));
           return response.data
         } else {
           return 'No User Found'
@@ -88,7 +88,7 @@ export const postLogin = (usernameOrEmail, password) => {
         localStorage.setItem("ACCESS_TOKEN", response.data.token);
         dispatch(postLoginSuccess(response.data.token));
         toastr.success('Login Successful!', 'Success');
-        dispatch(push(`/user/home/${usernameOrEmail}`, {currentUser: usernameOrEmail}));
+        dispatch(push(`/user/home/${usernameOrEmail}`, {currentUser: usernameOrEmail, isAuthenticated: true}));
       })
       .catch(error => {
         dispatch(getCurrentUserFailure(error.message));
