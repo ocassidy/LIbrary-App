@@ -6,6 +6,10 @@
     "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
     "connected-react-router": "^6.5.2",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jest": "^22.19.0",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
     "history": "^4.10.1",
     "react": "^16.9.0",
     "react-bootstrap": "^1.0.0-beta.12",
@@ -21,7 +25,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint \"**/*.js\""
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -37,5 +42,16 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "proxy": "http://locahost:8080",
+  "devDependencies": {
+    "@testing-library/react": "^9.3.0",
+    "eslint": "^6.5.1",
+    "eslint-plugin-react": "^7.16.0"
+  },
+  "rules": {
+    "linebreak-style": 0,
+    "global-require": 0,
+    "eslint linebreak-style": [0, "error", "windows"]
   }
 }

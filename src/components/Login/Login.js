@@ -1,28 +1,29 @@
-import React, {Component} from 'react'
-import {Form, Button} from "react-bootstrap";
-import './Login.css'
-import {withRouter} from "react-router-dom";
+import React, { Component } from 'react';
+import { Button, Form } from 'react-bootstrap';
+import './Login.css';
+import { withRouter } from 'react-router-dom';
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
       usernameOrEmail: '',
-      password: ''
-    }
+      password: '',
+    };
   }
 
   handleUsernameOrEmailOnChange = (e) => {
-    this.setState({usernameOrEmail: e.target.value})
+    this.setState({ usernameOrEmail: e.target.value });
   };
 
   handlePasswordOnChange = (e) => {
-    this.setState({password: e.target.value})
+    this.setState({ password: e.target.value });
   };
 
   handleLogin = (e) => {
     e.preventDefault();
-    return this.props.onHandleLogin(this.state.usernameOrEmail, this.state.password);
+    const { props, state } = this;
+    return props.onHandleLogin(state.usernameOrEmail, state.password);
   };
 
   render() {
@@ -36,25 +37,30 @@ class Login extends Component {
           <Form onSubmit={this.handleLogin}>
             <Form.Group controlId="loginUsernameFormGroup">
               <Form.Label>Username or Email</Form.Label>
-              <Form.Control type="username"
-                            className="loginUsernameInput"
-                            placeholder="Username or Email"
-                            required
-                            onChange={this.handleUsernameOrEmailOnChange}/>
+              <Form.Control
+                type="username"
+                className="loginUsernameInput"
+                placeholder="Username or Email"
+                required
+                onChange={this.handleUsernameOrEmailOnChange}
+              />
             </Form.Group>
             <Form.Group controlId="loginPasswordFormGroup">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password"
-                            className="loginPasswordInput"
-                            placeholder="Password"
-                            required
-                            onChange={this.handlePasswordOnChange}/>
+              <Form.Control
+                type="password"
+                className="loginPasswordInput"
+                placeholder="Password"
+                required
+                onChange={this.handlePasswordOnChange}
+              />
             </Form.Group>
             <Button variant="primary" type="submit">
               Log In
             </Button>
           </Form>
-          <div>Don't have an account?&nbsp;
+          <div>
+            Don&apos; have an account?&nbsp;
             <a href="/register">Register Here</a>
           </div>
         </div>

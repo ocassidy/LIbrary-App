@@ -1,8 +1,9 @@
-import {combineReducers} from 'redux';
-import authReducer from "./authReducer";
-import {connectRouter} from 'connected-react-router'
+import { combineReducers } from 'redux';
+import { connectRouter } from 'connected-react-router';
+import authReducer from './authReducer';
 
+// eslint-disable-next-line import/prefer-default-export
 export const rootReducer = (history) => combineReducers({
   router: connectRouter(history),
-  login: authReducer
+  login: authReducer,
 });

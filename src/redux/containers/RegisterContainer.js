@@ -1,13 +1,11 @@
-import {postRegister} from "../actions";
-import {connect} from "react-redux";
-import Register from "../../components/Register/Register";
+import { connect } from 'react-redux';
+import { postRegister } from '../actions';
+import Register from '../../components/Register/Register';
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onHandleRegister: (registerRequest) => {
-      dispatch(postRegister(registerRequest));
-    }
-  }
-};
+const mapDispatchToProps = (dispatch) => ({
+  onHandleRegister: (registerRequest) => {
+    dispatch(postRegister(registerRequest));
+  },
+});
 
-export default connect(null, mapDispatchToProps)(Register)
+export default connect(null, mapDispatchToProps)(Register);

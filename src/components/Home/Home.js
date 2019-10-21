@@ -1,48 +1,50 @@
-import React, {Component} from 'react';
-import Spinner from "react-bootstrap/Spinner";
+import React, { Component } from 'react';
+import Spinner from 'react-bootstrap/Spinner';
 
 export default class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isLoading: true,
-      error: false
-    }
+    };
   }
 
   async componentDidMount() {
-    await this.props.location.state.currentUser;
+    const { props, setState } = this;
+    await props.location.state.currentUser;
 
-    if (this.props.location.state.currentUser) {
-      this.setState({
-        isLoading: false
-      })
-    }
-    else if (this.props.location.state.currentUser === null) {
+    if (props.location.state.currentUser) {
       this.setState({
         isLoading: false,
-        error: true
-      })
+      });
+    } else if (props.location.state.currentUser === null) {
+      setState({
+        isLoading: false,
+      });
     }
   }
 
   render() {
-    const currentUser = this.props.location.state.currentUser;
+    const { props, state } = this;
+    const { currentUser } = props.location.state;
     return (
       <div>
-        {this.state.isLoading ?
-          <div>
-            <Spinner animation="border" role="status" className="isLoadingSpinner"/>
+        {state.isLoading
+          ? (
             <div>
+              <Spinner animation="border" role="status" className="isLoadingSpinner" />
+              <div>
               Loading Please Wait...
+              </div>
             </div>
-          </div>
-          :
-          <div>
-            Hi {currentUser ? currentUser : null}!
-          </div>
-        }
+          )
+          : (
+            <div>
+              Hi
+              { currentUser || null }
+            </div>
+          )}
       </div>
-    )
+    );
   }
 }
