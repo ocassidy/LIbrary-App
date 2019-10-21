@@ -45,7 +45,6 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://locahost:8080",
   "devDependencies": {
     "@testing-library/react": "^9.3.0",
     "eslint": "^6.5.1",

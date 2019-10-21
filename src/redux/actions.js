@@ -23,8 +23,6 @@ const axiosConfigWithToken = {
   },
 };
 
-const baseURL = 'http://localhost:8080/api';
-
 export const getCurrentUserSuccess = (currentUser) => ({
   type: GET_CURRENT_USER_SUCCESS,
   isLoading: false,
@@ -41,7 +39,7 @@ export const getCurrentUserFailure = (message) => ({
 
 export const getCurrentUser = () => (dispatch) => {
   if (localStorage.getItem('ACCESS_TOKEN')) {
-    return axios.get(`${baseURL}/auth/user`, axiosConfigWithToken)
+    return axios.get(`${API_BASE_URL}/auth/user`, axiosConfigWithToken)
       .then((response) => {
         if (response.status === 200) {
           dispatch(getCurrentUserSuccess(response.data));
@@ -68,7 +66,7 @@ export const postLoginFailure = (message) => ({
   message,
 });
 
-export const postLogin = (usernameOrEmail, password) => (dispatch) => axios.post(`${baseURL}/auth/login`, {
+export const postLogin = (usernameOrEmail, password) => (dispatch) => axios.post(`${API_BASE_URL}/auth/login`, {
   usernameOrEmail,
   password,
 },
