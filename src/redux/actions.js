@@ -9,7 +9,6 @@ import {
   POST_LOGIN_SUCCESS, POST_REGISTER_SUCCESS,
 } from './actionTypes';
 
-
 const axiosConfig = {
   headers: {
     'Content-Type': 'application/json',
