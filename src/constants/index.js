@@ -1,4 +1,4 @@
-export const API_BASE_URL = 'http://localhost:8080/api';
+export const API_BASE_URL = process.env.API_URL;
 export const ACCESS_TOKEN = 'token';
 
 export const NAME_MIN_LENGTH = 4;

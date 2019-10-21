@@ -15,6 +15,7 @@ export default class App extends Component {
   }
 
   render() {
+    console.log(process.env);
     const { props } = this;
     return (
       <div className="App" id="App">
