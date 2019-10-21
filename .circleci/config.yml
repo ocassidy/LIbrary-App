@@ -35,6 +35,8 @@ jobs:
       #- store_test_results:
           #path: test-results.xml
   deploy:
+    docker:
+      - image: circleci/node:12.9.1
     steps:
       - checkout
       - run:
