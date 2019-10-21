@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="421d8195-9167-400e-9bcc-64a5987fd87d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.circleci/config.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.eslintrc.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
@@ -14,7 +16,6 @@
       <change beforePath="$PROJECT_DIR$/src/components/Register/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Register/Register.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/constants/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/actionTypes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/actionTypes.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/redux/actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/actions.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/redux/containers/AppContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/containers/AppContainer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/redux/containers/HomeContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/containers/HomeContainer.js" afterDir="false" />
@@ -123,7 +124,7 @@
       <workItem from="1571506879990" duration="5645000" />
       <workItem from="1571586914082" duration="594000" />
       <workItem from="1571646592647" duration="8644000" />
-      <workItem from="1571665303023" duration="2082000" />
+      <workItem from="1571665303023" duration="2598000" />
     </task>
     <servers />
   </component>

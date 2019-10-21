@@ -35,6 +35,7 @@ jobs:
       #- store_test_results:
           #path: test-results.xml
   deploy:
+    docker:
     - image: buildpack-deps:mars/create-react-app
     steps:
       - checkout
