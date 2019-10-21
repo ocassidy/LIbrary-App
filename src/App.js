@@ -7,6 +7,7 @@ import LoginContainer from './redux/containers/LoginContainer';
 import RegisterContainer from './redux/containers/RegisterContainer';
 import HomeContainer from './redux/containers/HomeContainer';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
+import {API_BASE_URL} from "./constants";
 
 export default class App extends Component {
   componentDidMount() {
@@ -15,7 +16,7 @@ export default class App extends Component {
   }
 
   render() {
-    console.log(process.env);
+    console.log(API_BASE_URL);
     const { props } = this;
     return (
       <div className="App" id="App">

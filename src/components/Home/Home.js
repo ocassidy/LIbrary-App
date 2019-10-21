@@ -40,8 +40,7 @@ export default class Home extends Component {
           )
           : (
             <div>
-              Hi
-              { currentUser || null }
+              Hi { currentUser || null }
             </div>
           )}
       </div>
