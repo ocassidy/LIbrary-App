@@ -3,6 +3,7 @@ import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import toastr from 'toastr';
 import './Register.css';
+import {API_BASE_URL} from "../../constants";
 
 export default class Register extends Component {
   constructor(props) {
@@ -56,6 +57,9 @@ export default class Register extends Component {
   };
 
   render() {
+    console.log('process.env in register', process.env);
+    console.log('API_BASE_URL in register', API_BASE_URL);
+    console.log('REACT_APP_ENV in register', process.env.REACT_APP_ENV);
     return (
       <div className="registerForm">
         <h2>Register</h2>
