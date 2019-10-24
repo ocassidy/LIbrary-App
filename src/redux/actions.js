@@ -42,10 +42,11 @@ export const getCurrentUser = () => (dispatch) => {
       .then((response) => {
         if (response.status === 200) {
           dispatch(getCurrentUserSuccess(response.data));
-          dispatch(push(`/user/home/${response.data}`, { currentUser: response.data, isAuthenticated: true }));
+          dispatch(push(`/user/home/${response.data}`, { currentUser: response.data, isAuthenticated: true }))
+          console.log('response.headers', response.headers);
           return response.data;
         }
-        return 'No User Found';
+        return dispatch(getCurrentUserFailure('No current user'));
       })
       .catch((error) => {
         dispatch(getCurrentUserFailure(error.message));
