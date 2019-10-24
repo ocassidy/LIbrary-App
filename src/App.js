@@ -16,9 +16,6 @@ export default class App extends Component {
   }
 
   render() {
-    console.log('process.env', process.env);
-    console.log('API_BASE_URL', API_BASE_URL);
-    console.log('REACT_APP_ENV', process.env.REACT_APP_ENV);
     const { props } = this;
     return (
       <div className="App" id="App">

@@ -57,9 +57,6 @@ export default class Register extends Component {
   };
 
   render() {
-    console.log('process.env in register', process.env);
-    console.log('API_BASE_URL in register', API_BASE_URL);
-    console.log('REACT_APP_ENV in register', process.env.REACT_APP_ENV);
     return (
       <div className="registerForm">
         <h2>Register</h2>

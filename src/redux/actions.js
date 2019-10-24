@@ -43,7 +43,6 @@ export const getCurrentUser = () => (dispatch) => {
         if (response.status === 200) {
           dispatch(getCurrentUserSuccess(response.data));
           dispatch(push(`/user/home/${response.data}`, { currentUser: response.data, isAuthenticated: true }))
-          console.log('response.headers', response.headers);
           return response.data;
         }
         return dispatch(getCurrentUserFailure('No current user'));
