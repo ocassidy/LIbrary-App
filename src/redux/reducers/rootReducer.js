@@ -5,5 +5,5 @@ import authReducer from './authReducer';
 // eslint-disable-next-line import/prefer-default-export
 export const rootReducer = (history) => combineReducers({
   router: connectRouter(history),
-  login: authReducer,
+  userDetails: authReducer,
 });

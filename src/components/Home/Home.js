@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import Spinner from 'react-bootstrap/Spinner';
+import {Button} from "react-bootstrap";
 
 export default class Home extends Component {
   constructor(props) {
@@ -9,38 +10,37 @@ export default class Home extends Component {
     };
   }
 
-  async componentDidMount() {
-    const { props, setState } = this;
-    await props.location.state.currentUser;
-
-    if (props.location.state.currentUser) {
+  componentDidMount() {
+    if (this.props.currentUser) {
       this.setState({
         isLoading: false,
       });
-    } else if (props.location.state.currentUser === null) {
-      setState({
+    } else if (this.props.currentUser === null) {
+      this.setState({
         isLoading: false,
       });
     }
   }
 
   render() {
-    const { props, state } = this;
-    const { currentUser } = props.location.state;
+    const {currentUser, isLoading, onHandleLogout} = this.props;
     return (
       <div>
-        {state.isLoading
+        {isLoading && !currentUser
           ? (
             <div>
-              <Spinner animation="border" role="status" className="isLoadingSpinner" />
+              <Spinner animation="border" role="status" className="isLoadingSpinner"/>
               <div>
-              Loading Please Wait...
+                Loading Please Wait...
               </div>
             </div>
           )
           : (
             <div>
-              Hi { currentUser || null }
+              {currentUser ? `Hi ${currentUser.username}` : null}
+              <div>
+                <Button onClick={() => onHandleLogout()}>Logout</Button>
+              </div>
             </div>
           )}
       </div>

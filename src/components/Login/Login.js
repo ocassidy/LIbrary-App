@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import React, {Component} from 'react';
+import {Button, Form} from 'react-bootstrap';
 import './Login.css';
-import { withRouter } from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 
 class Login extends Component {
   constructor(props) {
@@ -22,8 +22,8 @@ class Login extends Component {
 
   handleLogin = (e) => {
     e.preventDefault();
-    const { props, state } = this;
-    return props.onHandleLogin(state.usernameOrEmail, state.password);
+    const {password, usernameOrEmail} = this.state;
+    return this.props.onHandleLogin(usernameOrEmail, password);
   };
 
   render() {

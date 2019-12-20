@@ -1,11 +1,4 @@
-import { connect } from 'react-redux';
-import { getCurrentUser } from '../actions';
+import {connect} from 'react-redux';
 import ProtectedRoute from '../../components/ProtectedRoute/ProtectedRoute';
 
-const mapDispatchToProps = (dispatch) => ({
-  onStartAppCheckForCurrentUser: () => {
-    dispatch(getCurrentUser());
-  },
-});
-
-export default connect(null, mapDispatchToProps)(ProtectedRoute());
+export default connect(null, null)(ProtectedRoute);

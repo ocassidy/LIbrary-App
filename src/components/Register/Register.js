@@ -3,7 +3,6 @@ import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import toastr from 'toastr';
 import './Register.css';
-import {API_BASE_URL} from "../../constants";
 
 export default class Register extends Component {
   constructor(props) {

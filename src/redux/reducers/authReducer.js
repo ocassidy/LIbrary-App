@@ -15,38 +15,38 @@ const initialState = {
 export default function authReducer(state = initialState, action) {
   switch (action.type) {
     case GET_CURRENT_USER_SUCCESS:
-      return [state = {
+      return state = {
         isAuthenticated: action.isAuthenticated,
         isLoading: false,
         currentUser: action.currentUser,
-      }, action.payload];
+      };
 
     case GET_CURRENT_USER_FAILURE:
-      return [state = {
+      return state = {
         isAuthenticated: false,
         isLoading: false,
         currentUser: null,
-      }, action.payload];
+      };
 
     case POST_LOGIN_SUCCESS:
-      return [state = {
+      return state = {
         isAuthenticated: action.isAuthenticated,
         isLoading: false,
         currentUser: action.currentUser,
-      }, action.payload];
+      };
 
     case POST_LOGIN_FAILURE:
-      return [state = {
+      return state = {
         isAuthenticated: false,
         isLoading: false,
         currentUser: null,
-      }, action.payload];
+      };
 
     case POST_REGISTER_SUCCESS:
-      return [...state, action.payload];
+      return state;
 
     case POST_REGISTER_FAILURE:
-      return [...state, action.payload];
+      return state;
 
     default:
       return state;
