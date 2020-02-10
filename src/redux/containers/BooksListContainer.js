@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import App from '../../App';
-import { getBookList, getCurrentUser } from '../actions';
+import BooksList from '../../components/BooksList/BooksList';
+import { getBookList } from '../actions';
 
 const mapStateToProps = (state) => ({
   currentUser: state.userDetails.currentUser,
@@ -13,9 +13,7 @@ const mapDispatchToProps = (dispatch) => ({
   handleGetBookList: () => {
     dispatch(getBookList());
   },
-  checkForCurrentUser: () => {
-    dispatch(getCurrentUser());
-  },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+export default connect(mapStateToProps, mapDispatchToProps)(BooksList);

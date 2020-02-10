@@ -1,12 +1,15 @@
 import axios from 'axios';
 import toastr from 'toastr';
-import {push} from 'connected-react-router';
-import {API_BASE_URL} from '../constants';
+import { push } from 'connected-react-router';
+import { API_BASE_URL } from '../constants/constants';
 import {
   GET_CURRENT_USER_FAILURE,
-  GET_CURRENT_USER_SUCCESS, LOGOUT_FAILURE, LOGOUT_SUCCESS,
+  GET_CURRENT_USER_SUCCESS,
   POST_LOGIN_FAILURE,
-  POST_LOGIN_SUCCESS, POST_REGISTER_SUCCESS,
+  POST_LOGIN_SUCCESS,
+  POST_REGISTER_SUCCESS,
+  LOGOUT_FAILURE,
+  LOGOUT_SUCCESS, GET_BOOK_LIST_FAILURE, GET_BOOK_LIST_SUCCESS,
 } from './actionTypes';
 
 const axiosConfig = {
@@ -32,21 +35,20 @@ export const getCurrentUserFailure = (message) => ({
 export const getCurrentUser = () => (dispatch) => {
   if (localStorage.getItem('ACCESS_TOKEN')) {
     return axios.get(`${API_BASE_URL}/auth/user`, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`,
-        }
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`,
       },
-    )
+    })
       .then((response) => {
         dispatch(getCurrentUserSuccess(response.data));
-        dispatch(push(`/user/home/${response.data.username}`, {
+        dispatch(push(`/user/profile/${response.data.username}`, {
           currentUser: response.data.username,
-          isAuthenticated: true
-        }))
+          isAuthenticated: true,
+        }));
       })
       .catch((error) => {
-        dispatch(getCurrentUserFailure(error.message));
+        dispatch(getCurrentUserFailure(error.response.data.message));
       });
   }
   return dispatch(getCurrentUserFailure('No Token Set - User Unauthorised'));
@@ -62,30 +64,28 @@ export const postLoginFailure = (message) => ({
   message,
 });
 
-export const postLogin = (usernameOrEmail, password) => {
-  return dispatch => {
-    axios.post(`${API_BASE_URL}/auth/login`, {
-        usernameOrEmail,
-        password,
-      },
-      axiosConfig)
-      .then((response) => {
-        localStorage.setItem('ACCESS_TOKEN', response.data.token);
-        dispatch(postLoginSuccess(response.data.token));
-        dispatch(getCurrentUser());
-        toastr.success('Login Successful!', 'Success');
-      })
-      .catch((error) => {
-        dispatch(getCurrentUserFailure(error.message));
-        dispatch(postLoginFailure(error.message));
-        toastr.error(error.message, 'Error');
-      });
-
-    if (localStorage.getItem('ACCESS_TOKEN')) {
+export const postLogin = (usernameOrEmail, password) => (dispatch) => {
+  axios.post(`${API_BASE_URL}/auth/login`, {
+    usernameOrEmail,
+    password,
+  },
+  axiosConfig)
+    .then((response) => {
+      localStorage.setItem('ACCESS_TOKEN', response.data.token);
+      dispatch(postLoginSuccess(response.data.token));
       dispatch(getCurrentUser());
-    }
-  };
-}
+      toastr.success('Login Successful!', 'Success');
+    })
+    .catch((error) => {
+      dispatch(getCurrentUserFailure(error.response.data.message));
+      dispatch(postLoginFailure(error.response.data.message));
+      toastr.error(error.response.data.message, 'Request Failed with Error');
+    });
+
+  if (localStorage.getItem('ACCESS_TOKEN')) {
+    dispatch(getCurrentUser());
+  }
+};
 
 export const postRegisterSuccess = (success) => ({
   type: POST_REGISTER_SUCCESS,
@@ -98,22 +98,21 @@ export const postRegisterFailure = (message) => ({
 });
 
 export const postRegister = (registerRequest) => (dispatch) => axios.post(`${API_BASE_URL}/auth/register`, {
-    username: registerRequest.username,
-    name: registerRequest.name,
-    password: registerRequest.password,
-    email: registerRequest.email,
-  },
-  axiosConfig)
-// eslint-disable-next-line consistent-return
+  username: registerRequest.username,
+  firstName: registerRequest.firstName,
+  lastName: registerRequest.lastName,
+  password: registerRequest.password,
+  email: registerRequest.email,
+},
+axiosConfig)
   .then((response) => {
     if (response.data.success === false) {
-      toastr.error(response.data.message, 'Error');
-    } else {
-      toastr.success(`${response.data.message} Redirecting to login.`, 'Success', {timeOut: 10000});
-      dispatch(postRegisterSuccess(response.data.message));
-      dispatch(push('/login'));
-      return response.data;
+      return toastr.error(response.data.message, 'Error');
     }
+    toastr.success(`${response.data.message} Redirecting to login.`, 'Success', { timeOut: 10000 });
+    dispatch(postRegisterSuccess(response.data.message));
+    dispatch(push('/login'));
+    return response.data;
   })
   .catch((error) => {
     toastr.error(error.message, 'Error');
@@ -133,5 +132,29 @@ export const logoutFailure = (message) => ({
 export const logout = () => (dispatch) => {
   localStorage.removeItem('ACCESS_TOKEN');
   dispatch(logoutSuccess(true));
+  toastr.success('You have been successfully logged out.', 'Logged Out');
   dispatch(push('/login'));
 };
+
+export const getBookListSuccess = (bookList) => ({
+  type: GET_BOOK_LIST_SUCCESS,
+  bookList,
+});
+
+export const getBookListFailure = (message) => ({
+  type: GET_BOOK_LIST_FAILURE,
+  message,
+});
+
+export const getBookList = () => (dispatch) => axios.get(`${API_BASE_URL}/books`, {
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`,
+  },
+})
+  .then((response) => {
+    dispatch(getBookListSuccess(response.data));
+  })
+  .catch((error) => {
+    dispatch(getBookListFailure(error.message));
+  });

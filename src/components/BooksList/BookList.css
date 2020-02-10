@@ -1,0 +1,23 @@
+.bookCard {
+    margin: 20px 40px;
+    cursor: pointer;
+    white-space: pre-wrap;
+}
+
+.bookImg {
+    display: block;
+    margin: 10px auto;
+    width: 50%;
+}
+
+.bookDetails, .bookDescription {
+    margin: 0 auto;
+}
+
+.bookDetailsItem, .bookDescriptionItem {
+    margin: 15px;
+}
+
+.bookDescriptionItemHeaderText, .bookDetailsItemHeaderText {
+    font-weight: bold;
+}

@@ -1,26 +1,40 @@
 import React from 'react';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
+import './NavBar.css';
 import { Link } from 'react-router-dom';
-import { useAuth0 } from '../../react-auth0-spa';
+import { connect } from 'react-redux';
+import { Button } from 'react-bootstrap';
+import { logout } from '../../redux/actions';
 
-const NavBar = () => {
-  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
+function NavBar(props) {
+  const { currentUser, onHandleLogout } = props;
 
   return (
-    <div>
-      {!isAuthenticated && (
-        <button onClick={() => loginWithRedirect({})}>Log in</button>
-      )}
-
-      {isAuthenticated && <button onClick={() => logout()}>Log out</button>}
-      {isAuthenticated && (
-        <span>
-          <Link to="/">Home</Link>
-&nbsp;
-          <Link to="/profile">Profile</Link>
-        </span>
-      )}
+    <div className="navbarDiv">
+      <Navbar sticky="top" bg="light" variant="light">
+        <Navbar.Brand href="/">Library</Navbar.Brand>
+        <Nav className="mr-auto">
+          <Link className="nav-link" to={`/user/profile/${currentUser.username}`}>Profile</Link>
+          <Link className="nav-link" to="/books">Books</Link>
+          <Link className="nav-link" to="/search">Search</Link>
+        </Nav>
+        <Button variant="outline-dark" onClick={() => onHandleLogout()}>Logout</Button>
+      </Navbar>
     </div>
   );
-};
+}
 
-export default NavBar;
+const mapStateToProps = (state) => ({
+  currentUser: state.userDetails.currentUser,
+  isAuthenticated: state.userDetails.isAuthenticated,
+  hasLoadedUser: state.userDetails.hasLoadedUser,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onHandleLogout: () => {
+    dispatch(logout());
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
