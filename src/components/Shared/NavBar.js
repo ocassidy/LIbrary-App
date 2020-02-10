@@ -15,7 +15,7 @@ function NavBar(props) {
       <Navbar sticky="top" bg="light" variant="light">
         <Navbar.Brand href="/">Library</Navbar.Brand>
         <Nav className="mr-auto">
-          <Link className="nav-link" to={`/user/profile/${currentUser.username}`}>Profile</Link>
+          {currentUser ? <Link className="nav-link" to={`/user/profile/${currentUser.username}`}>Profile</Link> : null}
           <Link className="nav-link" to="/books">Books</Link>
           <Link className="nav-link" to="/search">Search</Link>
         </Nav>

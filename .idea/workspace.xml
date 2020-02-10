@@ -2,34 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="421d8195-9167-400e-9bcc-64a5987fd87d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Profile/Profile.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/redux/containers/ProfileContainer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.eslintrc.json" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/Home.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Login/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Login/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ProtectedRoute/ProtectedRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProtectedRoute/ProtectedRoute.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Register/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Register/Register.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Shared/NavBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Shared/NavBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/constants/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/constants.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/actionTypes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/actionTypes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/actions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/containers/AppContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/containers/AppContainer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/containers/HomeContainer.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/containers/LoginContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/containers/LoginContainer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/containers/ProtectedRouterContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/containers/ProtectedRouterContainer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/containers/RegisterContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/containers/RegisterContainer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/reducers/authReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/reducers/authReducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/reducers/rootReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/reducers/rootReducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/store.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/serviceWorker.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/serviceWorker.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/constants/constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/constants.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -152,7 +128,7 @@
       <workItem from="1580832658183" duration="5127000" />
       <workItem from="1581088303460" duration="14471000" />
       <workItem from="1581114471548" duration="4653000" />
-      <workItem from="1581352762382" duration="10730000" />
+      <workItem from="1581352762382" duration="12808000" />
     </task>
     <servers />
   </component>

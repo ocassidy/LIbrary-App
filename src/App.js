@@ -57,13 +57,13 @@ export default function App(props) {
                 id="baseRouteToBooks"
               />
               <ProtectedRoute exact path="/user/profile/:username" component={HomeContainer} id="protectedRouteToHome" />
-              <Route component={NotFound} />
               <Redirect
                 exact
                 from="/"
                 to="/login"
                 id="baseRouteRedirectToLogin"
               />
+              <Route component={NotFound} />
             </Switch>
           </ConnectedRouter>
         )}
