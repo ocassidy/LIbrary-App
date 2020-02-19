@@ -9,7 +9,10 @@ import {
   POST_LOGIN_SUCCESS,
   POST_REGISTER_SUCCESS,
   LOGOUT_FAILURE,
-  LOGOUT_SUCCESS, GET_BOOK_LIST_FAILURE, GET_BOOK_LIST_SUCCESS,
+  LOGOUT_SUCCESS,
+  GET_BOOK_LIST_FAILURE,
+  GET_BOOK_LIST_SUCCESS,
+  GET_CURRENT_USER_IS_ADMIN_SUCCESS,
 } from './actionTypes';
 
 const axiosConfig = {
@@ -22,6 +25,14 @@ export const getCurrentUserSuccess = (currentUser) => ({
   type: GET_CURRENT_USER_SUCCESS,
   isLoading: false,
   isAuthenticated: true,
+  currentUser,
+});
+
+export const getCurrentUserIsAdminSuccess = (currentUser) => ({
+  type: GET_CURRENT_USER_IS_ADMIN_SUCCESS,
+  isLoading: false,
+  isAuthenticated: true,
+  isAdmin: true,
   currentUser,
 });
 
@@ -41,14 +52,20 @@ export const getCurrentUser = () => (dispatch) => {
       },
     })
       .then((response) => {
-        dispatch(getCurrentUserSuccess(response.data));
-        dispatch(push(`/user/profile/${response.data.username}`, {
-          currentUser: response.data.username,
-          isAuthenticated: true,
-        }));
+        const checkIfAdmin = response.data.authorities.find((authority) => authority.authority === 'ROLE_ADMIN');
+        if (checkIfAdmin) {
+          dispatch(getCurrentUserIsAdminSuccess(response.data));
+          dispatch(push(`/user/profile/${response.data.username}`));
+        } else {
+          dispatch(getCurrentUserSuccess(response.data));
+          dispatch(push(`/user/profile/${response.data.username}`));
+        }
       })
       .catch((error) => {
-        dispatch(getCurrentUserFailure(error.response.data.message));
+        if (error.response === undefined) {
+          return dispatch(getCurrentUserFailure('Failed to get back end'));
+        }
+        return dispatch(getCurrentUserFailure(error.response.data.message));
       });
   }
   return dispatch(getCurrentUserFailure('No Token Set - User Unauthorised'));
@@ -77,9 +94,14 @@ export const postLogin = (usernameOrEmail, password) => (dispatch) => {
       toastr.success('Login Successful!', 'Success');
     })
     .catch((error) => {
+      if (error.response === undefined) {
+        dispatch(getCurrentUserFailure('Failed to connect to back end'));
+        dispatch(postLoginFailure('Failed to connect to back end'));
+        return toastr.error('Failed to connect to server, please try again later', 'Error');
+      }
       dispatch(getCurrentUserFailure(error.response.data.message));
       dispatch(postLoginFailure(error.response.data.message));
-      toastr.error(error.response.data.message, 'Request Failed with Error');
+      return toastr.error(error.response.data.message, 'Request Failed with Error');
     });
 
   if (localStorage.getItem('ACCESS_TOKEN')) {

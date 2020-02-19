@@ -2,10 +2,29 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="421d8195-9167-400e-9bcc-64a5987fd87d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/components/AuthenticatedRoutes/AuthenticatedRoute.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/BooksList/BookList.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/BooksList/BookList.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/BooksList/BooksList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/BooksList/BooksList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Login/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Login/Login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Profile/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Profile/Profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ProtectedRoute/ProtectedRoute.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Register/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Register/Register.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Shared/NavBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Shared/NavBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/constants/constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/constants.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/actionTypes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/actionTypes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/actions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/containers/AppContainer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/containers/BooksListContainer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/containers/LoginContainer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/containers/ProfileContainer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/containers/ProtectedRouterContainer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/containers/RegisterContainer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/reducers/authReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/reducers/authReducer.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -47,15 +66,16 @@
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2019.2.1\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Oisin\Documents\GitHub\library-app\src\components\Analytics\BarCharts" />
+      <recent name="C:\Users\Oisin\Documents\GitHub\library-app\src\components\BooksList" />
+      <recent name="C:\Users\Oisin\Documents\GitHub\library-app\src\components" />
+      <recent name="C:\Users\Oisin\Documents\GitHub\library-app\src" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Oisin\Documents\GitHub\library-app\src\redux\reducers" />
       <recent name="C:\Users\Oisin\Documents\GitHub\library-app\src" />
       <recent name="C:\Users\Oisin\Documents\GitHub\library-app\src\components" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Oisin\Documents\GitHub\library-app\src\components\BooksList" />
-      <recent name="C:\Users\Oisin\Documents\GitHub\library-app\src\components" />
-      <recent name="C:\Users\Oisin\Documents\GitHub\library-app\src" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -128,7 +148,12 @@
       <workItem from="1580832658183" duration="5127000" />
       <workItem from="1581088303460" duration="14471000" />
       <workItem from="1581114471548" duration="4653000" />
-      <workItem from="1581352762382" duration="12808000" />
+      <workItem from="1581352762382" duration="13253000" />
+      <workItem from="1581438793812" duration="5481000" />
+      <workItem from="1581612296917" duration="9228000" />
+      <workItem from="1581689773083" duration="6952000" />
+      <workItem from="1581959023501" duration="2182000" />
+      <workItem from="1582054188157" duration="9034000" />
     </task>
     <servers />
   </component>

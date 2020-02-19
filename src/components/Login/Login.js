@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { withRouter } from 'react-router-dom';
 import './Login.css';
+import { connect } from 'react-redux';
+import { postLogin } from '../../redux/actions';
 
 function Login(props) {
   const [usernameOrEmail, setUsernameOrEmail] = useState('');
@@ -53,4 +54,16 @@ function Login(props) {
   );
 }
 
-export default withRouter(Login);
+const mapStateToProps = (state) => ({
+  currentUser: state.userDetails.currentUser,
+  isAuthenticated: state.userDetails.isAuthenticated,
+  hasLoadedUser: state.userDetails.hasLoadedUser,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onHandleLogin: (usernameOrEmail, password) => {
+    dispatch(postLogin(usernameOrEmail, password));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

@@ -6,8 +6,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSync } from '@fortawesome/free-solid-svg-icons';
 import NavBar from '../Shared/NavBar';
 import './BookList.css';
+import { getBookList } from "../../redux/actions";
+import { connect } from "react-redux";
 
-export default function BooksList(props) {
+function BooksList(props) {
   const { bookList, handleGetBookList } = props;
   const books = (bookList && bookList.length > 0)
     ? bookList.map((book) => (
@@ -67,7 +69,7 @@ export default function BooksList(props) {
     <div>
       <NavBar />
       <div>
-        <Button onClick={handleGetBookList}>
+        <Button onClick={handleGetBookList} variant="light" className="refreshButton">
           <FontAwesomeIcon icon={faSync} style={{ marginRight: 10 }} />
           Refresh
         </Button>
@@ -76,3 +78,19 @@ export default function BooksList(props) {
     </div>
   );
 }
+
+const mapStateToProps = (state) => ({
+  currentUser: state.userDetails.currentUser,
+  isAuthenticated: state.userDetails.isAuthenticated,
+  isLoading: state.userDetails.isLoading,
+  bookList: state.bookDetails.bookList,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  handleGetBookList: () => {
+    dispatch(getBookList());
+  },
+});
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(BooksList);

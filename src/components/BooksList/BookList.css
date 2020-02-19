@@ -21,3 +21,7 @@
 .bookDescriptionItemHeaderText, .bookDetailsItemHeaderText {
     font-weight: bold;
 }
+
+.refreshButton {
+    text-align: right;
+}

@@ -3,20 +3,24 @@ import './App.css';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import Spinner from 'react-bootstrap/Spinner';
 import { ConnectedRouter } from 'connected-react-router';
-import LoginContainer from './redux/containers/LoginContainer';
-import RegisterContainer from './redux/containers/RegisterContainer';
-import HomeContainer from './redux/containers/ProfileContainer';
-import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
-import BooksListContainer from './redux/containers/BooksListContainer';
+import { connect } from 'react-redux';
+import ProtectedRoute from './components/AuthenticatedRoutes/AuthenticatedRoute';
 import NotFound from './components/Shared/NotFound';
+import { getBookList, getCurrentUser } from './redux/actions';
+import Login from './components/Login/Login';
+import Register from './components/Register/Register';
+import BooksList from './components/BooksList/BooksList';
+import Analytics from './components/Analytics/Analytics';
+import Profile from './components/Profile/Profile';
 
-export default function App(props) {
+function App(props) {
   const {
     isLoading,
     history,
     checkForCurrentUser,
     isAuthenticated,
     handleGetBookList,
+    currentUser,
   } = props;
 
   useEffect(() => {
@@ -41,22 +45,41 @@ export default function App(props) {
               <Route
                 exact
                 path="/login"
-                component={() => <LoginContainer />}
+                component={() => <Login />}
                 id="baseRouteToLogin"
               />
               <Route
                 exact
                 path="/register"
-                component={() => <RegisterContainer />}
+                component={() => <Register />}
                 id="baseRouteToRegister"
               />
               <Route
                 exact
                 path="/books"
-                component={() => <BooksListContainer />}
+                component={() => <BooksList />}
                 id="baseRouteToBooks"
               />
-              <ProtectedRoute exact path="/user/profile/:username" component={HomeContainer} id="protectedRouteToHome" />
+              <Route
+                exact
+                path="/analytics/books"
+                component={() => <Analytics />}
+                id="baseRouteToAnalytics"
+              />
+
+              <Route
+                exact
+                path="/analytics/users"
+                component={() => <Analytics />}
+                id="baseRouteToAnalytics"
+              />
+              <ProtectedRoute
+                exact
+                path="/user/profile/:username"
+                component={Profile}
+                id="protectedRouteToProfile"
+                appProps={{currentUser, isAuthenticated}}
+              />
               <Redirect
                 exact
                 from="/"
@@ -70,3 +93,22 @@ export default function App(props) {
     </div>
   );
 }
+
+const mapStateToProps = (state) => ({
+  currentUser: state.userDetails.currentUser,
+  isAuthenticated: state.userDetails.isAuthenticated,
+  isLoading: state.userDetails.isLoading,
+  bookList: state.bookDetails.bookList,
+  isAdmin: state.userDetails.isAdmin,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  handleGetBookList: () => {
+    dispatch(getBookList());
+  },
+  checkForCurrentUser: () => {
+    dispatch(getCurrentUser());
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

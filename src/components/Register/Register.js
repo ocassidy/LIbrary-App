@@ -3,8 +3,10 @@ import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import toastr from 'toastr';
 import './Register.css';
+import { connect } from 'react-redux';
+import { postRegister } from '../../redux/actions';
 
-export default function Register(props) {
+function Register(props) {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -109,3 +111,11 @@ export default function Register(props) {
     </div>
   );
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  onHandleRegister: (registerRequest) => {
+    dispatch(postRegister(registerRequest));
+  },
+});
+
+export default connect(null, mapDispatchToProps)(Register);
