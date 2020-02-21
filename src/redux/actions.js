@@ -13,6 +13,8 @@ import {
   GET_BOOK_LIST_FAILURE,
   GET_BOOK_LIST_SUCCESS,
   GET_CURRENT_USER_IS_ADMIN_SUCCESS,
+  GET_ANALYTICS_SUCCESS,
+  GET_ANALYTICS_FAILURE,
 } from './actionTypes';
 
 const axiosConfig = {
@@ -119,14 +121,15 @@ export const postRegisterFailure = (message) => ({
   message,
 });
 
-export const postRegister = (registerRequest) => (dispatch) => axios.post(`${API_BASE_URL}/auth/register`, {
-  username: registerRequest.username,
-  firstName: registerRequest.firstName,
-  lastName: registerRequest.lastName,
-  password: registerRequest.password,
-  email: registerRequest.email,
-},
-axiosConfig)
+export const postRegister = (registerRequest) => (dispatch) => axios.post(`${API_BASE_URL}/auth/register`,
+  {
+    username: registerRequest.username,
+    firstName: registerRequest.firstName,
+    lastName: registerRequest.lastName,
+    password: registerRequest.password,
+    email: registerRequest.email,
+  },
+  axiosConfig)
   .then((response) => {
     if (response.data.success === false) {
       return toastr.error(response.data.message, 'Error');
@@ -168,15 +171,41 @@ export const getBookListFailure = (message) => ({
   message,
 });
 
-export const getBookList = () => (dispatch) => axios.get(`${API_BASE_URL}/books`, {
-  headers: {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`,
-  },
-})
+export const getBookList = () => (dispatch) => axios.get(`${API_BASE_URL}/books`,
+  {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`,
+    },
+  })
   .then((response) => {
     dispatch(getBookListSuccess(response.data));
   })
   .catch((error) => {
     dispatch(getBookListFailure(error.message));
+  });
+
+export const getBookAnalyticsSuccess = (bookAnalyticsList) => ({
+  type: GET_ANALYTICS_SUCCESS,
+  bookAnalyticsList,
+});
+
+export const getBookAnalyticsFailure = (message) => ({
+  type: GET_ANALYTICS_FAILURE,
+  message,
+});
+
+export const getBookAnalytics = () => (dispatch) => axios.get(`${API_BASE_URL}/analytics/all`,
+  {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`,
+    },
+  })
+  .then((response) => {
+    dispatch(getBookAnalyticsSuccess(response.data));
+  })
+  .catch((error) => {
+    toastr.error(error.message, 'Error');
+    dispatch(getBookAnalyticsFailure(error.message));
   });

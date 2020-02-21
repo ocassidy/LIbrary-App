@@ -1,13 +1,13 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Card from 'react-bootstrap/Card';
 import { Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSync } from '@fortawesome/free-solid-svg-icons';
+import { getBookList } from '../../redux/actions';
 import NavBar from '../Shared/NavBar';
 import './BookList.css';
-import { getBookList } from "../../redux/actions";
-import { connect } from "react-redux";
 
 function BooksList(props) {
   const { bookList, handleGetBookList } = props;

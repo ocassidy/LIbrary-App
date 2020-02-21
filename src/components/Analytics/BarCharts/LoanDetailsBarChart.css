@@ -1,0 +1,18 @@
+.recharts-surface {
+    overflow: visible;
+}
+
+.recharts-responsive-container {
+    margin : 0 auto;
+}
+
+.barChartContainer {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.barChartTitle {
+    font-size: large;
+    font-family: Calibri, serif;
+    font-weight: bold;
+}

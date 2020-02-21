@@ -6,7 +6,7 @@ import { ConnectedRouter } from 'connected-react-router';
 import { connect } from 'react-redux';
 import ProtectedRoute from './components/AuthenticatedRoutes/AuthenticatedRoute';
 import NotFound from './components/Shared/NotFound';
-import { getBookList, getCurrentUser } from './redux/actions';
+import { getBookAnalytics, getBookList, getCurrentUser } from './redux/actions';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import BooksList from './components/BooksList/BooksList';
@@ -21,12 +21,25 @@ function App(props) {
     isAuthenticated,
     handleGetBookList,
     currentUser,
+    isAdmin,
+    bookAnalyticsList,
+    handleGetBookAnalytics,
   } = props;
 
   useEffect(() => {
     handleGetBookList();
     checkForCurrentUser();
-  }, [isAuthenticated, checkForCurrentUser, handleGetBookList]);
+    if (isAdmin) {
+      handleGetBookAnalytics();
+    }
+  }, [
+    isAuthenticated,
+    isAdmin,
+    checkForCurrentUser,
+    handleGetBookList,
+    bookAnalyticsList,
+    handleGetBookAnalytics,
+  ]);
 
   return (
     <div className="App" id="App">
@@ -78,7 +91,7 @@ function App(props) {
                 path="/user/profile/:username"
                 component={Profile}
                 id="protectedRouteToProfile"
-                appProps={{currentUser, isAuthenticated}}
+                appProps={{ currentUser, isAuthenticated }}
               />
               <Redirect
                 exact
@@ -108,6 +121,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   checkForCurrentUser: () => {
     dispatch(getCurrentUser());
+  },
+  handleGetBookAnalytics: () => {
+    dispatch(getBookAnalytics());
   },
 });
 
