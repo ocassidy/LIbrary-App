@@ -12,6 +12,7 @@ import Register from './components/Register/Register';
 import BooksList from './components/BooksList/BooksList';
 import Analytics from './components/Analytics/Analytics';
 import Profile from './components/Profile/Profile';
+import BooksPage from './components/Book/BookPage';
 
 function App(props) {
   const {
@@ -79,17 +80,22 @@ function App(props) {
                 component={() => <Analytics />}
                 id="baseRouteToAnalytics"
               />
-
               <Route
                 exact
                 path="/analytics/users"
                 component={() => <Analytics />}
                 id="baseRouteToAnalytics"
               />
+              <Route
+                exact
+                path="/book/:id"
+                component={() => <BooksPage />}
+                id="baseRouteToBookPage"
+              />
               <ProtectedRoute
                 exact
                 path="/user/profile/:username"
-                component={Profile}
+                component={() => <Profile />}
                 id="protectedRouteToProfile"
                 appProps={{ currentUser, isAuthenticated }}
               />

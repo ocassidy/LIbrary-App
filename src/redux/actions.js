@@ -15,6 +15,10 @@ import {
   GET_CURRENT_USER_IS_ADMIN_SUCCESS,
   GET_ANALYTICS_SUCCESS,
   GET_ANALYTICS_FAILURE,
+  GET_BOOK_SUCCESS,
+  GET_BOOK_FAILURE,
+  POST_LOAN_SUCCESS,
+  POST_LOAN_FAILURE,
 } from './actionTypes';
 
 const axiosConfig = {
@@ -185,6 +189,30 @@ export const getBookList = () => (dispatch) => axios.get(`${API_BASE_URL}/books`
     dispatch(getBookListFailure(error.message));
   });
 
+export const getBookSuccess = (book) => ({
+  type: GET_BOOK_SUCCESS,
+  book,
+});
+
+export const getBookFailure = (message) => ({
+  type: GET_BOOK_FAILURE,
+  message,
+});
+
+export const getBook = (id) => (dispatch) => axios.get(`${API_BASE_URL}/book/${id}`,
+  {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`,
+    },
+  })
+  .then((response) => {
+    dispatch(getBookSuccess(response.data));
+  })
+  .catch((error) => {
+    dispatch(getBookFailure(error.message));
+  });
+
 export const getBookAnalyticsSuccess = (bookAnalyticsList) => ({
   type: GET_ANALYTICS_SUCCESS,
   bookAnalyticsList,
@@ -209,3 +237,39 @@ export const getBookAnalytics = () => (dispatch) => axios.get(`${API_BASE_URL}/a
     toastr.error(error.message, 'Error');
     dispatch(getBookAnalyticsFailure(error.message));
   });
+
+export const postLoanRequestSuccess = (token) => ({
+  type: POST_LOAN_SUCCESS,
+  token,
+});
+
+export const postLoanRequestFailure = (message) => ({
+  type: POST_LOAN_FAILURE,
+  message,
+});
+
+export const postLoanRequest = (bookId, username) => (dispatch) => {
+  axios.post(`${API_BASE_URL}/book/loan`, { bookId, username },
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`,
+      },
+    })
+    .then((response) => {
+      dispatch(postLoanRequestSuccess(response.data));
+      toastr.success('Loan Successful, this book is now loaned to you.', 'Success');
+    })
+    .catch((error) => {
+      if (error.response === undefined) {
+        dispatch(postLoanRequestFailure('Failed to connect to back end'));
+        return toastr.error('Failed to connect to server, please try again later', 'Error');
+      }
+      dispatch(postLoanRequestFailure(error.response.data.message));
+      return toastr.error(error.response.data.message);
+    });
+
+  if (localStorage.getItem('ACCESS_TOKEN')) {
+    dispatch(getCurrentUser());
+  }
+};

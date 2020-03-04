@@ -2,15 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="421d8195-9167-400e-9bcc-64a5987fd87d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/Analytics/BarCharts/LoanDetailsBarChart.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Analytics/Analytics.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Analytics/Analytics.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Analytics/BarCharts/BarChartAnalytics.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Analytics/BarCharts/LoanDetailsBarChart.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Analytics/BarCharts/BarChartsAnalytics.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/BooksList/BookList.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/BooksList/BookList.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/BooksList/BooksList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/BooksList/BooksList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/redux/actionTypes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/actionTypes.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/redux/actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/actions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/reducers/bookAnalyticsReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/reducers/bookAnalyticsReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/reducers/bookReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/reducers/bookListReducer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/redux/reducers/rootReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/reducers/rootReducer.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -141,7 +143,10 @@
       <workItem from="1581689773083" duration="6952000" />
       <workItem from="1581959023501" duration="2182000" />
       <workItem from="1582054188157" duration="10660000" />
-      <workItem from="1582295170859" duration="12667000" />
+      <workItem from="1582295170859" duration="13704000" />
+      <workItem from="1582558298926" duration="594000" />
+      <workItem from="1583163713932" duration="10180000" />
+      <workItem from="1583248980912" duration="8321000" />
     </task>
     <servers />
   </component>

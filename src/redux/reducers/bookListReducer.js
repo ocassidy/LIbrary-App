@@ -1,24 +1,24 @@
 import {
-  GET_BOOK_FAILURE,
-  GET_BOOK_SUCCESS,
+  GET_BOOK_LIST_FAILURE,
+  GET_BOOK_LIST_SUCCESS,
 } from '../actionTypes';
 
 const initialState = {
-  book: null,
+  bookList: [],
 };
 
 export default function bookListReducer(state = initialState, action) {
   switch (action.type) {
-    case GET_BOOK_SUCCESS:
+    case GET_BOOK_LIST_SUCCESS:
       // eslint-disable-next-line no-return-assign
       return state = {
-        book: action.book,
+        bookList: action.bookList,
       };
 
-    case GET_BOOK_FAILURE:
+    case GET_BOOK_LIST_FAILURE:
       // eslint-disable-next-line no-return-assign
       return state = {
-        book: null,
+        bookList: [],
       };
 
     default:

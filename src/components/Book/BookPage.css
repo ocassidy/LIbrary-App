@@ -1,0 +1,32 @@
+.bookDetailsContainer {
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.withdrawButton {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: right;
+}
+
+.bookImg {
+  display: block;
+  margin: 20px auto;
+  width: 99%;
+}
+
+.bookDetails, .bookDescription {
+  margin: 0 auto;
+  align-items: center;
+}
+
+.bookDetailsItem, .bookDescriptionItem, .bookDetailsCol {
+  margin: 20px;
+  align-items: center;
+}
+
+.bookDescriptionItemHeaderText, .bookDetailsItemHeaderText {
+  font-weight: bold;
+}

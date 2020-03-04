@@ -10,7 +10,6 @@ const initialState = {
 export default function bookAnalyticsReducer(state = initialState, action) {
   switch (action.type) {
     case GET_ANALYTICS_SUCCESS:
-      console.log(action.bookAnalyticsList)
       // eslint-disable-next-line no-return-assign
       return state = {
         bookAnalyticsList: action.bookAnalyticsList,

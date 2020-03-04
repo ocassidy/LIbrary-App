@@ -1,27 +1,30 @@
-.bookCard {
-    margin: 20px 40px;
+.bookListCard {
+    margin: 40px 40px;
     cursor: pointer;
     white-space: pre-wrap;
 }
 
-.bookImg {
+.bookListItemImg {
     display: block;
     margin: 10px auto;
     width: 50%;
 }
 
-.bookDetails, .bookDescription {
-    margin: 0 auto;
-}
-
-.bookDetailsItem, .bookDescriptionItem {
+.bookListItemText, .bookListItemDescription {
     margin: 15px;
+    align-items: center;
 }
 
-.bookDescriptionItemHeaderText, .bookDetailsItemHeaderText {
+.bookListItemFooter {
+    margin-top: 10px;
+}
+
+.bookListDescriptionItemHeaderText, .bookListItemHeaderText {
     font-weight: bold;
+    align-items: center;
 }
 
 .refreshButton {
     text-align: right;
+    align-items: end;
 }

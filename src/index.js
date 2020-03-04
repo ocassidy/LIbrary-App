@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 import { applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
@@ -17,7 +17,7 @@ export const history = createBrowserHistory();
 
 const store = createStore(rootReducer(history), applyMiddleware(thunk, routerMiddleware(history)));
 
-ReactDOM.render(
+render(
   <Provider store={store}>
     <App history={history} />
   </Provider>,
