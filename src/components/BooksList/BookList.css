@@ -8,6 +8,7 @@
     display: block;
     margin: 10px auto;
     width: 50%;
+    height: 99%;
 }
 
 .bookListItemText, .bookListItemDescription {
@@ -24,7 +25,36 @@
     align-items: center;
 }
 
-.refreshButton {
-    text-align: right;
-    align-items: end;
+.bookListTopContainer {
+    margin: 20px 40px;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+.bookListSearchBarContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.bookListSearchBarTitle {
+    align-self: flex-start;
+    margin-left: 2px;
+}
+
+.bookListButtonContainer {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
+}
+
+.bookListTopContainerSearchButton, .bookListTopContainerRefreshButton, .bookListTopContainerFilterButton {
+    margin-left: 10px;
+}
+
+.filtersContainer {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-start;
 }

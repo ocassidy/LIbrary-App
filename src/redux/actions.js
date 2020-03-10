@@ -61,10 +61,8 @@ export const getCurrentUser = () => (dispatch) => {
         const checkIfAdmin = response.data.authorities.find((authority) => authority.authority === 'ROLE_ADMIN');
         if (checkIfAdmin) {
           dispatch(getCurrentUserIsAdminSuccess(response.data));
-          dispatch(push(`/user/profile/${response.data.username}`));
         } else {
           dispatch(getCurrentUserSuccess(response.data));
-          dispatch(push(`/user/profile/${response.data.username}`));
         }
       })
       .catch((error) => {
@@ -74,7 +72,7 @@ export const getCurrentUser = () => (dispatch) => {
         return dispatch(getCurrentUserFailure(error.response.data.message));
       });
   }
-  return dispatch(getCurrentUserFailure('No Token Set - User Unauthorised'));
+  return dispatch(getCurrentUserFailure('No Token Set - User Unauthenticated'));
 };
 
 export const postLoginSuccess = (token) => ({
@@ -89,10 +87,10 @@ export const postLoginFailure = (message) => ({
 
 export const postLogin = (usernameOrEmail, password) => (dispatch) => {
   axios.post(`${API_BASE_URL}/auth/login`, {
-    usernameOrEmail,
-    password,
-  },
-  axiosConfig)
+      usernameOrEmail,
+      password,
+    },
+    axiosConfig)
     .then((response) => {
       localStorage.setItem('ACCESS_TOKEN', response.data.token);
       dispatch(postLoginSuccess(response.data.token));

@@ -1,17 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import './Login.css';
 import { connect } from 'react-redux';
+import { push } from 'connected-react-router';
 import { postLogin } from '../../redux/actions';
 
 function Login(props) {
   const [usernameOrEmail, setUsernameOrEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { currentUser, onHandleLogin, onAlreadyLoggedIn } = props;
 
   const handleLogin = (e) => {
     e.preventDefault();
-    return props.onHandleLogin(usernameOrEmail, password);
+    return onHandleLogin(usernameOrEmail, password);
   };
+
+  useEffect(() => {
+    if (currentUser) {
+      onAlreadyLoggedIn(currentUser);
+    }
+  }, [currentUser, onAlreadyLoggedIn]);
 
   return (
     <div className="loginForm">
@@ -46,8 +54,8 @@ function Login(props) {
           </Button>
         </Form>
         <div>
-          Don&apos; have an account?&nbsp;
-          <a href="/register">Register Here</a>
+          Need an account?
+          <a href="/register"> Register Here</a>
         </div>
       </div>
     </div>
@@ -63,6 +71,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onHandleLogin: (usernameOrEmail, password) => {
     dispatch(postLogin(usernameOrEmail, password));
+  },
+  onAlreadyLoggedIn: (currentUser) => {
+    dispatch(push(`/user/profile/${currentUser.username}`));
   },
 });
 

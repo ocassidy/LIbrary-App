@@ -5,10 +5,13 @@ import './NavBar.css';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Button, NavDropdown } from 'react-bootstrap';
+import { push } from 'connected-react-router';
 import { logout } from '../../redux/actions';
 
 function NavBar(props) {
-  const { currentUser, onHandleLogout, isAdmin } = props;
+  const {
+    currentUser, onHandleLogout, isAdmin, onHandleLogin,
+  } = props;
 
   return (
     <div className="navbarDiv">
@@ -17,9 +20,13 @@ function NavBar(props) {
         <Nav className="mr-auto">
           {currentUser ? <Link className="nav-link" to={`/user/profile/${currentUser.username}`}>Profile</Link> : null}
           <Link className="nav-link" to="/books">Books</Link>
-          <Link className="nav-link" to="/search">Search</Link>
           {isAdmin === true
-            ? <Link className="nav-link" to="/admin">Admin</Link>
+            ? (
+              <NavDropdown title="Admin" id="basic-nav-dropdown">
+                <Link className="dropdown-item" to="/admin/books">Book</Link>
+                <Link className="dropdown-item" to="/admin/users">Users</Link>
+              </NavDropdown>
+            )
             : null}
 
           {isAdmin === true
@@ -30,7 +37,9 @@ function NavBar(props) {
               </NavDropdown>
             ) : null}
         </Nav>
-        <Button variant="outline-dark" onClick={() => onHandleLogout()}>Logout</Button>
+        {currentUser
+          ? <Button variant="outline-dark" onClick={() => onHandleLogout()}>Logout</Button>
+          : <Button variant="outline-dark" onClick={() => onHandleLogin()}>Login</Button>}
       </Navbar>
     </div>
   );
@@ -46,6 +55,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onHandleLogout: () => {
     dispatch(logout());
+  },
+  onHandleLogin: () => {
+    dispatch(push('/login'));
   },
 });
 

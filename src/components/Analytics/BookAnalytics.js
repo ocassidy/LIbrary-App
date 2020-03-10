@@ -4,7 +4,7 @@ import NavBar from '../Shared/NavBar';
 import LoanDetailsBarChart from './BarCharts/LoanDetailsBarChart';
 import { getBookAnalytics } from '../../redux/actions';
 
-function Analytics(props) {
+function BookAnalytics(props) {
   const { bookAnalyticsList } = props;
 
   return (
@@ -50,4 +50,4 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Analytics);
+export default connect(mapStateToProps, mapDispatchToProps)(BookAnalytics);

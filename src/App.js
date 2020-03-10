@@ -4,15 +4,18 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import Spinner from 'react-bootstrap/Spinner';
 import { ConnectedRouter } from 'connected-react-router';
 import { connect } from 'react-redux';
-import ProtectedRoute from './components/AuthenticatedRoutes/AuthenticatedRoute';
+import AuthenticatedRoute from './components/AuthenticatedRoutes/AuthenticatedRoute';
 import NotFound from './components/Shared/NotFound';
 import { getBookAnalytics, getBookList, getCurrentUser } from './redux/actions';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import BooksList from './components/BooksList/BooksList';
-import Analytics from './components/Analytics/Analytics';
+import BookAnalytics from './components/Analytics/BookAnalytics';
 import Profile from './components/Profile/Profile';
 import BooksPage from './components/Book/BookPage';
+import BookAdmin from './Admin/BookAdmin';
+import Forbidden from './components/Shared/Forbidden';
+import AuthenticatedAdminRoute from './components/AuthenticatedRoutes/AuthenticatedAdminRoute';
 
 function App(props) {
   const {
@@ -77,13 +80,13 @@ function App(props) {
               <Route
                 exact
                 path="/analytics/books"
-                component={() => <Analytics />}
+                component={() => <BookAnalytics />}
                 id="baseRouteToAnalytics"
               />
               <Route
                 exact
                 path="/analytics/users"
-                component={() => <Analytics />}
+                component={() => <BookAnalytics />}
                 id="baseRouteToAnalytics"
               />
               <Route
@@ -92,19 +95,42 @@ function App(props) {
                 component={() => <BooksPage />}
                 id="baseRouteToBookPage"
               />
-              <ProtectedRoute
+              <AuthenticatedRoute
                 exact
                 path="/user/profile/:username"
                 component={() => <Profile />}
                 id="protectedRouteToProfile"
                 appProps={{ currentUser, isAuthenticated }}
               />
-              <Redirect
+              <AuthenticatedAdminRoute
                 exact
-                from="/"
-                to="/login"
-                id="baseRouteRedirectToLogin"
+                path="/admin/books"
+                component={() => <BookAdmin />}
+                id="protectedRouteToAdminBook"
+                appProps={{ currentUser, isAuthenticated, isAdmin }}
               />
+              <Route
+                exact
+                path="/forbidden"
+                component={() => <Forbidden />}
+                id="baseRouteToForbidden"
+              />
+              {currentUser !== null && currentUser !== undefined
+                ? (
+                  <Redirect
+                    exact
+                    from="/"
+                    to={`/user/profile/${currentUser.username}`}
+                    id="checkedRedirectToLogin"
+                  />
+                ) : (
+                  <Redirect
+                    exact
+                    from="/"
+                    to="/books"
+                    id="checkedRedirectToBooks"
+                  />
+                )}
               <Route component={NotFound} />
             </Switch>
           </ConnectedRouter>

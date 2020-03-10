@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import toastr from 'toastr';
 import './Register.css';
 import { connect } from 'react-redux';
+import { push } from 'connected-react-router';
 import { postRegister } from '../../redux/actions';
 
 function Register(props) {
@@ -13,6 +14,7 @@ function Register(props) {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [retypePassword, setRetypePassword] = useState('');
+  const { currentUser, onHandleRegister, onAlreadyLoggedIn } = props;
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -28,8 +30,14 @@ function Register(props) {
       password,
       email,
     };
-    return props.onHandleRegister(registerRequest);
+    return onHandleRegister(registerRequest);
   };
+
+  useEffect(() => {
+    if (currentUser) {
+      onAlreadyLoggedIn(currentUser);
+    }
+  }, [currentUser, onAlreadyLoggedIn]);
 
   return (
     <div className="registerForm">
@@ -104,18 +112,25 @@ function Register(props) {
           </Button>
         </Form>
         <div>
-          Already have an account?&nbsp;
-          <a href="/login">Sign in</a>
+          Already have an account?
+          <a href="/login"> Sign in</a>
         </div>
       </div>
     </div>
   );
 }
 
+const mapStateToProps = (state) => ({
+  currentUser: state.userDetails.currentUser,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   onHandleRegister: (registerRequest) => {
     dispatch(postRegister(registerRequest));
   },
+  onAlreadyLoggedIn: (currentUser) => {
+    dispatch(push(`/user/profile/${currentUser.username}`));
+  },
 });
 
-export default connect(null, mapDispatchToProps)(Register);
+export default connect(mapStateToProps, mapDispatchToProps)(Register);
