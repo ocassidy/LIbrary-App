@@ -18,7 +18,7 @@ import {
   GET_BOOK_SUCCESS,
   GET_BOOK_FAILURE,
   POST_LOAN_SUCCESS,
-  POST_LOAN_FAILURE,
+  POST_LOAN_FAILURE, GET_BOOK_PAGE_FAILURE, GET_BOOK_PAGE_SUCCESS,
 } from './actionTypes';
 
 const axiosConfig = {
@@ -87,10 +87,10 @@ export const postLoginFailure = (message) => ({
 
 export const postLogin = (usernameOrEmail, password) => (dispatch) => {
   axios.post(`${API_BASE_URL}/auth/login`, {
-      usernameOrEmail,
-      password,
-    },
-    axiosConfig)
+    usernameOrEmail,
+    password,
+  },
+  axiosConfig)
     .then((response) => {
       localStorage.setItem('ACCESS_TOKEN', response.data.token);
       dispatch(postLoginSuccess(response.data.token));
@@ -185,6 +185,31 @@ export const getBookList = () => (dispatch) => axios.get(`${API_BASE_URL}/books`
   })
   .catch((error) => {
     dispatch(getBookListFailure(error.message));
+  });
+
+export const getBookPageSuccess = (bookPage) => ({
+  type: GET_BOOK_PAGE_SUCCESS,
+  bookPage,
+});
+
+export const getBookPageFailure = (message) => ({
+  type: GET_BOOK_PAGE_FAILURE,
+  message,
+});
+
+export const getBookPage = (page, size) => (dispatch) => axios.get(`${API_BASE_URL}/books-paged`,
+  {
+    params: { page, size },
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`,
+    },
+  })
+  .then((response) => {
+    dispatch(getBookPageSuccess(response.data));
+  })
+  .catch((error) => {
+    dispatch(getBookPageFailure(error.message));
   });
 
 export const getBookSuccess = (book) => ({

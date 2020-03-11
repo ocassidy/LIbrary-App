@@ -6,14 +6,14 @@ import { ConnectedRouter } from 'connected-react-router';
 import { connect } from 'react-redux';
 import AuthenticatedRoute from './components/AuthenticatedRoutes/AuthenticatedRoute';
 import NotFound from './components/Shared/NotFound';
-import { getBookAnalytics, getBookList, getCurrentUser } from './redux/actions';
+import { getBookAnalytics, getBookList, getBookPage, getCurrentUser } from './redux/actions';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import BooksList from './components/BooksList/BooksList';
 import BookAnalytics from './components/Analytics/BookAnalytics';
 import Profile from './components/Profile/Profile';
 import BooksPage from './components/Book/BookPage';
-import BookAdmin from './Admin/BookAdmin';
+import BookAdmin from './components/Admin/BookAdmin';
 import Forbidden from './components/Shared/Forbidden';
 import AuthenticatedAdminRoute from './components/AuthenticatedRoutes/AuthenticatedAdminRoute';
 
@@ -28,10 +28,12 @@ function App(props) {
     isAdmin,
     bookAnalyticsList,
     handleGetBookAnalytics,
+    handleGetBookPage,
   } = props;
 
   useEffect(() => {
     handleGetBookList();
+    handleGetBookPage(0, 5);
     checkForCurrentUser();
     if (isAdmin) {
       handleGetBookAnalytics();
@@ -43,6 +45,7 @@ function App(props) {
     handleGetBookList,
     bookAnalyticsList,
     handleGetBookAnalytics,
+    handleGetBookPage,
   ]);
 
   return (
@@ -99,14 +102,14 @@ function App(props) {
                 exact
                 path="/user/profile/:username"
                 component={() => <Profile />}
-                id="protectedRouteToProfile"
+                id="authenticatedRouteToBookProfile"
                 appProps={{ currentUser, isAuthenticated }}
               />
               <AuthenticatedAdminRoute
                 exact
                 path="/admin/books"
                 component={() => <BookAdmin />}
-                id="protectedRouteToAdminBook"
+                id="authenticatedAdminRouteToBookAdmin"
                 appProps={{ currentUser, isAuthenticated, isAdmin }}
               />
               <Route
@@ -150,6 +153,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   handleGetBookList: () => {
     dispatch(getBookList());
+  },
+  handleGetBookPage: (page, size) => {
+    dispatch(getBookPage(page, size));
   },
   checkForCurrentUser: () => {
     dispatch(getCurrentUser());

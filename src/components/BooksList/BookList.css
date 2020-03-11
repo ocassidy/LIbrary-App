@@ -4,6 +4,20 @@
     white-space: pre-wrap;
 }
 
+.bookListItemDetailsContainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+}
+
+.bookListItemDetailsTextContainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
 .bookListItemImg {
     display: block;
     margin: 10px auto;
@@ -12,8 +26,16 @@
 }
 
 .bookListItemText, .bookListItemDescription {
-    margin: 15px;
-    align-items: center;
+    margin-top: 15px;
+    margin-left: 10px;
+    margin-bottom: 15px !important;
+}
+
+.bookListItemDescription {
+    margin-top: 15px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 15px !important;
 }
 
 .bookListItemFooter {
@@ -22,7 +44,6 @@
 
 .bookListDescriptionItemHeaderText, .bookListItemHeaderText {
     font-weight: bold;
-    align-items: center;
 }
 
 .bookListTopContainer {
@@ -57,4 +78,19 @@
     margin-bottom: 20px;
     display: flex;
     justify-content: flex-start;
+}
+
+.bookListPagination {
+    margin: 40px;
+}
+
+.bookPaginationFilterContainer {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.bookPaginationFilterContainerButton {
+    margin-left: 10px;
 }

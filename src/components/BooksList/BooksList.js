@@ -2,19 +2,32 @@ import React, { useEffect, useState } from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Card from 'react-bootstrap/Card';
-import { Button, FormControl } from 'react-bootstrap';
+import { Button, FormControl, Pagination } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilter, faSearch, faSync } from '@fortawesome/free-solid-svg-icons';
-import { getBookList } from '../../redux/actions';
+import { getBookList, getBookPage } from '../../redux/actions';
 import NavBar from '../Shared/NavBar';
 import './BookList.css';
 import BooksListFilters from './BookListFilters';
 
 function BooksList(props) {
-  const [booksState, setBooksState] = useState([]);
+  const [pagedBooks, setPagedBooks] = useState({});
   const [isSearchActive, setIsSearchActiveActive] = useState(false);
   const [isFilterDropdownActive, setIsFilterDropdownActive] = useState(false);
-  const { bookList, handleGetBookList } = props;
+  const [totalPages, setTotalPages] = useState(0);
+  const [numItemsPerPage, setNumItemsPerPage] = useState(5);
+  const {
+    bookList, handleGetBookList, handleGetBookPage, bookPage,
+  } = props;
+
+  useEffect(() => {
+    if (bookPage.content) {
+      setPagedBooks(bookPage.content);
+    }
+    if (bookPage.totalPages) {
+      setTotalPages(bookPage.totalPages);
+    }
+  }, [bookPage, bookList]);
 
   const handleSearchChange = (e) => {
     let currentList = [];
@@ -29,14 +42,13 @@ function BooksList(props) {
         return bookName.includes(filter);
       });
     } else {
-      filteredList = bookList;
+      filteredList = bookPage.content;
     }
-    console.log(filteredList);
-    setBooksState(filteredList);
+    setPagedBooks(filteredList);
   };
 
-  const books = (booksState && booksState.length > 0)
-    ? booksState.map((book) => (
+  const books = (pagedBooks && pagedBooks.length > 0)
+    ? pagedBooks.map((book) => (
       <Route
         key={book.id}
         render={({ history }) => (
@@ -48,11 +60,11 @@ function BooksList(props) {
               history.push(`/book/${book.id}`);
             }}
           >
-            <div className="row no-gutters">
-              <div className="col-auto">
+            <div className="row no-gutters bookListItemDetailsContainer">
+              <div className="col-md-2">
                 <img src={book.image} className="bookListItemImg" alt="bookImg" />
               </div>
-              <div className="col bookListItemDetails">
+              <div className="col-auto bookListItemDetailsTextContainer">
                 <h4 className="card-title bookListItemText">{book.name}</h4>
                 <div className="card-text bookListItemText">
                   <span className="bookListItemHeaderText">Edition: </span>
@@ -71,7 +83,7 @@ function BooksList(props) {
                   {book.genre}
                 </div>
               </div>
-              <div className="col bookDescription">
+              <div className="col-auto bookDescription">
                 <p className="card-text bookListItemDescription">
                   <span className="bookListDescriptionItemHeaderText">Description: </span>
                   {book.description}
@@ -103,15 +115,54 @@ function BooksList(props) {
     </div>
   );
 
-  useEffect(() => {
-    setBooksState(bookList);
-  }, [bookList]);
+  const paginationItemsPerPage = (
+    <div className="bookPaginationFilterContainer">
+      Items Per Page:
+      <Button
+        className="bookPaginationFilterContainerButton"
+        onClick={() => setNumItemsPerPage(5)}
+        variant="light"
+      >
+        5
+      </Button>
+      <Button
+        className="bookPaginationFilterContainerButton"
+        onClick={() => setNumItemsPerPage(10)}
+        variant="light"
+      >
+        10
+      </Button>
+      <Button
+        className="bookPaginationFilterContainerButton"
+        onClick={() => setNumItemsPerPage(20)}
+        variant="light"
+      >
+        20
+      </Button>
+    </div>
+  );
+
+  const paginationItems = [];
+  // eslint-disable-next-line no-plusplus
+  for (let number = 1; number <= totalPages; number++) {
+    paginationItems.push(
+      <Pagination.Item key={number} onClick={() => handleGetBookPage(number - 1, numItemsPerPage)}>
+        {number}
+      </Pagination.Item>,
+    );
+  }
+
+  const pagination = (
+    <div className="bookListPagination">
+      <Pagination>{paginationItems}</Pagination>
+    </div>
+  );
 
   return (
     <div>
       <NavBar />
       <div>
-        {books
+        {bookPage
           ? (
             <div className="bookListTopContainer">
               <div className="bookListButtonContainer">
@@ -142,9 +193,11 @@ function BooksList(props) {
               </div>
               {isSearchActive ? search : null}
               {isFilterDropdownActive ? <BooksListFilters /> : null}
+              {paginationItemsPerPage}
             </div>
           ) : null}
         {books}
+        {pagination}
       </div>
     </div>
   );
@@ -155,11 +208,15 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.userDetails.isAuthenticated,
   isLoading: state.userDetails.isLoading,
   bookList: state.bookListDetails.bookList,
+  bookPage: state.bookPageDetails.bookPage,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   handleGetBookList: () => {
     dispatch(getBookList());
+  },
+  handleGetBookPage: (page, size) => {
+    dispatch(getBookPage(page, size));
   },
 });
 
