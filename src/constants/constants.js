@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-mutable-exports
 export let API_BASE_URL;
 
-const apiUrlEnvCheck = () => {
+export const apiUrlEnvCheck = () => {
   if (process.env.NODE_ENV === 'production' && process.env.REACT_APP_ENV === 'staging') {
     API_BASE_URL = process.env.REACT_APP_STAGING_API_URL;
   } else if (process.env.NODE_ENV === 'production') {
