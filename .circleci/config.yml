@@ -48,7 +48,7 @@ jobs:
           prefix: coverage
       - run:
           name: Integration Test
-          command: npm run integrationTest
+          command: npm run integrationTest --verbose
   deploy-integration:
     docker:
       - image: circleci/node:12.9.1
