@@ -5,9 +5,9 @@ import toastr from 'toastr';
 import './Register.css';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
-import { postRegister } from '../../redux/actions';
+import { postRegister } from '../../../redux/actions';
 
-function Register(props) {
+export function Register(props) {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -40,14 +40,14 @@ function Register(props) {
   }, [currentUser, onAlreadyLoggedIn]);
 
   return (
-    <div className="registerForm">
+    <div className="registerContainer">
       <h2>Register</h2>
       <div>
         <div>
           Please Register to use the library system.
         </div>
         <Form onSubmit={handleRegister}>
-          <Form.Group controlId="registerUsernameFormGroup">
+          <Form.Group controlId="registerForm">
             <Form.Label>Username</Form.Label>
             <Form.Control
               type="username"
@@ -56,8 +56,6 @@ function Register(props) {
               required
               onChange={(e) => setUsername(e.target.value)}
             />
-          </Form.Group>
-          <Form.Group controlId="registerLastNameFormGroup">
             <Form.Label>First Name</Form.Label>
             <Form.Control
               type="username"
@@ -66,8 +64,6 @@ function Register(props) {
               required
               onChange={(e) => setFirstName(e.target.value)}
             />
-          </Form.Group>
-          <Form.Group controlId="registerLastNameFormGroup">
             <Form.Label>Last Name</Form.Label>
             <Form.Control
               type="username"
@@ -76,8 +72,6 @@ function Register(props) {
               required
               onChange={(e) => setLastName(e.target.value)}
             />
-          </Form.Group>
-          <Form.Group controlId="registerEmailFormGroup">
             <Form.Label>Email</Form.Label>
             <Form.Control
               type="email"
@@ -86,8 +80,6 @@ function Register(props) {
               required
               onChange={(e) => setEmail(e.target.value)}
             />
-          </Form.Group>
-          <Form.Group controlId="registerPasswordFormGroup">
             <Form.Label>Password</Form.Label>
             <Form.Control
               type="password"
@@ -96,8 +88,6 @@ function Register(props) {
               required
               onChange={(e) => setPassword(e.target.value)}
             />
-          </Form.Group>
-          <Form.Group controlId="registerPasswordFormGroup">
             <Form.Label>Retype Password</Form.Label>
             <Form.Control
               type="password"

@@ -6,9 +6,11 @@ import { ConnectedRouter } from 'connected-react-router';
 import { connect } from 'react-redux';
 import AuthenticatedRoute from './components/AuthenticatedRoutes/AuthenticatedRoute';
 import NotFound from './components/Shared/NotFound';
-import { getBookAnalytics, getBookList, getBookPage, getCurrentUser } from './redux/actions';
-import Login from './components/Login/Login';
-import Register from './components/Register/Register';
+import {
+  getBookAnalytics, getBookList, getBookPage, getCurrentUser,
+} from './redux/actions';
+import Login from './components/Auth/Login/Login';
+import Register from './components/Auth/Register/Register';
 import BooksList from './components/BooksList/BooksList';
 import BookAnalytics from './components/Analytics/BookAnalytics';
 import Profile from './components/Profile/Profile';
@@ -124,7 +126,7 @@ function App(props) {
                     exact
                     from="/"
                     to={`/user/profile/${currentUser.username}`}
-                    id="checkedRedirectToLogin"
+                    id="checkedRedirectToProfile"
                   />
                 ) : (
                   <Redirect

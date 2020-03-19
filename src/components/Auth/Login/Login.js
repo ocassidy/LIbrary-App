@@ -3,7 +3,7 @@ import { Button, Form } from 'react-bootstrap';
 import './Login.css';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
-import { postLogin } from '../../redux/actions';
+import { postLogin } from '../../../redux/actions';
 
 function Login(props) {
   const [usernameOrEmail, setUsernameOrEmail] = useState('');

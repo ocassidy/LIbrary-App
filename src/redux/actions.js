@@ -18,7 +18,9 @@ import {
   GET_BOOK_SUCCESS,
   GET_BOOK_FAILURE,
   POST_LOAN_SUCCESS,
-  POST_LOAN_FAILURE, GET_BOOK_PAGE_FAILURE, GET_BOOK_PAGE_SUCCESS,
+  POST_LOAN_FAILURE,
+  GET_BOOK_PAGE_FAILURE,
+  GET_BOOK_PAGE_SUCCESS,
 } from './actionTypes';
 
 const axiosConfig = {
@@ -87,8 +89,8 @@ export const postLoginFailure = (message) => ({
 
 export const postLogin = (usernameOrEmail, password) => (dispatch) => {
   axios.post(`${API_BASE_URL}/auth/login`, {
-    usernameOrEmail,
-    password,
+    usernameOrEmail: usernameOrEmail.trim(),
+    password: password.trim(),
   },
   axiosConfig)
     .then((response) => {
@@ -125,11 +127,11 @@ export const postRegisterFailure = (message) => ({
 
 export const postRegister = (registerRequest) => (dispatch) => axios.post(`${API_BASE_URL}/auth/register`,
   {
-    username: registerRequest.username,
-    firstName: registerRequest.firstName,
-    lastName: registerRequest.lastName,
-    password: registerRequest.password,
-    email: registerRequest.email,
+    username: registerRequest.username.trim(),
+    firstName: registerRequest.firstName.trim(),
+    lastName: registerRequest.lastName.trim(),
+    password: registerRequest.password.trim(),
+    email: registerRequest.email.trim(),
   },
   axiosConfig)
   .then((response) => {
@@ -159,8 +161,8 @@ export const logoutFailure = (message) => ({
 export const logout = () => (dispatch) => {
   localStorage.removeItem('ACCESS_TOKEN');
   dispatch(logoutSuccess(true));
-  toastr.success('You have been successfully logged out.', 'Logged Out');
   dispatch(push('/login'));
+  toastr.success('You have been successfully logged out.', 'Logged Out');
 };
 
 export const getBookListSuccess = (bookList) => ({
@@ -291,8 +293,4 @@ export const postLoanRequest = (bookId, username) => (dispatch) => {
       dispatch(postLoanRequestFailure(error.response.data.message));
       return toastr.error(error.response.data.message);
     });
-
-  if (localStorage.getItem('ACCESS_TOKEN')) {
-    dispatch(getCurrentUser());
-  }
 };
