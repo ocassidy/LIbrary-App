@@ -7,13 +7,10 @@ jobs:
     steps:
       - checkout
       - run:
-          name: update-npm
-          command: 'sudo npm install -g npm@latest'
+          name: npm install
+          command: npm install
       - restore_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
-      - run:
-          name: install-npm-wee
-          command: npm install
       - save_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
           paths:
@@ -29,12 +26,11 @@ jobs:
       - checkout
       - restore_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
-      - store_artifacts:
-          path: coverage
-          prefix: coverage
       - run:
           name: Test
           command: npm run test
+      - store_test_results:
+          path: unit-test-results
   e2e:
     working_directory: ~/repo
     docker:
@@ -43,12 +39,11 @@ jobs:
       - checkout
       - restore_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
-      - store_artifacts:
-          path: coverage
-          prefix: coverage
       - run:
           name: Integration Test
           command: npm run integrationTest --verbose
+      - store_test_results:
+          path: integration-test-results
   deploy-integration:
     docker:
       - image: circleci/node:12.9.1

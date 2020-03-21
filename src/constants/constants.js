@@ -4,6 +4,8 @@ export let API_BASE_URL;
 export const apiUrlEnvCheck = () => {
   if (process.env.NODE_ENV === 'production' && process.env.REACT_APP_ENV === 'staging') {
     API_BASE_URL = process.env.REACT_APP_STAGING_API_URL;
+  } else if (process.env.NODE_ENV === 'production' && process.env.REACT_APP_ENV === 'integration') {
+    API_BASE_URL = process.env.REACT_APP_INTEGRATION_API_URL;
   } else if (process.env.NODE_ENV === 'production') {
     API_BASE_URL = process.env.REACT_APP_PROD_API_URL;
   } else {

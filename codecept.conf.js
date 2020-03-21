@@ -4,13 +4,13 @@ exports.config = {
   helpers: {
     Nightmare: {
       url: 'http://localhost:3000',
-      show: true,
+      show: false,
     },
   },
   include: {
     I: './steps_file.js',
   },
-  bootstrap: true,
+  bootstrap: false,
   mocha: {},
   name: 'library-app',
   plugins: {
@@ -18,7 +18,7 @@ exports.config = {
       enabled: true,
     },
     screenshotOnFail: {
-      enabled: true,
+      enabled: false,
     },
   },
 };
