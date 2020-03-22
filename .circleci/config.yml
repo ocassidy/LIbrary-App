@@ -72,19 +72,19 @@ workflows:
       - test:
           requires:
             - build
-      - deploy-integration:
-          requires:
-            - build
-            - test
-          filters:
-            branches:
-              only: master
+      #- deploy-integration:
+       #   requires:
+        #    - build
+         #   - test
+          #filters:
+           # branches:
+            #  only: master
       - cypress/install:
           build: 'npm run build'
       - cypress/run:
           requires:
             - cypress/install
-          record: true
+          #record: true
           parallel: true
           parallelism: 4
           group: 'all tests'
@@ -93,7 +93,7 @@ workflows:
           requires:
             - build
             - cypress/run
-            - deploy-integration
+           # - deploy-integration
           filters:
             branches:
               only: master

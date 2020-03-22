@@ -16,17 +16,17 @@
  * @type {Cypress.PluginConfig}
  */
 module.exports = (on, config) => {
-  const urlEnvCheck = () => {
-    let tempUrl;
-    if (process.env.REACT_APP_ENV === 'development') {
-      tempUrl = 'http://localhost:3000';
-    } else if (process.env.REACT_APP_ENV === 'integration') {
-      tempUrl = 'https://integration-library-app.herokuapp.com';
-    }
-    return tempUrl;
-  };
+//   const urlEnvCheck = () => {
+//     let tempUrl;
+//     if (process.env.REACT_APP_ENV === 'development') {
+//       tempUrl = 'http://localhost:3000';
+//     } else if (process.env.REACT_APP_ENV === 'integration') {
+//       tempUrl = 'https://integration-library-app.herokuapp.com';
+//     }
+//     return tempUrl;
+//   };
 
-  config.baseUrl = urlEnvCheck();
+  config.baseUrl = 'http://localhost:3000';
   config.env.ENVIRONMENT = process.env.REACT_APP_ENV;
   return config;
 };
