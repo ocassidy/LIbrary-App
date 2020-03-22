@@ -16,23 +16,6 @@ export function Register(props) {
   const [retypePassword, setRetypePassword] = useState('');
   const { currentUser, onHandleRegister, onAlreadyLoggedIn } = props;
 
-  const handleRegister = (e) => {
-    e.preventDefault();
-
-    if (password !== retypePassword) {
-      return toastr.error('Passwords do not match!', 'Error', { timeOut: 5000 });
-    }
-
-    const registerRequest = {
-      username,
-      firstName,
-      lastName,
-      password,
-      email,
-    };
-    return onHandleRegister(registerRequest);
-  };
-
   useEffect(() => {
     if (currentUser) {
       onAlreadyLoggedIn(currentUser);
@@ -46,8 +29,8 @@ export function Register(props) {
         <div>
           Please Register to use the library system.
         </div>
-        <Form onSubmit={handleRegister}>
-          <Form.Group controlId="registerForm">
+        <Form className="registerForm" onSubmit={(e) => onHandleRegister(username, email, password, retypePassword, firstName, lastName, e)}>
+          <Form.Group controlId="registerFormGroup">
             <Form.Label>Username</Form.Label>
             <Form.Control
               type="username"
@@ -97,11 +80,11 @@ export function Register(props) {
               onChange={(e) => setRetypePassword(e.target.value)}
             />
           </Form.Group>
-          <Button variant="primary" type="submit">
+          <Button className="registerFormButton" variant="primary" type="submit">
             Register
           </Button>
         </Form>
-        <div>
+        <div className="linkToLogin">
           Already have an account?
           <a href="/login"> Sign in</a>
         </div>
@@ -115,12 +98,25 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onHandleRegister: (registerRequest) => {
-    dispatch(postRegister(registerRequest));
+  onHandleRegister: (username, email, password, retypePassword, firstName, lastName, e) => {
+    e.preventDefault();
+    if (password !== retypePassword) {
+      return toastr.error('Passwords do not match!', 'Error', { timeOut: 5000 });
+    }
+
+    const registerRequest = {
+      username,
+      firstName,
+      lastName,
+      password,
+      email,
+    };
+
+    return dispatch(postRegister(registerRequest));
   },
   onAlreadyLoggedIn: (currentUser) => {
     dispatch(push(`/user/profile/${currentUser.username}`));
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Register);
+export const RegisterContainer = connect(mapStateToProps, mapDispatchToProps)(Register);

@@ -1,4 +1,6 @@
 version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1
 jobs:
   build:
     working_directory: ~/repo
@@ -16,7 +18,7 @@ jobs:
           paths:
             - ./node_modules
       - store_artifacts:
-          path: coverage
+          path: /coverage
           prefix: coverage
   test:
     working_directory: ~/repo
@@ -30,7 +32,7 @@ jobs:
           name: Test
           command: npm run test
       - store_test_results:
-          path: unit-test-results
+          path: /test/results/unit
   e2e:
     working_directory: ~/repo
     docker:
@@ -43,7 +45,7 @@ jobs:
           name: Integration Test
           command: npm run integrationTest --verbose
       - store_test_results:
-          path: integration-test-results
+          path: /test/results/integration
   deploy-integration:
     docker:
       - image: circleci/node:12.9.1
@@ -77,11 +79,16 @@ workflows:
           filters:
             branches:
               only: master
-      - e2e:
+      - cypress/install:
+          build: 'npm run build'
+      - cypress/run:
           requires:
-            - build
-            - test
-            - deploy-integration
+            - cypress/install
+          record: true
+          parallel: true
+          parallelism: 4
+          group: 'all tests'
+          start: 'npm start'
       - deploy-staging:
           requires:
             - build

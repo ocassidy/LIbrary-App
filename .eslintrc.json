@@ -6,7 +6,8 @@
   },
   "parser": "babel-eslint",
   "extends": [
-    "airbnb"
+    "airbnb",
+    "plugin:cypress/recommended"
   ],
   "globals": {
     "Atomics": "readonly",

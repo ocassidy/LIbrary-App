@@ -10,7 +10,7 @@ import {
   getBookAnalytics, getBookList, getBookPage, getCurrentUser,
 } from './redux/actions';
 import Login from './components/Auth/Login/Login';
-import Register from './components/Auth/Register/Register';
+import { RegisterContainer } from './components/Auth/Register/Register';
 import BooksList from './components/BooksList/BooksList';
 import BookAnalytics from './components/Analytics/BookAnalytics';
 import Profile from './components/Profile/Profile';
@@ -73,7 +73,7 @@ function App(props) {
               <Route
                 exact
                 path="/register"
-                component={() => <Register />}
+                component={() => <RegisterContainer />}
                 id="baseRouteToRegister"
               />
               <Route
@@ -104,7 +104,7 @@ function App(props) {
                 exact
                 path="/user/profile/:username"
                 component={() => <Profile />}
-                id="authenticatedRouteToBookProfile"
+                id="authenticatedRouteToProfile"
                 appProps={{ currentUser, isAuthenticated }}
               />
               <AuthenticatedAdminRoute
