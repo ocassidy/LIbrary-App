@@ -92,7 +92,7 @@ workflows:
       - deploy-staging:
           requires:
             - build
-            - e2e
+            - cypress/run
             - deploy-integration
           filters:
             branches:
