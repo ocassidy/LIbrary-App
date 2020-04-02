@@ -1,11 +1,9 @@
 import React from 'react';
 import './NavBar.css';
-import NavBar from './NavBar';
 
 function NotFound() {
   return (
     <div>
-      <NavBar />
       <h2>404 Not Found</h2>
       Sorry we could not find the page you were looking for.
       <div>

@@ -31,7 +31,10 @@ export function Register(props) {
         </div>
         <Form className="registerForm" onSubmit={(e) => onHandleRegister(username, email, password, retypePassword, firstName, lastName, e)}>
           <Form.Group controlId="registerFormGroup">
-            <Form.Label>Username</Form.Label>
+            <Form.Label>
+              Username
+              <span className="requiredStar"> * </span>
+            </Form.Label>
             <Form.Control
               type="username"
               className="registerUsernameInput"
@@ -39,7 +42,10 @@ export function Register(props) {
               required
               onChange={(e) => setUsername(e.target.value)}
             />
-            <Form.Label>First Name</Form.Label>
+            <Form.Label>
+              First Name
+              <span className="requiredStar"> * </span>
+            </Form.Label>
             <Form.Control
               type="username"
               className="registerFirstNameInput"
@@ -47,7 +53,10 @@ export function Register(props) {
               required
               onChange={(e) => setFirstName(e.target.value)}
             />
-            <Form.Label>Last Name</Form.Label>
+            <Form.Label>
+              Last Name
+              <span className="requiredStar"> * </span>
+            </Form.Label>
             <Form.Control
               type="username"
               className="registerLastNameInput"
@@ -55,7 +64,10 @@ export function Register(props) {
               required
               onChange={(e) => setLastName(e.target.value)}
             />
-            <Form.Label>Email</Form.Label>
+            <Form.Label>
+              Email
+              <span className="requiredStar"> * </span>
+            </Form.Label>
             <Form.Control
               type="email"
               className="registerEmailInput"
@@ -63,7 +75,10 @@ export function Register(props) {
               required
               onChange={(e) => setEmail(e.target.value)}
             />
-            <Form.Label>Password</Form.Label>
+            <Form.Label>
+              Password
+              <span className="requiredStar"> * </span>
+            </Form.Label>
             <Form.Control
               type="password"
               className="registerPasswordInput"
@@ -71,7 +86,10 @@ export function Register(props) {
               required
               onChange={(e) => setPassword(e.target.value)}
             />
-            <Form.Label>Retype Password</Form.Label>
+            <Form.Label>
+              Retype Password
+              <span className="requiredStar"> * </span>
+            </Form.Label>
             <Form.Control
               type="password"
               className="registerRetypePasswordInput"
@@ -84,9 +102,13 @@ export function Register(props) {
             Register
           </Button>
         </Form>
-        <div className="linkToLogin">
+        <div className="linkTo">
           Already have an account?
           <a href="/login"> Sign in</a>
+        </div>
+        <div className="linkTo">
+          View books?
+          <a href="/books"> Click Here</a>
         </div>
       </div>
     </div>
@@ -94,7 +116,7 @@ export function Register(props) {
 }
 
 const mapStateToProps = (state) => ({
-  currentUser: state.userDetails.currentUser,
+  currentUser: state.authDetails.currentUser,
 });
 
 const mapDispatchToProps = (dispatch) => ({

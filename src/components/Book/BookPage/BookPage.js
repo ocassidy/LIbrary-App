@@ -1,19 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBookOpen } from '@fortawesome/free-solid-svg-icons';
-import {
-  getBook, postLoanRequest,
-} from '../../redux/actions';
-import NavBar from '../Shared/NavBar';
+import { faBookOpen, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { push } from 'connected-react-router';
+import { deleteBook, getBook, postLoanRequest } from '../../../redux/actions';
 import './BookPage.css';
+import AdminDeleteBookConfirmModal from '../../Admin/AdminEditDeleteBook/AdminDeleteBookConfirmModal';
 
 function BookPage(props) {
   const { id } = useParams();
+  const [showModal, setShowModal] = useState(false);
+  const [bookToDelete, setBookToDelete] = useState(null);
   const {
-    book, handleGetBook, currentUser, handleLoanBook,
+    book, handleGetBook, currentUser, handleLoanBook, isAdmin, handleGotoBookEditPage,
+    handleDeleteBook,
   } = props;
 
   useEffect(() => {
@@ -22,14 +24,13 @@ function BookPage(props) {
 
   return (
     <div>
-      <NavBar />
       {book
         ? (
-          <div className="row no-gutters bookDetailsContainer">
-            <div className="col-auto bookDetailsCol">
+          <div className="bookDetailsContainer">
+            <div className="bookImgCol">
               <img src={book.image} className="bookImg" alt="bookImg" />
             </div>
-            <div className="col-auto bookDetailsCol">
+            <div className="bookDetailsCol">
               <h4 className="bookDetailsItem">{book.name}</h4>
               {book.subtitle ? (
                 <div className="bookDetailsItem">
@@ -73,13 +74,44 @@ function BookPage(props) {
                 <span className="bookDescriptionItemHeaderText">ISBN-13: </span>
                 {book.isbn13}
               </div>
-              <div>
-                <Button onClick={() => handleLoanBook(id, currentUser.username)} variant="primary" className="withdrawButton">
+              <div className="bookPageButtonContainer">
+                <Button
+                  onClick={() => handleLoanBook(id, currentUser.username)}
+                  variant="primary"
+                  className="withdrawButton"
+                >
                   <FontAwesomeIcon icon={faBookOpen} style={{ marginRight: 10 }} />
                   Loan Book
                 </Button>
+                {isAdmin
+                  ? (
+                    <div>
+                      <Button onClick={() => handleGotoBookEditPage(book)} variant="success" className="editButton">
+                        <FontAwesomeIcon icon={faEdit} style={{ marginRight: 10 }} />
+                        Edit Book
+                      </Button>
+                      <Button
+                        className="bookListDeleteBookButton"
+                        onClick={() => { setShowModal(!showModal); setBookToDelete(book); }}
+                        variant="danger"
+                      >
+                        <FontAwesomeIcon icon={faTrash} style={{ marginRight: 10 }} />
+                        Delete Book
+                      </Button>
+                    </div>
+                  )
+                  : null}
               </div>
             </div>
+            {showModal ? (
+              <AdminDeleteBookConfirmModal
+                handleDeleteBook={() => handleDeleteBook(book.id)}
+                bookToDelete={bookToDelete}
+                show={showModal}
+                onHide={() => setShowModal(false)}
+              />
+            )
+              : null}
           </div>
         ) : (
           <div>
@@ -91,16 +123,19 @@ function BookPage(props) {
 }
 
 const mapStateToProps = (state) => ({
-  currentUser: state.userDetails.currentUser,
+  currentUser: state.authDetails.currentUser,
   book: state.bookDetails.book,
+  isAdmin: state.authDetails.isAdmin,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  handleGetBook: (id) => {
-    dispatch(getBook(id));
-  },
-  handleLoanBook: (id, username) => {
-    dispatch(postLoanRequest(id, username));
+  handleGetBook: (id) => dispatch(getBook(id)),
+  handleLoanBook: (id, username) => dispatch(postLoanRequest(id, username)),
+  handleGotoBookEditPage: (book) => dispatch(push(`/book/edit/${book.id}`)),
+  handleDeleteBook: (id) => {
+    dispatch(deleteBook(id));
+    dispatch(push('/books'));
+    window.location.reload();
   },
 });
 

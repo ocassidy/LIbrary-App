@@ -21,6 +21,14 @@ import {
   POST_LOAN_FAILURE,
   GET_BOOK_PAGE_FAILURE,
   GET_BOOK_PAGE_SUCCESS,
+  DELETE_BOOK_SUCCESS,
+  DELETE_BOOK_FAILURE,
+  PUT_BOOK_SUCCESS,
+  PUT_BOOK_FAILURE,
+  GET_USER_ACTIVE_LOAN_DETAILS_PAGE_FAILURE,
+  GET_USER_ACTIVE_LOAN_DETAILS_PAGE_SUCCESS,
+  GET_USER_INACTIVE_LOAN_DETAILS_PAGE_FAILURE,
+  GET_USER_INACTIVE_LOAN_DETAILS_PAGE_SUCCESS,
 } from './actionTypes';
 
 const axiosConfig = {
@@ -294,3 +302,133 @@ export const postLoanRequest = (bookId, username) => (dispatch) => {
       return toastr.error(error.response.data.message);
     });
 };
+
+export const getUserActiveLoanDetailsPageSuccess = (userActiveLoansDetailsPage) => ({
+  type: GET_USER_ACTIVE_LOAN_DETAILS_PAGE_SUCCESS,
+  userActiveLoansDetailsPage,
+});
+
+export const getUserActiveLoanDetailsPageFailure = (message) => ({
+  type: GET_USER_ACTIVE_LOAN_DETAILS_PAGE_FAILURE,
+  message,
+});
+
+export const getUserActiveLoanDetailsPage = (username, page, size) => (dispatch) => axios.get(`${API_BASE_URL}/user/loans-active/${username}`,
+  {
+    params: { page, size },
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`,
+    },
+  })
+  .then((response) => {
+    dispatch(getUserActiveLoanDetailsPageSuccess(response.data));
+  })
+  .catch((error) => {
+    dispatch(getUserActiveLoanDetailsPageFailure(error.message));
+  });
+
+export const getUserInactiveLoanDetailsPageSuccess = (userInactiveLoansDetailsPage) => ({
+  type: GET_USER_INACTIVE_LOAN_DETAILS_PAGE_SUCCESS,
+  userInactiveLoansDetailsPage,
+});
+
+export const getUserInactiveLoanDetailsPageFailure = (message) => ({
+  type: GET_USER_INACTIVE_LOAN_DETAILS_PAGE_FAILURE,
+  message,
+});
+
+export const getUserInactiveLoanDetailsPage = (username, page, size) => (dispatch) => {
+  axios.get(`${API_BASE_URL}/user/loans-inactive/${username}`,
+    {
+      params: { page, size },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`,
+      },
+    })
+    .then((response) => {
+      dispatch(getUserInactiveLoanDetailsPageSuccess(response.data));
+    })
+    .catch((error) => {
+      dispatch(getUserInactiveLoanDetailsPageFailure(error.message));
+    });
+};
+
+
+export const putEditBookSuccess = (book) => ({
+  type: PUT_BOOK_SUCCESS,
+  book,
+});
+
+export const putEditBookFailure = (message) => ({
+  type: PUT_BOOK_FAILURE,
+  message,
+});
+
+export const putEditBook = (editBookRequest) => (dispatch) => axios.put(`${API_BASE_URL}/book/${editBookRequest.id}`,
+  {
+    id: editBookRequest.id,
+    image: editBookRequest.image.trim(),
+    name: editBookRequest.title.trim(),
+    subtitle: editBookRequest.subtitle.trim(),
+    publisher: editBookRequest.publisher.trim(),
+    copies: editBookRequest.copies,
+    copiesAvailable: editBookRequest.copiesAvailable,
+    isbn10: editBookRequest.isbn10.trim(),
+    isbn13: editBookRequest.isbn13.trim(),
+    description: editBookRequest.description.trim(),
+    edition: editBookRequest.edition.trim(),
+    genre: editBookRequest.genre.trim(),
+    yearPublished: editBookRequest.yearPublished.trim(),
+    authors: editBookRequest.authors,
+  },
+  {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`,
+    },
+  })
+  .then((response) => {
+    if (response.data.success === false) {
+      return toastr.error(response.data.message, 'Error');
+    }
+    toastr.success('Book Updated!', 'Success', { timeOut: 10000 });
+    dispatch(putEditBookSuccess(editBookRequest));
+    return response.data;
+  })
+  .catch((error) => {
+    toastr.error(error.message, 'Error');
+    dispatch(putEditBookFailure(error.message));
+  });
+
+export const deleteBookSuccess = (id) => ({
+  type: DELETE_BOOK_SUCCESS,
+  id,
+});
+
+export const deleteBookFailure = (message) => ({
+  type: DELETE_BOOK_FAILURE,
+  message,
+});
+
+export const deleteBook = (id) => (dispatch) => axios.delete(`${API_BASE_URL}/book/${id}`,
+  {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`,
+    },
+  })
+  .then((response) => {
+    if (response.data.success === false) {
+      return toastr.error(response.data.message, 'Error');
+    }
+    toastr.success('Book Deleted!', 'Success', { timeOut: 10000 });
+    dispatch(deleteBookSuccess(id));
+    dispatch(push('/admin/book-edit-delete'));
+    return response.data;
+  })
+  .catch((error) => {
+    toastr.error(error.message, 'Error');
+    dispatch(deleteBookFailure(error.message));
+  });

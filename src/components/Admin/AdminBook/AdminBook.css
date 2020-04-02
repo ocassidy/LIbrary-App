@@ -1,0 +1,18 @@
+.bookJumbotron {
+    margin: 20px;
+    text-align: left;
+}
+
+.bookJumbotronContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.bookJumbotronContainerButton {
+    margin-left: auto;
+}
+
+.bookJumbotronContainerTitleText {
+    margin-right: 20px;
+}

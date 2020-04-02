@@ -9,15 +9,19 @@ import NotFound from './components/Shared/NotFound';
 import {
   getBookAnalytics, getBookList, getBookPage, getCurrentUser,
 } from './redux/actions';
-import Login from './components/Auth/Login/Login';
 import { RegisterContainer } from './components/Auth/Register/Register';
-import BooksList from './components/BooksList/BooksList';
+import { BookListContainer } from './components/Book/BooksList/BooksList';
 import BookAnalytics from './components/Analytics/BookAnalytics';
-import Profile from './components/Profile/Profile';
-import BooksPage from './components/Book/BookPage';
-import BookAdmin from './components/Admin/BookAdmin';
+import { ProfileContainer } from './components/Profile/Profile';
+import BooksPage from './components/Book/BookPage/BookPage';
+import AdminDashboard from './components/Admin/AdminDashboard/AdminDashboard';
 import Forbidden from './components/Shared/Forbidden';
 import AuthenticatedAdminRoute from './components/AuthenticatedRoutes/AuthenticatedAdminRoute';
+import { LoginContainer } from './components/Auth/Login/Login';
+import AdminAddBook from './components/Admin/AdminAddBook/AdminAddBook';
+import NavBar from './components/Shared/NavBar';
+import BookEditPage from './components/Book/BookEditPage/BookEditPage';
+import AdminEditDeleteBook from './components/Admin/AdminEditDeleteBook/AdminEditDeleteBook';
 
 function App(props) {
   const {
@@ -54,7 +58,7 @@ function App(props) {
     <div className="App" id="App">
       {isLoading
         ? (
-          <div id="appSpinnerDiv">
+          <div className="appSpinnerDiv">
             <Spinner animation="border" role="status" className="isLoadingSpinner" />
             <div>
               Loading Please Wait...
@@ -63,11 +67,12 @@ function App(props) {
         )
         : (
           <ConnectedRouter history={history} id="baseRouter">
+            <NavBar />
             <Switch id="baseRouterSwitch">
               <Route
                 exact
                 path="/login"
-                component={() => <Login />}
+                component={() => <LoginContainer />}
                 id="baseRouteToLogin"
               />
               <Route
@@ -79,18 +84,18 @@ function App(props) {
               <Route
                 exact
                 path="/books"
-                component={() => <BooksList />}
+                component={() => <BookListContainer />}
                 id="baseRouteToBooks"
               />
               <Route
                 exact
-                path="/analytics/books"
+                path="/admin/analytics/books"
                 component={() => <BookAnalytics />}
                 id="baseRouteToAnalytics"
               />
               <Route
                 exact
-                path="/analytics/users"
+                path="/admin/analytics/users"
                 component={() => <BookAnalytics />}
                 id="baseRouteToAnalytics"
               />
@@ -100,19 +105,47 @@ function App(props) {
                 component={() => <BooksPage />}
                 id="baseRouteToBookPage"
               />
+              <AuthenticatedAdminRoute
+                exact
+                path="/book/edit/:id"
+                component={() => <BookEditPage />}
+                id="baseRouteToBookPage"
+                authProps={{ currentUser, isAuthenticated, isAdmin }}
+              />
               <AuthenticatedRoute
                 exact
                 path="/user/profile/:username"
-                component={() => <Profile />}
+                component={() => <ProfileContainer />}
                 id="authenticatedRouteToProfile"
-                appProps={{ currentUser, isAuthenticated }}
+                authProps={{ currentUser, isAuthenticated }}
               />
               <AuthenticatedAdminRoute
                 exact
-                path="/admin/books"
-                component={() => <BookAdmin />}
+                path="/admin/dashboard"
+                component={() => <AdminDashboard />}
                 id="authenticatedAdminRouteToBookAdmin"
-                appProps={{ currentUser, isAuthenticated, isAdmin }}
+                authProps={{ currentUser, isAuthenticated, isAdmin }}
+              />
+              <AuthenticatedAdminRoute
+                exact
+                path="/admin/book-add"
+                component={() => <AdminAddBook />}
+                id="authenticatedAdminRouteToAdminAddBook"
+                authProps={{ currentUser, isAuthenticated, isAdmin }}
+              />
+              <AuthenticatedAdminRoute
+                exact
+                path="/admin/book-edit-delete"
+                component={() => <AdminEditDeleteBook />}
+                id="authenticatedAdminRouteToAdminEditDeleteBook"
+                authProps={{ currentUser, isAuthenticated, isAdmin }}
+              />
+              <AuthenticatedAdminRoute
+                exact
+                path="/admin/book-delete"
+                component={() => <AdminDashboard />}
+                id="authenticatedAdminRouteToBookAdminDeleteBook"
+                authProps={{ currentUser, isAuthenticated, isAdmin }}
               />
               <Route
                 exact
@@ -145,11 +178,11 @@ function App(props) {
 }
 
 const mapStateToProps = (state) => ({
-  currentUser: state.userDetails.currentUser,
-  isAuthenticated: state.userDetails.isAuthenticated,
-  isLoading: state.userDetails.isLoading,
+  currentUser: state.authDetails.currentUser,
+  isAuthenticated: state.authDetails.isAuthenticated,
+  isLoading: state.authDetails.isLoading,
+  isAdmin: state.authDetails.isAdmin,
   bookList: state.bookDetails.bookList,
-  isAdmin: state.userDetails.isAdmin,
 });
 
 const mapDispatchToProps = (dispatch) => ({

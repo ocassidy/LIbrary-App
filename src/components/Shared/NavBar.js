@@ -9,9 +9,7 @@ import { push } from 'connected-react-router';
 import { logout } from '../../redux/actions';
 
 function NavBar(props) {
-  const {
-    currentUser, onHandleLogout, isAdmin, onHandleLogin,
-  } = props;
+  const { currentUser, onHandleLogout, isAdmin, gotoLogin, gotoRegister} = props;
 
   return (
     <div className="navbarDiv">
@@ -23,40 +21,37 @@ function NavBar(props) {
           {isAdmin === true
             ? (
               <NavDropdown title="Admin" id="basic-nav-dropdown">
-                <Link className="dropdown-item" to="/admin/books">Book</Link>
-                <Link className="dropdown-item" to="/admin/users">Users</Link>
+                <Link className="dropdown-item" to="/admin/dashboard">Dashboard</Link>
               </NavDropdown>
             )
             : null}
-
-          {isAdmin === true
-            ? (
-              <NavDropdown title="Analytics" id="basic-nav-dropdown">
-                <Link className="dropdown-item" to="/analytics/books">Book</Link>
-                <Link className="dropdown-item" to="/analytics/users">Users</Link>
-              </NavDropdown>
-            ) : null}
         </Nav>
         {currentUser
-          ? <Button variant="outline-dark" onClick={() => onHandleLogout()}>Logout</Button>
-          : <Button variant="outline-dark" onClick={() => onHandleLogin()}>Login</Button>}
+          ? <Button className="navBarButton" variant="outline-dark" onClick={() => onHandleLogout()}>Logout</Button>
+          : <Button className="navBarButton" variant="outline-dark" onClick={() => gotoLogin()}>Login</Button>}
+        {currentUser
+          ? null
+          : <Button className="navBarButton" variant="outline-dark" onClick={() => gotoRegister()}>Register</Button>}
       </Navbar>
     </div>
   );
 }
 
 const mapStateToProps = (state) => ({
-  currentUser: state.userDetails.currentUser,
-  isAuthenticated: state.userDetails.isAuthenticated,
-  hasLoadedUser: state.userDetails.hasLoadedUser,
-  isAdmin: state.userDetails.isAdmin,
+  currentUser: state.authDetails.currentUser,
+  isAuthenticated: state.authDetails.isAuthenticated,
+  hasLoadedUser: state.authDetails.hasLoadedUser,
+  isAdmin: state.authDetails.isAdmin,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onHandleLogout: () => {
     dispatch(logout());
   },
-  onHandleLogin: () => {
+  gotoLogin: () => {
+    dispatch(push('/login'));
+  },
+  gotoRegister: () => {
     dispatch(push('/login'));
   },
 });

@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import NavBar from '../Shared/NavBar';
 import LoanDetailsBarChart from './BarCharts/LoanDetailsBarChart';
 import { getBookAnalytics } from '../../redux/actions';
 
@@ -9,7 +8,6 @@ function BookAnalytics(props) {
 
   return (
     <div>
-      <NavBar />
       {bookAnalyticsList.allLoanDetailsList && bookAnalyticsList.allLoanDetailsList.length > 0
         ? (
           <LoanDetailsBarChart

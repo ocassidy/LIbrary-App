@@ -11,8 +11,11 @@
     line-height: 2rem;
 }
 
-.form-label:after {
-    content:" *";
-    color:red;
-    font-size: 20px;
+.linkTo {
+    margin: 10px;
+}
+
+.requiredStar {
+    color: red;
+    font-size: 22px;
 }
