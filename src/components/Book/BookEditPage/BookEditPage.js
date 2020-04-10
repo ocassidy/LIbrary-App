@@ -19,7 +19,7 @@ function BookEditPage(props) {
   const [edition, setEdition] = useState('');
   const [genre, setGenre] = useState('');
   const [yearPublished, setYearPublished] = useState('');
-  const [authors, setAuthors] = useState([]);
+  const [author, setAuthor] = useState('');
   const { id } = useParams();
   const { book, handleGetBook, onPutBook } = props;
 
@@ -41,100 +41,134 @@ function BookEditPage(props) {
       setEdition(book.edition);
       setGenre(book.genre);
       setYearPublished(book.yearPublished);
-      setAuthors(book.authors);
+      setAuthor(book.author);
     }
   }, [book]);
 
   return (
-    <div>
+    <div className="container-fluid">
       {book
         ? (
-          <div className="bookEditContainer">
-            <Form
-              className="bookEditForm"
-              onSubmit={(e) => onPutBook(e, book.id, image, title, subtitle, publisher, copies, copiesAvailable,
-                isbn10, isbn13, description, edition, genre, yearPublished, authors)}
-            >
-              <h4>Book ID: {book.id}</h4>
-              <Form.Label>Book Image:</Form.Label>
+          <Form
+            className="row no-gutters"
+            onSubmit={(e) => onPutBook(e, book.id, image, title, subtitle, publisher,
+              copies, copiesAvailable, isbn10, isbn13, description,
+              edition, genre, yearPublished, author)}
+          >
+            <div className="col-12">
+              <div className="row no-gutters">
+                <div className="col-3">
+                  <div className="mb-2 font-weight-bold">Image Preview:</div>
+                  <img src={image} className="img-fluid" alt="bookImg" />
+                </div>
+                <div className="col-9">
+                  <div className="col-12 mb-2 mt-2 font-weight-bold">Book ID: {book.id}</div>
+                  <div className="col-12 mb-2">
+                    <div className="mb-2 font-weight-bold">Book Title:</div>
+                    <Form.Control
+                      value={title || ''}
+                      type="text"
+                      className="bookTitleInput"
+                      placeholder="Book Title"
+                      required
+                      onChange={(e) => setTitle(e.target.value)}
+                    />
+                  </div>
+                  <div className="col-12 mb-2">
+                    <div className="mb-2 font-weight-bold">Book Subtitle:</div>
+                    <Form.Control
+                      value={subtitle || ''}
+                      type="text"
+                      className="bookSubtitleInput"
+                      placeholder="Book Subtitle"
+                      onChange={(e) => setSubtitle(e.target.value)}
+                    />
+                  </div>
+                  <div className="col-12 mt-auto font-weight-bold mb-2">
+                    <div className="mb-2 font-weight-bold">Book Image:</div>
+                    <Form.Control
+                      value={image || ''}
+                      type="text"
+                      placeholder="Book Image"
+                      as="textarea"
+                      rows="3"
+                      onChange={(e) => setImage(e.target.value)}
+                    />
+                  </div>
+                  <div className="col-12 mb-2">
+                    <div className="mb-2 font-weight-bold">Book Publisher:</div>
+                    <Form.Control
+                      value={publisher || ''}
+                      type="text"
+                      className="bookPublisherInput"
+                      placeholder="Book Publisher"
+                      required
+                      onChange={(e) => setPublisher(e.target.value)}
+                    />
+                  </div>
+                  <div className="col-12 mb-2">
+                    <div className="mb-2 font-weight-bold">Total Copies:</div>
+                    <Form.Control
+                      value={copies || ''}
+                      type="text"
+                      className="bookCopiesInput"
+                      placeholder="Total Copies"
+                      required
+                      onChange={(e) => setCopies(e.target.value)}
+                    />
+                  </div>
+                  <div className="col-12 mb-2">
+                    <div className="mb-2 font-weight-bold">Available Copies:</div>
+                    <Form.Control
+                      value={copiesAvailable || ''}
+                      type="text"
+                      className="bookAvailableCopiesInput"
+                      placeholder="Available Copies"
+                      required
+                      onChange={(e) => setCopiesAvailable(e.target.value)}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col-12 mb-2">
+              <div className="mb-2 font-weight-bold">Author:</div>
               <Form.Control
-                value={image || ''}
-                type="text"
-                className="bookBookImageInput"
-                placeholder="Book Image"
-                onChange={(e) => setImage(e.target.value)}
-              />
-              <Form.Label>Book Title:</Form.Label>
-              <Form.Control
-                value={title || ''}
-                type="text"
-                className="bookTitleInput"
-                placeholder="Book Title"
-                required
-                onChange={(e) => setTitle(e.target.value)}
-              />
-              <Form.Label>Book Subtitle:</Form.Label>
-              <Form.Control
-                value={subtitle || ''}
-                type="text"
-                className="bookSubtitleInput"
-                placeholder="Book Subtitle"
-                onChange={(e) => setSubtitle(e.target.value)}
-              />
-              <Form.Label>Book Publisher:</Form.Label>
-              <Form.Control
-                value={publisher || ''}
-                type="text"
-                className="bookPublisherInput"
-                placeholder="Book Publisher"
-                required
-                onChange={(e) => setPublisher(e.target.value)}
-              />
-              <Form.Label>Total Copies:</Form.Label>
-              <Form.Control
-                value={copies || ''}
-                type="text"
-                className="bookCopiesInput"
-                placeholder="Total Copies"
-                required
-                onChange={(e) => setCopies(e.target.value)}
-              />
-              <Form.Label>Available Copies:</Form.Label>
-              <Form.Control
-                value={copiesAvailable || ''}
-                type="text"
-                className="bookAvailableCopiesInput"
-                placeholder="Available Copies"
-                required
-                onChange={(e) => setCopiesAvailable(e.target.value)}
-              />
-              <Form.Label>Authors:</Form.Label>
-              <Form.Control
-                value={book.authors[0].name || ''}
+                value={author || ''}
                 type="text"
                 className="bookAuthorsInput"
-                placeholder="Authors"
+                placeholder="Author"
                 required
-                onChange={(e) => setAuthors(e.target.value)}
+                onChange={(e) => setAuthor(e.target.value)}
               />
-              <Form.Label>ISBN 10:</Form.Label>
-              <Form.Control
-                value={isbn10 || ''}
-                type="text"
-                className="bookISBN10Input"
-                placeholder="ISBN 10"
-                required
-                onChange={(e) => setISBN10(e.target.value)}
-              />
-              <Form.Label>ISBN 13:</Form.Label>
-              <Form.Control
-                value={isbn13 || ''}
-                type="text"
-                className="bookISBN13Input"
-                placeholder="ISBN 13"
-                onChange={(e) => setISBN13(e.target.value)}
-              />
-              <Form.Label>Book Description:</Form.Label>
+            </div>
+            <div className="col-12 mb-2">
+              <div className="row no-gutters">
+                <div className="col-6 mr-2">
+                  <div className="mb-2 font-weight-bold">ISBN 10:</div>
+                  <Form.Control
+                    value={isbn10 || ''}
+                    type="text"
+                    className="bookISBN10Input"
+                    placeholder="ISBN 10"
+                    required
+                    onChange={(e) => setISBN10(e.target.value)}
+                  />
+                </div>
+                <div className="col-5">
+                  <div className="mb-2 font-weight-bold">ISBN 13:</div>
+                  <Form.Control
+                    value={isbn13 || ''}
+                    type="text"
+                    className="bookISBN13Input"
+                    placeholder="ISBN 13"
+                    onChange={(e) => setISBN13(e.target.value)}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="col-12 mb-2">
+              <div className="mb-2 font-weight-bold">Book Description:</div>
               <Form.Control
                 value={description || ''}
                 type="text"
@@ -144,7 +178,9 @@ function BookEditPage(props) {
                 placeholder="Book Description"
                 onChange={(e) => setDescription(e.target.value)}
               />
-              <Form.Label>Book Edition:</Form.Label>
+            </div>
+            <div className="col-12 mb-2">
+              <div className="mb-2 font-weight-bold">Book Edition:</div>
               <Form.Control
                 value={edition || ''}
                 type="text"
@@ -153,7 +189,9 @@ function BookEditPage(props) {
                 required
                 onChange={(e) => setEdition(e.target.value)}
               />
-              <Form.Label>Book Genre:</Form.Label>
+            </div>
+            <div className="col-12 mb-2">
+              <div className="mb-2 font-weight-bold">Book Genre:</div>
               <Form.Control
                 value={genre || ''}
                 type="text"
@@ -162,7 +200,9 @@ function BookEditPage(props) {
                 required
                 onChange={(e) => setGenre(e.target.value)}
               />
-              <Form.Label>Year Published:</Form.Label>
+            </div>
+            <div className="col-12 mb-2">
+              <div className="mb-2 font-weight-bold">Year Published:</div>
               <Form.Control
                 value={yearPublished || ''}
                 type="text"
@@ -171,11 +211,13 @@ function BookEditPage(props) {
                 required
                 onChange={(e) => setYearPublished(e.target.value)}
               />
+            </div>
+            <div className="mb-2 font-weight-bold">
               <Button className="editBookButton" variant="primary" type="submit">
                 Save Edits
               </Button>
-            </Form>
-          </div>
+            </div>
+          </Form>
         ) : (
           <div>
             Book details not found, please try again.
@@ -195,7 +237,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(getBook(id));
   },
   onPutBook: (e, id, image, title, subtitle, publisher, copies, copiesAvailable,
-    isbn10, isbn13, description, edition, genre, yearPublished, authors) => {
+    isbn10, isbn13, description, edition, genre, yearPublished, author) => {
     e.preventDefault();
 
     const editBookRequest = {
@@ -212,7 +254,7 @@ const mapDispatchToProps = (dispatch) => ({
       edition,
       genre,
       yearPublished,
-      authors,
+      author,
     };
     dispatch(putEditBook(editBookRequest));
     dispatch(push('/books'));

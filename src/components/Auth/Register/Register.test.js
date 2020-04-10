@@ -12,7 +12,7 @@ describe('Register test', () => {
     expect(wrapper.find('.registerLastNameInput')).toHaveLength(1);
     expect(wrapper.find('.registerEmailInput')).toHaveLength(1);
     expect(wrapper.find('.registerFormButton')).toHaveLength(1);
-    expect(wrapper.find('.linkTo')).toHaveLength(2);
+    expect(wrapper.find('.registerLinkTo')).toHaveLength(2);
   });
   it('should register user when form is correct and register is clicked', () => {
     const props = {

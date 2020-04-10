@@ -14,10 +14,10 @@ function AdminBook(props) {
   } = props;
   return (
     <div>
-      <Jumbotron className="bookJumbotron">
+      <Jumbotron className="adminBookJumbotron">
         <Container className="bookJumbotronContainer">
           <FontAwesomeIcon size="2x" icon={faPlus} style={{ marginRight: 10 }} />
-          <h1 className="bookJumbotronContainerTitleText">Add Book</h1>
+          <h3 className="bookJumbotronContainerTitleText">Add Book</h3>
           <Button
             size="lg"
             className="bookJumbotronContainerButton"
@@ -28,10 +28,10 @@ function AdminBook(props) {
           </Button>
         </Container>
       </Jumbotron>
-      <Jumbotron className="bookJumbotron">
+      <Jumbotron className="adminBookJumbotron">
         <Container className="bookJumbotronContainer">
           <FontAwesomeIcon size="2x" icon={faEdit} style={{ marginRight: 10 }} />
-          <h1 className="bookJumbotronContainerTitleText">Edit/Delete Book</h1>
+          <h3 className="bookJumbotronContainerTitleText">Edit/Delete Book</h3>
           <Button
             size="lg"
             className="bookJumbotronContainerButton"

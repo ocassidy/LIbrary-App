@@ -12,10 +12,10 @@ function AdminAnalytics(props) {
   const { gotoBookAnalytics } = props;
   return (
     <div className="adminAnalyticsContainer">
-      <Jumbotron className="bookJumbotron">
+      <Jumbotron className="analyticsJumbotron">
         <Container className="bookJumbotronContainer">
           <FontAwesomeIcon size="2x" icon={faChartBar} style={{ marginRight: 10 }} />
-          <h1 className="bookJumbotronContainerTitleText">Book Analytics</h1>
+          <h3 className="bookJumbotronContainerTitleText">Book Analytics</h3>
           <Button
             size="lg"
             className="bookJumbotronContainerButton"

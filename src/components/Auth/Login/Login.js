@@ -50,11 +50,11 @@ export function Login(props) {
             Log In
           </Button>
         </Form>
-        <div className="linkTo">
+        <div className="loginLinkTo">
           Need an account?
           <a href="/register"> Register Here</a>
         </div>
-        <div className="linkTo">
+        <div className="loginLinkTo">
           View books?
           <a href="/books"> Click Here</a>
         </div>

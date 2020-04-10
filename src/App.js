@@ -11,7 +11,7 @@ import {
 } from './redux/actions';
 import { RegisterContainer } from './components/Auth/Register/Register';
 import { BookListContainer } from './components/Book/BooksList/BooksList';
-import BookAnalytics from './components/Analytics/BookAnalytics';
+import BookAnalytics from './components/Analytics/Analytics/Analytics';
 import { ProfileContainer } from './components/Profile/Profile';
 import BooksPage from './components/Book/BookPage/BookPage';
 import AdminDashboard from './components/Admin/AdminDashboard/AdminDashboard';
@@ -89,13 +89,7 @@ function App(props) {
               />
               <Route
                 exact
-                path="/admin/analytics/books"
-                component={() => <BookAnalytics />}
-                id="baseRouteToAnalytics"
-              />
-              <Route
-                exact
-                path="/admin/analytics/users"
+                path="/admin/analytics"
                 component={() => <BookAnalytics />}
                 id="baseRouteToAnalytics"
               />

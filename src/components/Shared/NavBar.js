@@ -22,6 +22,7 @@ function NavBar(props) {
             ? (
               <NavDropdown title="Admin" id="basic-nav-dropdown">
                 <Link className="dropdown-item" to="/admin/dashboard">Dashboard</Link>
+                <Link className="dropdown-item" to="/admin/analytics">Analytics</Link>
               </NavDropdown>
             )
             : null}
@@ -52,7 +53,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(push('/login'));
   },
   gotoRegister: () => {
-    dispatch(push('/login'));
+    dispatch(push('/register'));
   },
 });
 

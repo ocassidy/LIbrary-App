@@ -9,7 +9,7 @@ describe('Login test', () => {
     expect(wrapper.find('.loginUsernameInput')).toHaveLength(1);
     expect(wrapper.find('.loginPasswordInput')).toHaveLength(1);
     expect(wrapper.find('.loginButton')).toHaveLength(1);
-    expect(wrapper.find('.linkTo')).toHaveLength(2);
+    expect(wrapper.find('.loginLinkTo')).toHaveLength(2);
   });
   it('should login user when form is correct and log in is clicked', () => {
     const props = {

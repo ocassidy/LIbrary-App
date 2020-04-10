@@ -67,33 +67,33 @@ export function Profile(props) {
     && userActiveLoansDetailsPage.content
     && userActiveLoansDetailsPage.content.length > 0)
     ? userActiveLoansDetailsPage.content.map((loan) => (
-      <Card key={loan.loanId} className="userLoanListItemCard">
-        {loan.image ? <div className="userLoanListItem">{loan.image}</div> : null}
-        <h5 className="card-title userLoanListItem">{loan.bookName}</h5>
-        <div className="card-text bookListItemText">
-          <span className="bookListItemHeaderText">Book ID: </span>
+      <Card key={loan.loanId} className="m-2 text-left">
+        {loan.image ? <div className="m-2">{loan.image}</div> : null}
+        <h5 className="card-title m-2">{loan.bookName}</h5>
+        <div className="card-text m-2">
+          <span className="font-weight-bold">Book ID: </span>
           {loan.bookId}
         </div>
-        <div className="userLoanListItem">
-          <span className="userLoanListItemHeaderText">Date Withdrawn: </span>
+        <div className="m-2">
+          <span className="font-weight-bold">Date Withdrawn: </span>
           {moment(loan.dateWithdrawn).format('DD-MM-YYYY')}
         </div>
-        <div className="userLoanListItem">
-          <span className="userLoanListItemHeaderText">Date Due Back: </span>
+        <div className="m-2">
+          <span className="font-weight-bold">Date Due Back: </span>
           {moment(loan.dateDueBack).format('DD-MM-YYYY')}
         </div>
-        <div className="userLoanListItem">{loan.fine > 0 ? loan.fine : 'You have no fines for this loan.'}</div>
+        <div className="m-2">{loan.fine > 0 ? loan.fine : 'You have no fines for this loan.'}</div>
         {loan.fine === true
           ? (
-            <div className="userLoanListItem">
+            <div className="m-2">
               <h4>Cost Per Day:</h4>
               {loan.costPerDay}
             </div>
           ) : null}
-        {loan.overdueBy ? <div className="userLoanListItem">Overdue by (days): {loan.overdueBy}</div> : null}
-        <div className="userLoanListItem">Loan Active</div>
+        {loan.overdueBy ? <div className="m-2">Overdue by (days): {loan.overdueBy}</div> : null}
+        <div className="m-2">Loan Active</div>
         <Button
-          className="returnBookButton"
+          className="m-2"
           variant="success"
           type="submit"
           onClick={() => postLoanReturnRequest(currentUser.username, loan.loanId, loan.bookId)}
@@ -112,30 +112,30 @@ export function Profile(props) {
     && userInactiveLoansDetailsPage.content
     && userInactiveLoansDetailsPage.content.length > 0)
     ? userInactiveLoansDetailsPage.content.map((loan) => (
-      <Card key={loan.loanId} className="userLoanListItemCard">
-        {loan.image ? <div className="userLoanListItem">{loan.image}</div> : null}
-        <h5 className="card-title userLoanListItem">{loan.bookName}</h5>
-        <div className="card-text bookListItemText">
-          <span className="bookListItemHeaderText">Book ID: </span>
+      <Card key={loan.loanId} className="m-2 text-left">
+        {loan.image ? <div className="m-2">{loan.image}</div> : null}
+        <h5 className="card-title m-2">{loan.bookName}</h5>
+        <div className="card-text m-2">
+          <span className="font-weight-bold">Book ID: </span>
           {loan.bookId}
         </div>
-        <div className="userLoanListItem">
-          <span className="userLoanListItemHeaderText">Date Withdrawn: </span>
+        <div className="m-2">
+          <span className="font-weight-bold">Date Withdrawn: </span>
           {moment(loan.dateWithdrawn).format('DD-MM-YYYY')}
         </div>
-        <div className="userLoanListItem">
-          <span className="userLoanListItemHeaderText">Date Due Back: </span>
+        <div className="m-2">
+          <span className="font-weight-bold">Date Due Back: </span>
           {moment(loan.dateDueBack).format('DD-MM-YYYY')}
         </div>
         {loan.dateReturned
           ? (
-            <div className="userLoanListItem">
-              <span className="userLoanListItemHeaderText">Date Returned: </span>
+            <div className="m-2">
+              <span className="font-weight-bold">Date Returned: </span>
               {moment(loan.dateReturned).format('DD-MM-YYYY')}
             </div>
           )
           : null}
-        <div className="userLoanListItem">Loan Inactive</div>
+        <div className="m-2">Loan Inactive</div>
       </Card>
     ))
     : (
@@ -183,10 +183,10 @@ export function Profile(props) {
   );
 
   return (
-    <div>
+    <div id="profileContainer" className="container-fluid">
       {isLoading && !currentUser
         ? (
-          <div className="profileSpinner">
+          <div id="profileSpinner" className="text-center">
             <Spinner animation="border" role="status" />
             <div>
               Loading Please Wait...
@@ -194,56 +194,60 @@ export function Profile(props) {
           </div>
         )
         : (
-          <div className="profileContainer">
+          <div className="row no-gutters">
             {currentUser
               ? (
-                <div className="userDetailsContainer">
-                  <h2>Hi {currentUser.username}</h2>
-                  <div>Your user details:</div>
-                  <div>Firstname: {currentUser.firstName}</div>
-                  <div>Lastname: {currentUser.lastName}</div>
+                <div id="userDetailsContainer" className="col-auto mr-4">
+                  <h2 id="userDetailsUsername">Hi {currentUser.username}</h2>
+                  <div id="userDetailsTitle">Your user details:</div>
+                  <div id="userDetailsFirstName">Firstname: {currentUser.firstName}</div>
+                  <div id="userDetailsLastName">Lastname: {currentUser.lastName}</div>
+                  <div id="userDetailsEmail">Email: {currentUser.email}</div>
                 </div>
               )
               : null}
-            <div className="userLoansContainer">
-              <div className="userActiveLoansContainer">
-                <Button
-                  onClick={() => setShowActiveLoans(!showActiveLoans)}
-                  variant="light"
-                  className="userLoansToggleButton"
-                >
-                  {showActiveLoans ? 'Close Active Loans' : 'See Active Loans'}
-                  {showActiveLoans
-                    ? <FontAwesomeIcon icon={faCaretUp} style={{ marginLeft: 10 }} />
-                    : <FontAwesomeIcon icon={faCaretDown} style={{ marginLeft: 10 }} />}
-                </Button>
-                {showActiveLoans ? (
-                  <div>
-                    {userActiveLoansList ? <h5 className="userLoanListContainerTitle">Your Active Loans:</h5> : null}
-                    {userActiveLoansList}
-                    {totalActiveLoanPages > 1 ? activeLoanPagination : null}
-                  </div>
-                ) : null}
-              </div>
-              <div className="userInactiveLoansContainer">
-                <Button
-                  onClick={() => setShowInactiveLoans(!showInactiveLoans)}
-                  variant="light"
-                  className="userLoansToggleButton"
-                >
-                  {showInactiveLoans ? 'Close Inactive Loans' : 'See Inactive Loans'}
-                  {showInactiveLoans
-                    ? <FontAwesomeIcon icon={faCaretUp} style={{ marginLeft: 10 }} />
-                    : <FontAwesomeIcon icon={faCaretDown} style={{ marginLeft: 10 }} />}
-                </Button>
-                {showInactiveLoans
-                  ? (
+            <div className="col-auto">
+              <h2 className="col-auto">Your Loan Details:</h2>
+              <div className="row no-gutters">
+                <div className="col-auto">
+                  <Button
+                    onClick={() => setShowActiveLoans(!showActiveLoans)}
+                    variant="light"
+                    className="m-2"
+                  >
+                    {showActiveLoans ? 'Close Active Loans' : 'See Active Loans'}
+                    {showActiveLoans
+                      ? <FontAwesomeIcon icon={faCaretUp} style={{ marginLeft: 10 }} />
+                      : <FontAwesomeIcon icon={faCaretDown} style={{ marginLeft: 10 }} />}
+                  </Button>
+                  {showActiveLoans ? (
                     <div>
-                      {userInactiveLoansList ? <h5 className="userLoanListContainerTitle">Your Inactive Loans:</h5> : null}
-                      {userInactiveLoansList}
-                      {totalInactiveLoanPages > 1 ? inactiveLoanPagination : null}
+                      {userActiveLoansList ? <h5 className="text-left m-2">Your Active Loans:</h5> : null}
+                      {userActiveLoansList}
+                      {totalActiveLoanPages > 1 ? activeLoanPagination : null}
                     </div>
-                  ) : null }
+                  ) : null}
+                </div>
+                <div className="col-auto">
+                  <Button
+                    onClick={() => setShowInactiveLoans(!showInactiveLoans)}
+                    variant="light"
+                    className="m-2"
+                  >
+                    {showInactiveLoans ? 'Close Inactive Loans' : 'See Inactive Loans'}
+                    {showInactiveLoans
+                      ? <FontAwesomeIcon icon={faCaretUp} className="ml-2" />
+                      : <FontAwesomeIcon icon={faCaretDown} className="ml-2" />}
+                  </Button>
+                  {showInactiveLoans
+                    ? (
+                      <div>
+                        {userInactiveLoansList ? <h5 className="text-left m-2">Your Inactive Loans:</h5> : null}
+                        {userInactiveLoansList}
+                        {totalInactiveLoanPages > 1 ? inactiveLoanPagination : null}
+                      </div>
+                    ) : null}
+                </div>
               </div>
             </div>
           </div>

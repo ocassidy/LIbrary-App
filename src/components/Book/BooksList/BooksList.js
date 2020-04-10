@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import Card from 'react-bootstrap/Card';
-import { Button, FormControl, Pagination } from 'react-bootstrap';
+import {
+  Button, FormControl, FormLabel, Pagination,
+} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilter, faSearch, faSync } from '@fortawesome/free-solid-svg-icons';
 import { push } from 'connected-react-router';
 import { deleteBook, getBookList, getBookPage } from '../../../redux/actions';
-import './BookList.css';
 import BooksListFilters from './BookListFilters';
 import AdminDeleteBookConfirmModal from '../../Admin/AdminEditDeleteBook/AdminDeleteBookConfirmModal';
 
@@ -59,88 +60,95 @@ export function BooksList(props) {
   const books = (pagedBooks && pagedBooks.length > 0)
     ? pagedBooks.map((book) => (
       <Card
-        className="text-center bookListCard"
-        border="info"
+        className="card mb-2"
+        border="dark"
         key={book.id}
       >
-        <div className="row no-gutters bookListItemDetailsContainer">
-          <div className="col-md-2">
-            <img src={book.image} className="bookListItemImg" alt="bookImg" />
+        <div className="row no-gutters card-body justify-content-center">
+          <div className="col-auto align-self-center mr-5">
+            <img src={book.image} className="img-thumbnail rounded w-50" alt="bookImg" />
           </div>
-          <div className="col-auto bookListItemDetailsTextContainer">
-            <h4 className="card-title bookListItemText">{book.name}</h4>
-            <div className="card-text bookListItemText">
-              <span className="bookListItemHeaderText">Book ID: </span>
+          <div className="col-auto">
+            <div className="card-title h4">{book.name}</div>
+            <div className="card-text mt-4">
+              <span className="font-weight-bold">Book ID: </span>
               {book.id}
             </div>
-            <div className="card-text bookListItemText">
-              <span className="bookListItemHeaderText">Edition: </span>
+            <div className="card-text mt-4">
+              <span className="font-weight-bold">Edition: </span>
               {book.edition}
             </div>
-            <div className="card-text bookListItemText">
-              <span className="bookListItemHeaderText">Authors: </span>
-              {book.authors[0].name}
+            <div className="card-text mt-4">
+              <span className="font-weight-bold">Author: </span>
+              {book.author}
             </div>
-            <div className="card-text bookListItemText">
-              <span className="bookListItemHeaderText">Year Published: </span>
+            <div className="card-text mt-4">
+              <span className="font-weight-bold">Year Published: </span>
               {book.yearPublished}
             </div>
-            <div className="card-text bookListItemText">
-              <span className="bookListItemHeaderText">Genre: </span>
+            <div className="card-text mt-4">
+              <span className="font-weight-bold">Genre: </span>
               {book.genre}
             </div>
           </div>
-          <div className="col-auto bookDescription">
-            <p className="card-text bookListItemDescription">
-              <span className="bookListDescriptionItemHeaderText">Description: </span>
+          <div className="col-auto">
+            <div className="card-text mt-4">
+              <span className="font-weight-bold">Description: </span>
               {book.description}
-            </p>
+            </div>
           </div>
 
-          <div className="bookListButtonContainer">
-            <Button
-              className="bookListViewBookButton"
-              onClick={() => handleGotoBookPage(book)}
-              variant="success"
-            >
-              View Book
-            </Button>
+          <div className="row no-gutters mt-auto ml-auto">
+            <div className="col-auto m-2">
+              <Button
+                onClick={() => handleGotoBookPage(book)}
+                variant="success"
+              >
+                View Book
+              </Button>
+            </div>
             {adminMode
               ? (
-                <div>
-                  <Button
-                    className="bookListEditBookButton"
-                    onClick={() => handleGotoBookEditPage(book)}
-                    variant="info"
-                  >
-                    Edit Book
-                  </Button>
-                  <Button
-                    className="bookListDeleteBookButton"
-                    onClick={() => { setShowModal(!showModal); setBookToDelete(book); }}
-                    variant="danger"
-                  >
-                    Delete Book
-                  </Button>
+                <div className="row no-gutters">
+                  <div className="col-auto m-2">
+                    <Button
+                      onClick={() => handleGotoBookEditPage(book)}
+                      variant="info"
+                    >
+                      Edit Book
+                    </Button>
+                  </div>
+                  <div className="col-auto m-2">
+                    <Button
+                      onClick={() => {
+                        setShowModal(!showModal);
+                        setBookToDelete(book);
+                      }}
+                      variant="danger"
+                    >
+                      Delete Book
+                    </Button>
+                  </div>
                 </div>
               ) : null}
           </div>
         </div>
-        <div className="card-footer w-100 bookListItemFooter">
-          {`Publisher: ${book.publisher}`}
+        <div className="card-footer col-auto text-right">
+          Publisher: {book.publisher}
         </div>
       </Card>
     ))
     : (
-      <div>
+      <div className="text-center">
         No books found, please try again.
       </div>
     );
 
   const search = (
-    <div className="bookListSearchBarContainer">
-      <h5 className="bookListSearchBarTitle">Search:</h5>
+    <div className="row no-gutters">
+      <FormLabel className="col-auto m-1 h2">Search:</FormLabel>
       <FormControl
+        className="m-1"
         onChange={(e) => handleSearchChange(e)}
         placeholder="Start typing to search..."
         aria-label="Start typing to search..."
@@ -150,38 +158,43 @@ export function BooksList(props) {
   );
 
   const paginationItemsPerPage = (
-    <div className="bookPaginationFilterContainer">
-      Items Per Page:
-      <Button
-        className="bookPaginationFilterContainerButton"
-        onClick={() => {
-          setNumItemsPerPage(5);
-          handleGetBookPage(0, numItemsPerPage);
-        }}
-        variant="light"
-      >
-        5
-      </Button>
-      <Button
-        className="bookPaginationFilterContainerButton"
-        onClick={() => {
-          setNumItemsPerPage(10);
-          handleGetBookPage(0, numItemsPerPage);
-        }}
-        variant="light"
-      >
-        10
-      </Button>
-      <Button
-        className="bookPaginationFilterContainerButton"
-        onClick={() => {
-          setNumItemsPerPage(20);
-          handleGetBookPage(0, numItemsPerPage);
-        }}
-        variant="light"
-      >
-        20
-      </Button>
+    <div className="row no-gutters justify-content-end mb-2 align-items-center">
+      <div className="col-auto mr-2">
+        Items Per Page:
+      </div>
+      <div className="col-auto mr-2">
+        <Button
+          onClick={() => {
+            setNumItemsPerPage(5);
+            handleGetBookPage(0, 5);
+          }}
+          variant="light"
+        >
+          5
+        </Button>
+      </div>
+      <div className="col-auto mr-2">
+        <Button
+          onClick={() => {
+            setNumItemsPerPage(10);
+            handleGetBookPage(0, 10);
+          }}
+          variant="light"
+        >
+          10
+        </Button>
+      </div>
+      <div className="col-auto mr-2">
+        <Button
+          onClick={() => {
+            setNumItemsPerPage(20);
+            handleGetBookPage(0, 20);
+          }}
+          variant="light"
+        >
+          20
+        </Button>
+      </div>
     </div>
   );
 
@@ -196,60 +209,67 @@ export function BooksList(props) {
   }
 
   const pagination = (
-    <div className="bookListPagination">
+    <div className="mr-5">
       <Pagination>{paginationItems}</Pagination>
     </div>
   );
 
   return (
-    <div>
-      <div>
-        {bookPage
-          ? (
-            <div className="bookListTopContainer">
-              <div className="bookListTopButtonContainer">
-                <Button
-                  onClick={() => setIsSearchActiveActive(!isSearchActive)}
-                  variant="light"
-                  className="bookListTopContainerSearchButton"
-                >
-                  <FontAwesomeIcon icon={faSearch} style={{ marginRight: 10 }} />
-                  Search
-                </Button>
-                <Button
-                  onClick={() => setIsFilterDropdownActive(!isFilterDropdownActive)}
-                  variant="light"
-                  className="bookListTopContainerFilterButton"
-                >
-                  <FontAwesomeIcon icon={faFilter} style={{ marginRight: 10 }} />
-                  Filters
-                </Button>
-                <Button
-                  onClick={() => { handleGetBookList(); handleGetBookPage(); }}
-                  variant="light"
-                  className="bookListTopContainerRefreshButton"
-                >
-                  <FontAwesomeIcon icon={faSync} style={{ marginRight: 10 }} />
-                  Refresh
-                </Button>
-              </div>
-              {isSearchActive ? search : null}
-              {isFilterDropdownActive ? <BooksListFilters /> : null}
-              {paginationItemsPerPage}
+    <div className="container-fluid text-justify">
+      {bookPage
+        ? (
+          <div className="row no-gutters">
+            <div className="col-12 mr-2">
+              <Button
+                onClick={() => setIsSearchActiveActive(!isSearchActive)}
+                variant="light"
+                className="mr-2"
+              >
+                Search
+                <FontAwesomeIcon icon={faSearch} className="ml-2" />
+              </Button>
+              <Button
+                onClick={() => setIsFilterDropdownActive(!isFilterDropdownActive)}
+                variant="light"
+                className="mr-2"
+              >
+                Filters
+                <FontAwesomeIcon icon={faFilter} className="ml-2" />
+              </Button>
+              <Button
+                onClick={() => {
+                  handleGetBookList();
+                  handleGetBookPage(0, 5);
+                }}
+                variant="light"
+                className="mr-2"
+              >
+                Refresh
+                <FontAwesomeIcon icon={faSync} className="ml-2" />
+              </Button>
             </div>
-          ) : null}
-        {books}
-        {totalPages > 1 ? pagination : null}
-        {showModal ? (
-          <AdminDeleteBookConfirmModal
-            handleDeleteBook={() => handleDeleteBook(bookToDelete.id)}
-            bookToDelete={bookToDelete}
-            show={showModal}
-            onHide={() => setShowModal(false)}
-          />
-        )
-          : null}
-      </div>
+            {isFilterDropdownActive
+              ? (
+                <div className="col-12 m-2">
+                  <BooksListFilters />
+                </div>
+              )
+              : null}
+            <div className="col-12">{paginationItemsPerPage}</div>
+            <div className="col-12">{isSearchActive ? search : null}</div>
+          </div>
+        ) : null}
+      {books}
+      {totalPages > 1 ? pagination : null}
+      {showModal ? (
+        <AdminDeleteBookConfirmModal
+          handleDeleteBook={() => handleDeleteBook(bookToDelete.id)}
+          bookToDelete={bookToDelete}
+          show={showModal}
+          onHide={() => setShowModal(false)}
+        />
+      )
+        : null}
     </div>
   );
 }

@@ -3,7 +3,7 @@ import './NavBar.css';
 
 function NotFound() {
   return (
-    <div>
+    <div style={{ textAlign: 'center' }}>
       <h2>404 Not Found</h2>
       Sorry we could not find the page you were looking for.
       <div>

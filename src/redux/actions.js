@@ -97,7 +97,7 @@ export const postLoginFailure = (message) => ({
 
 export const postLogin = (usernameOrEmail, password) => (dispatch) => {
   axios.post(`${API_BASE_URL}/auth/login`, {
-    usernameOrEmail: usernameOrEmail.trim(),
+    usernameOrEmail: usernameOrEmail.trim().toLowerCase(),
     password: password.trim(),
   },
   axiosConfig)
@@ -381,7 +381,7 @@ export const putEditBook = (editBookRequest) => (dispatch) => axios.put(`${API_B
     edition: editBookRequest.edition.trim(),
     genre: editBookRequest.genre.trim(),
     yearPublished: editBookRequest.yearPublished.trim(),
-    authors: editBookRequest.authors,
+    author: editBookRequest.author,
   },
   {
     headers: {

@@ -11,11 +11,21 @@
     line-height: 2rem;
 }
 
-.linkTo {
-    margin: 10px;
+.registerLinkTo {
+    margin-top: 10px;
 }
 
 .requiredStar {
     color: red;
     font-size: 22px;
+}
+
+.registerForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.registerFormButton {
+    align-self: flex-end;
+    margin-top: 10px;
 }

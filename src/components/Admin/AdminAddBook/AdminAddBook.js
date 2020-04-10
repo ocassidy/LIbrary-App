@@ -12,13 +12,13 @@ export default function AdminAddBook() {
   const [publisher, setPublisher] = useState('');
   const [copies, setCopies] = useState('');
   const [copiesAvailable, setCopiesAvailable] = useState('');
-  const [ISBN10, setISBN10] = useState('');
-  const [ISBN13, setISBN13] = useState('');
+  const [isbn10, setISBN10] = useState('');
+  const [isbn13, setISBN13] = useState('');
   const [description, setDescription] = useState('');
   const [edition, setEdition] = useState('');
   const [genre, setGenre] = useState('');
   const [yearPublished, setYearPublished] = useState('');
-  const [authors, setAuthors] = useState([]);
+  const [author, setAuthor] = useState('');
 
   const postAddBook = (e) => {
     e.preventDefault();
@@ -31,13 +31,13 @@ export default function AdminAddBook() {
         publisher: publisher.trim(),
         copies: copies.trim(),
         copiesAvailable: copiesAvailable.trim(),
-        isbn10: ISBN10.trim(),
-        isbn13: ISBN13.trim(),
+        isbn10: isbn10.trim(),
+        isbn13: isbn13.trim(),
         description: description.trim(),
         edition: edition.trim(),
         genre: genre.trim(),
         yearPublished: yearPublished.trim(),
-        authors: [{ name: authors }],
+        author: author.trim(),
       },
       {
         headers: {
@@ -47,6 +47,7 @@ export default function AdminAddBook() {
       })
       .then((response) => {
         toastr.success('Book Added!', 'Success', { timeOut: 10000 });
+        window.location.reload();
         return response.data;
       })
       .catch((error) => {
@@ -55,117 +56,126 @@ export default function AdminAddBook() {
   };
 
   return (
-    <div>
+    <div className="container-fluid">
       <Form
-        className="bookAddForm justify-content-center row no-gutters"
+        className="row no-gutters"
         onSubmit={(e) => postAddBook(e)}
       >
-        <div className="col-sm ml-4 mr-4">
-          <Form.Label>Book Image</Form.Label>
-          <Form.Control
-            type="text"
-            className="bookBookImageInput"
-            placeholder="Book Image"
-            onChange={(e) => setImage(e.target.value)}
-          />
+        <div className="col-12">
+          <div className="row no-gutters">
+            <div className="col-3">
+              <div className="mb-2 font-weight-bold">Image Preview:</div>
+              <img src={image} className="img-fluid" alt="Preview will appear here once address bar is filled." />
+            </div>
+            <div className="col-9">
+              <div className="col-12 mb-2">
+                <div className="mb-2 font-weight-bold">Book Title:</div>
+                <Form.Control
+                  type="text"
+                  className="bookTitleInput"
+                  placeholder="Book Title"
+                  required
+                  onChange={(e) => setTitle(e.target.value)}
+                />
+              </div>
+              <div className="col-12 mb-2">
+                <div className="mb-2 font-weight-bold">Book Subtitle:</div>
+                <Form.Control
+                  type="text"
+                  className="bookSubtitleInput"
+                  placeholder="Book Subtitle"
+                  onChange={(e) => setSubtitle(e.target.value)}
+                />
+              </div>
+              <div className="col-12 mt-auto font-weight-bold mb-2">
+                <div className="mb-2 font-weight-bold">Book Image:</div>
+                <Form.Control
+                  type="text"
+                  placeholder="Book Image"
+                  as="textarea"
+                  rows="3"
+                  onChange={(e) => setImage(e.target.value)}
+                />
+              </div>
+              <div className="col-12 mb-2">
+                <div className="mb-2 font-weight-bold">Book Publisher:</div>
+                <Form.Control
+                  type="text"
+                  className="bookPublisherInput"
+                  placeholder="Book Publisher"
+                  required
+                  onChange={(e) => setPublisher(e.target.value)}
+                />
+              </div>
+              <div className="col-12 mb-2">
+                <div className="mb-2 font-weight-bold">Total Copies:</div>
+                <Form.Control
+                  type="text"
+                  className="bookCopiesInput"
+                  placeholder="Total Copies"
+                  required
+                  onChange={(e) => setCopies(e.target.value)}
+                />
+              </div>
+              <div className="col-12 mb-2">
+                <div className="mb-2 font-weight-bold">Available Copies:</div>
+                <Form.Control
+                  type="text"
+                  className="bookAvailableCopiesInput"
+                  placeholder="Available Copies"
+                  required
+                  onChange={(e) => setCopiesAvailable(e.target.value)}
+                />
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="col-md ml-4 mr-4">
-          <Form.Label>
-            Book Title
-            <span className="requiredStar"> * </span>
-          </Form.Label>
-          <Form.Control
-            type="text"
-            className="bookTitleInput"
-            placeholder="Book Title"
-            required
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <Form.Label>Book Subtitle</Form.Label>
-          <Form.Control
-            type="text"
-            className="bookSubtitleInput"
-            placeholder="Book Subtitle"
-            onChange={(e) => setSubtitle(e.target.value)}
-          />
-          <Form.Label>
-            Book Publisher
-            <span className="requiredStar"> * </span>
-          </Form.Label>
-          <Form.Control
-            type="text"
-            className="bookPublisherInput"
-            placeholder="Book Publisher"
-            required
-            onChange={(e) => setPublisher(e.target.value)}
-          />
-          <Form.Label>
-            Total Copies
-            <span className="requiredStar"> * </span>
-          </Form.Label>
-          <Form.Control
-            type="number"
-            className="bookCopiesInput"
-            placeholder="Total Copies"
-            required
-            onChange={(e) => setCopies(e.target.value)}
-          />
-          <Form.Label>
-            Available Copies
-            <span className="requiredStar"> * </span>
-          </Form.Label>
-          <Form.Control
-            type="number"
-            className="bookAvailableCopiesInput"
-            placeholder="Available Copies"
-            required
-            onChange={(e) => setCopiesAvailable(e.target.value)}
-          />
-          <Form.Label>
-            Authors
-            <span className="requiredStar"> * </span>
-          </Form.Label>
+        <div className="col-12 mb-2">
+          <div className="mb-2 font-weight-bold">Author:</div>
           <Form.Control
             type="text"
             className="bookAuthorsInput"
-            placeholder="Authors"
+            placeholder="Author"
             required
-            onChange={(e) => setAuthors(e.target.value)}
+            onChange={(e) => setAuthor(e.target.value)}
           />
         </div>
-
-        <div className="col-md ml-4 mr-4">
-          <Form.Label>
-            ISBN 10
-            <span className="requiredStar"> * </span>
-          </Form.Label>
+        <div className="col-12 mb-2">
+          <div className="row no-gutters">
+            <div className="col-6 mr-2">
+              <div className="mb-2 font-weight-bold">ISBN 10:</div>
+              <Form.Control
+                type="text"
+                className="bookISBN10Input"
+                placeholder="ISBN 10"
+                required
+                onChange={(e) => setISBN10(e.target.value)}
+              />
+            </div>
+            <div className="col-5">
+              <div className="mb-2 font-weight-bold">ISBN 13:</div>
+              <Form.Control
+                type="text"
+                className="bookISBN13Input"
+                placeholder="ISBN 13"
+                onChange={(e) => setISBN13(e.target.value)}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="col-12 mb-2">
+          <div className="mb-2 font-weight-bold">Book Description:</div>
           <Form.Control
-            type="number"
-            className="bookISBN10Input"
-            placeholder="ISBN 10"
-            required
-            onChange={(e) => setISBN10(e.target.value)}
-          />
-          <Form.Label>ISBN 13</Form.Label>
-          <Form.Control
-            type="number"
-            className="bookISBN13Input"
-            placeholder="ISBN 13"
-            onChange={(e) => setISBN13(e.target.value)}
-          />
-          <Form.Label>Book Description</Form.Label>
-          <Form.Control
-            as="textarea"
-            rows="3"
             type="text"
+            as="textarea"
+            rows="5"
             className="bookDescriptionInput"
             placeholder="Book Description"
             onChange={(e) => setDescription(e.target.value)}
           />
-          <Form.Label>
-            Book Edition
-            <span className="requiredStar"> * </span>
-          </Form.Label>
+        </div>
+        <div className="col-12 mb-2">
+          <div className="mb-2 font-weight-bold">Book Edition:</div>
           <Form.Control
             type="text"
             className="bookEditionInput"
@@ -173,21 +183,20 @@ export default function AdminAddBook() {
             required
             onChange={(e) => setEdition(e.target.value)}
           />
-          <Form.Label>
-            Book Genre
-            <span className="requiredStar"> * </span>
-          </Form.Label>
+        </div>
+        <div className="col-12 mb-2">
+          <div className="mb-2 font-weight-bold">Book Genre:</div>
           <Form.Control
+            value={genre || ''}
             type="text"
             className="bookGenreInput"
             placeholder="Book Genre"
             required
             onChange={(e) => setGenre(e.target.value)}
           />
-          <Form.Label>
-            Year Published
-            <span className="requiredStar"> * </span>
-          </Form.Label>
+        </div>
+        <div className="col-12 mb-2">
+          <div className="mb-2 font-weight-bold">Year Published:</div>
           <Form.Control
             type="text"
             className="bookYearPublishedInput"
@@ -195,8 +204,10 @@ export default function AdminAddBook() {
             required
             onChange={(e) => setYearPublished(e.target.value)}
           />
-          <Button className="addBookButton" variant="primary" type="submit">
-            Add Book
+        </div>
+        <div className="mb-2 font-weight-bold">
+          <Button className="editBookButton" variant="primary" type="submit">
+            Save Edits
           </Button>
         </div>
       </Form>

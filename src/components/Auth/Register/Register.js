@@ -30,83 +30,81 @@ export function Register(props) {
           Please Register to use the library system.
         </div>
         <Form className="registerForm" onSubmit={(e) => onHandleRegister(username, email, password, retypePassword, firstName, lastName, e)}>
-          <Form.Group controlId="registerFormGroup">
-            <Form.Label>
-              Username
-              <span className="requiredStar"> * </span>
-            </Form.Label>
-            <Form.Control
-              type="username"
-              className="registerUsernameInput"
-              placeholder="Username"
-              required
-              onChange={(e) => setUsername(e.target.value)}
-            />
-            <Form.Label>
-              First Name
-              <span className="requiredStar"> * </span>
-            </Form.Label>
-            <Form.Control
-              type="username"
-              className="registerFirstNameInput"
-              placeholder="First Name"
-              required
-              onChange={(e) => setFirstName(e.target.value)}
-            />
-            <Form.Label>
-              Last Name
-              <span className="requiredStar"> * </span>
-            </Form.Label>
-            <Form.Control
-              type="username"
-              className="registerLastNameInput"
-              placeholder="Last Name"
-              required
-              onChange={(e) => setLastName(e.target.value)}
-            />
-            <Form.Label>
-              Email
-              <span className="requiredStar"> * </span>
-            </Form.Label>
-            <Form.Control
-              type="email"
-              className="registerEmailInput"
-              placeholder="Email"
-              required
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <Form.Label>
-              Password
-              <span className="requiredStar"> * </span>
-            </Form.Label>
-            <Form.Control
-              type="password"
-              className="registerPasswordInput"
-              placeholder="Password"
-              required
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <Form.Label>
-              Retype Password
-              <span className="requiredStar"> * </span>
-            </Form.Label>
-            <Form.Control
-              type="password"
-              className="registerRetypePasswordInput"
-              placeholder="Retype Password"
-              required
-              onChange={(e) => setRetypePassword(e.target.value)}
-            />
-          </Form.Group>
+          <Form.Label>
+            Username
+            <span className="requiredStar"> * </span>
+          </Form.Label>
+          <Form.Control
+            type="username"
+            className="registerUsernameInput"
+            placeholder="Username"
+            required
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <Form.Label>
+            First Name
+            <span className="requiredStar"> * </span>
+          </Form.Label>
+          <Form.Control
+            type="username"
+            className="registerFirstNameInput"
+            placeholder="First Name"
+            required
+            onChange={(e) => setFirstName(e.target.value)}
+          />
+          <Form.Label>
+            Last Name
+            <span className="requiredStar"> * </span>
+          </Form.Label>
+          <Form.Control
+            type="username"
+            className="registerLastNameInput"
+            placeholder="Last Name"
+            required
+            onChange={(e) => setLastName(e.target.value)}
+          />
+          <Form.Label>
+            Email
+            <span className="requiredStar"> * </span>
+          </Form.Label>
+          <Form.Control
+            type="email"
+            className="registerEmailInput"
+            placeholder="Email"
+            required
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Form.Label>
+            Password
+            <span className="requiredStar"> * </span>
+          </Form.Label>
+          <Form.Control
+            type="password"
+            className="registerPasswordInput"
+            placeholder="Password"
+            required
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Form.Label>
+            Retype Password
+            <span className="requiredStar"> * </span>
+          </Form.Label>
+          <Form.Control
+            type="password"
+            className="registerRetypePasswordInput"
+            placeholder="Retype Password"
+            required
+            onChange={(e) => setRetypePassword(e.target.value)}
+          />
           <Button className="registerFormButton" variant="primary" type="submit">
             Register
           </Button>
         </Form>
-        <div className="linkTo">
+        <div className="registerLinkTo">
           Already have an account?
           <a href="/login"> Sign in</a>
         </div>
-        <div className="linkTo">
+        <div className="registerLinkTo">
           View books?
           <a href="/books"> Click Here</a>
         </div>

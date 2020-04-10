@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookOpen, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { push } from 'connected-react-router';
 import { deleteBook, getBook, postLoanRequest } from '../../../redux/actions';
-import './BookPage.css';
 import AdminDeleteBookConfirmModal from '../../Admin/AdminEditDeleteBook/AdminDeleteBookConfirmModal';
 
 function BookPage(props) {
@@ -23,84 +22,101 @@ function BookPage(props) {
   }, [id, handleGetBook]);
 
   return (
-    <div>
+    <div className="container-fluid text-justify">
       {book
         ? (
-          <div className="bookDetailsContainer">
-            <div className="bookImgCol">
-              <img src={book.image} className="bookImg" alt="bookImg" />
+          <div className="row no-gutters justify-content-center">
+            <div className="col-sm-12 col-md-4 col-lg-3 align-self-center">
+              <img src={book.image} className="img-fluid" alt="bookImg" />
             </div>
-            <div className="bookDetailsCol">
-              <h4 className="bookDetailsItem">{book.name}</h4>
-              {book.subtitle ? (
-                <div className="bookDetailsItem">
-                  <span className="bookDetailsItemHeaderText">Subtitle: </span>
-                  {book.subtitle}
-                </div>
-              ) : null}
-              <div className="bookDetailsItem">
-                <span className="bookDetailsItemHeaderText">Edition: </span>
+            <div className="col-sm-12 col-md-8 col-lg-9">
+              <div className="col-12 mb-2">
+                <div className="display-4">{book.name}</div>
+              </div>
+              <div className="col-12 mb-2">
+                {book.subtitle ? (
+                  <div className="bookDetailsItem">
+                    <span className="font-weight-bold">Subtitle: </span>
+                    {book.subtitle}
+                  </div>
+                ) : null}
+              </div>
+              <div className="col-12 mb-2">
+                <span className="font-weight-bold">Edition: </span>
                 {book.edition}
               </div>
-              <div className="bookDetailsItem">
-                <span className="bookDetailsItemHeaderText">Authors: </span>
-                {book.authors[0].name}
+              <div className="col-12 mb-2">
+                <span className="font-weight-bold">Author: </span>
+                {book.author}
               </div>
-              <div className="bookDetailsItem">
-                <span className="bookDetailsItemHeaderText">Year Published: </span>
+              <div className="col-12 mb-2">
+                <span className="font-weight-bold">Year Published: </span>
                 {book.yearPublished}
               </div>
-              <div className="bookDetailsItem">
-                <span className="bookDetailsItemHeaderText">Year Published: </span>
+              <div className="col-12 mb-2">
+                <span className="font-weight-bold">Year Published: </span>
                 {book.publisher}
               </div>
-              <div className="bookDetailsItem">
-                <span className="bookDetailsItemHeaderText">Genre: </span>
+              <div className="col-12 mb-2">
+                <span className="font-weight-bold">Genre: </span>
                 {book.genre}
               </div>
-              <div className="bookDetailsItem">
-                <span className="bookDescriptionItemHeaderText">Description: </span>
+              <div className="col-12 mb-2">
+                <span className="font-weight-bold">Description: </span>
                 {book.description}
               </div>
-              <div className="bookDetailsItem">
-                <span className="bookDescriptionItemHeaderText">Copies Available: </span>
+              <div className="col-12 mb-2">
+                <span className="font-weight-bold">Copies Available: </span>
                 {book.copiesAvailable}
               </div>
-              <div className="bookDetailsItem">
-                <span className="bookDescriptionItemHeaderText">ISBN-10: </span>
+              <div className="col-12 mb-2">
+                <span className="font-weight-bold">ISBN-10: </span>
                 {book.isbn10}
               </div>
-              <div className="bookDetailsItem">
-                <span className="bookDescriptionItemHeaderText">ISBN-13: </span>
+              <div className="col-12 mb-2">
+                <span className="font-weight-bold">ISBN-13: </span>
                 {book.isbn13}
               </div>
-              <div className="bookPageButtonContainer">
-                <Button
-                  onClick={() => handleLoanBook(id, currentUser.username)}
-                  variant="primary"
-                  className="withdrawButton"
-                >
-                  <FontAwesomeIcon icon={faBookOpen} style={{ marginRight: 10 }} />
-                  Loan Book
-                </Button>
-                {isAdmin
-                  ? (
-                    <div>
-                      <Button onClick={() => handleGotoBookEditPage(book)} variant="success" className="editButton">
-                        <FontAwesomeIcon icon={faEdit} style={{ marginRight: 10 }} />
-                        Edit Book
-                      </Button>
-                      <Button
-                        className="bookListDeleteBookButton"
-                        onClick={() => { setShowModal(!showModal); setBookToDelete(book); }}
-                        variant="danger"
-                      >
-                        <FontAwesomeIcon icon={faTrash} style={{ marginRight: 10 }} />
-                        Delete Book
-                      </Button>
-                    </div>
-                  )
-                  : null}
+              <div className="col-sm-12 col-md-4 col-lg-auto mb-2">
+                <div className="row no-gutters mt-2 mb-2">
+                  <div className="col-auto mr-2 mb-2">
+                    <Button
+                      onClick={() => handleLoanBook(id, currentUser.username)}
+                      variant="primary"
+                      className="withdrawButton"
+                    >
+                      <FontAwesomeIcon icon={faBookOpen} className="ml-2" />
+                      Loan Book
+                    </Button>
+                  </div>
+                  {isAdmin
+                    ? (
+                      <div className="col-sm-12 col-md-4 col-lg-auto mr-2 mb-2">
+                        <Button onClick={() => handleGotoBookEditPage(book)} variant="success" className="editButton">
+                          <FontAwesomeIcon icon={faEdit} style={{ marginRight: 10 }} />
+                          Edit Book
+                        </Button>
+                      </div>
+                    )
+                    : null}
+                  {isAdmin
+                    ? (
+                      <div className="col-sm-12 col-md-4 col-lg-auto mr-2 mb-2">
+                        <Button
+                          className="bookListDeleteBookButton"
+                          onClick={() => {
+                            setShowModal(!showModal);
+                            setBookToDelete(book);
+                          }}
+                          variant="danger"
+                        >
+                          <FontAwesomeIcon icon={faTrash} style={{ marginRight: 10 }} />
+                          Delete Book
+                        </Button>
+                      </div>
+                    )
+                    : null}
+                </div>
               </div>
             </div>
             {showModal ? (

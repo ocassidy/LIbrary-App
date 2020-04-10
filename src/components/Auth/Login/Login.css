@@ -17,11 +17,21 @@
     font-weight: bold;
 }
 
-.linkTo {
-    margin: 10px;
+.loginLinkTo {
+    margin-top: 10px;
 }
 
 .requiredStar {
     color: red;
     font-size: 22px;
+}
+
+.loginForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.loginButton {
+    margin-top: 10px;
+    align-self: flex-end;
 }

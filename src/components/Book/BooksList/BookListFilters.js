@@ -2,9 +2,8 @@ import React, { forwardRef, useState } from 'react';
 import {
   Button, Dropdown, FormControl,
 } from 'react-bootstrap';
-import './BookListFilters.css';
-import { faFilter } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFilter } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function BooksListFilters(props) {
   const [genreFilter, setGenreFilter] = useState('');
@@ -23,7 +22,7 @@ function BooksListFilters(props) {
         onClick(e);
       }}
     >
-      <FontAwesomeIcon icon={faFilter} style={{ marginRight: 10 }} />
+      <FontAwesomeIcon icon={faFilter} className="ml-2" />
       {children}
     </Button>
   ));
@@ -55,31 +54,15 @@ function BooksListFilters(props) {
   );
 
   const filters = (
-    <div className="filtersContainer">
-      <Dropdown>
-        <Dropdown.Toggle as={GenreToggle} id="dropdown-custom-components">
-          Genre Filter
-        </Dropdown.Toggle>
+    <Dropdown>
+      <Dropdown.Toggle as={GenreToggle} id="dropdown-custom-components">
+        Genre Filter
+      </Dropdown.Toggle>
 
-        <Dropdown.Menu as={GenreMenu}>
-          {mappedFilters}
-        </Dropdown.Menu>
-      </Dropdown>
-      {/* <Form> */}
-      {/*  <Form.Check */}
-      {/*    inline */}
-      {/*    type="switch" */}
-      {/*    id="custom-switch" */}
-      {/*    label="Check this switch" */}
-      {/*  /> */}
-      {/*  <Form.Check */}
-      {/*    inline */}
-      {/*    type="switch" */}
-      {/*    label="disabled switch" */}
-      {/*    id="disabled-custom-switch" */}
-      {/*  /> */}
-      {/* </Form> */}
-    </div>
+      <Dropdown.Menu as={GenreMenu}>
+        {mappedFilters}
+      </Dropdown.Menu>
+    </Dropdown>
   );
 
   return (
