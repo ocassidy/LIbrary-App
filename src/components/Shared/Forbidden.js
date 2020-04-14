@@ -1,10 +1,9 @@
 import React from 'react';
-import './NavBar.css';
 
 function Forbidden() {
   return (
-    <div>
-      <h2>403 Forbidden</h2>
+    <div className="text-center">
+      <div className="h2">403 Forbidden</div>
       You do not have permission to access this page
       <div>
         <a href="/">Click here to return home</a>

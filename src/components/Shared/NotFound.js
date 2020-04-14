@@ -1,10 +1,9 @@
 import React from 'react';
-import './NavBar.css';
 
 function NotFound() {
   return (
-    <div style={{ textAlign: 'center' }}>
-      <h2>404 Not Found</h2>
+    <div className="text-center">
+      <div className="h2">404 Not Found</div>
       Sorry we could not find the page you were looking for.
       <div>
         <a href="/">Click here to return home</a>

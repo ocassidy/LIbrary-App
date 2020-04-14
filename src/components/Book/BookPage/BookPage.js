@@ -25,9 +25,9 @@ function BookPage(props) {
     <div className="container-fluid text-justify">
       {book
         ? (
-          <div className="row no-gutters justify-content-center">
-            <div className="col-sm-12 col-md-4 col-lg-3 align-self-center">
-              <img src={book.image} className="img-fluid" alt="bookImg" />
+          <div className="row no-gutters justify-content-center align-items-center">
+            <div className="col-sm-12 col-md-4 col-lg-3">
+              <img src={book.image} className="img-fluid mx-auto d-block w-75" alt="bookImg" />
             </div>
             <div className="col-sm-12 col-md-8 col-lg-9">
               <div className="col-12 mb-2">
@@ -85,16 +85,16 @@ function BookPage(props) {
                       variant="primary"
                       className="withdrawButton"
                     >
-                      <FontAwesomeIcon icon={faBookOpen} className="ml-2" />
                       Loan Book
+                      <FontAwesomeIcon icon={faBookOpen} className="ml-2" />
                     </Button>
                   </div>
                   {isAdmin
                     ? (
                       <div className="col-sm-12 col-md-4 col-lg-auto mr-2 mb-2">
                         <Button onClick={() => handleGotoBookEditPage(book)} variant="success" className="editButton">
-                          <FontAwesomeIcon icon={faEdit} style={{ marginRight: 10 }} />
                           Edit Book
+                          <FontAwesomeIcon icon={faEdit} className="ml-2" />
                         </Button>
                       </div>
                     )
@@ -110,8 +110,8 @@ function BookPage(props) {
                           }}
                           variant="danger"
                         >
-                          <FontAwesomeIcon icon={faTrash} style={{ marginRight: 10 }} />
                           Delete Book
+                          <FontAwesomeIcon icon={faTrash} className="ml-2" />
                         </Button>
                       </div>
                     )

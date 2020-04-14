@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import AuthenticatedRoute from './components/AuthenticatedRoutes/AuthenticatedRoute';
 import NotFound from './components/Shared/NotFound';
 import {
-  getBookAnalytics, getBookList, getBookPage, getCurrentUser,
+  getBookAnalytics, getBookDateRangeAnalytics, getBookList, getBookPage, getCurrentUser,
 } from './redux/actions';
 import { RegisterContainer } from './components/Auth/Register/Register';
 import { BookListContainer } from './components/Book/BooksList/BooksList';
@@ -34,6 +34,7 @@ function App(props) {
     isAdmin,
     bookAnalyticsList,
     handleGetBookAnalytics,
+    handleGetBookDateRangeAnalytics,
     handleGetBookPage,
   } = props;
 
@@ -43,6 +44,7 @@ function App(props) {
     checkForCurrentUser();
     if (isAdmin) {
       handleGetBookAnalytics();
+      handleGetBookDateRangeAnalytics('2020-01-01', '2020-12-30');
     }
   }, [
     isAuthenticated,
@@ -52,6 +54,7 @@ function App(props) {
     bookAnalyticsList,
     handleGetBookAnalytics,
     handleGetBookPage,
+    handleGetBookDateRangeAnalytics,
   ]);
 
   return (
@@ -191,6 +194,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   handleGetBookAnalytics: () => {
     dispatch(getBookAnalytics());
+  },
+  handleGetBookDateRangeAnalytics: (startDate, endDate) => {
+    dispatch(getBookDateRangeAnalytics(startDate, endDate));
   },
 });
 

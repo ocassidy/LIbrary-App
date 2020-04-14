@@ -28,7 +28,7 @@ import {
   GET_USER_ACTIVE_LOAN_DETAILS_PAGE_FAILURE,
   GET_USER_ACTIVE_LOAN_DETAILS_PAGE_SUCCESS,
   GET_USER_INACTIVE_LOAN_DETAILS_PAGE_FAILURE,
-  GET_USER_INACTIVE_LOAN_DETAILS_PAGE_SUCCESS,
+  GET_USER_INACTIVE_LOAN_DETAILS_PAGE_SUCCESS, GET_DATE_RANGE_ANALYTICS_SUCCESS, GET_DATE_RANGE_ANALYTICS_FAILURE,
 } from './actionTypes';
 
 const axiosConfig = {
@@ -269,6 +269,35 @@ export const getBookAnalytics = () => (dispatch) => axios.get(`${API_BASE_URL}/a
   .catch((error) => {
     toastr.error(error.message, 'Error');
     dispatch(getBookAnalyticsFailure(error.message));
+  });
+
+export const getBookDateRangeAnalyticsSuccess = (bookDateRangeList) => ({
+  type: GET_DATE_RANGE_ANALYTICS_SUCCESS,
+  bookDateRangeList,
+});
+
+export const getBookDateRangeAnalyticsFailure = (message) => ({
+  type: GET_DATE_RANGE_ANALYTICS_FAILURE,
+  message,
+});
+
+export const getBookDateRangeAnalytics = (startDate, endDate) => (dispatch) => axios.get(`${API_BASE_URL}/analytics/date-range`,
+  {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`,
+    },
+    params: {
+      startDate,
+      endDate,
+    },
+  })
+  .then((response) => {
+    dispatch(getBookDateRangeAnalyticsSuccess(response.data));
+  })
+  .catch((error) => {
+    toastr.error(error.message, 'Error');
+    dispatch(getBookDateRangeAnalyticsFailure(error.message));
   });
 
 export const postLoanRequestSuccess = (token) => ({

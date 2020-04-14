@@ -3,6 +3,15 @@ import { shallow } from 'enzyme';
 import { Profile } from './Profile';
 
 describe('Profile test', () => {
+  it('should render spinner when no user data present', () => {
+    const props = {
+      userActiveLoansDetailsPage: { totalPages: 0 },
+      userInactiveLoansDetailsPage: { totalPages: 0 },
+    };
+    const wrapper = shallow(<Profile {...props} />);
+    expect(wrapper.find('.profileSpinner')).toHaveLength(1);
+  });
+
   it('should render profile with user data', () => {
     const props = {
       currentUser: {

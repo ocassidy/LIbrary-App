@@ -50,84 +50,81 @@ function BookEditPage(props) {
       {book
         ? (
           <Form
-            className="row no-gutters"
             onSubmit={(e) => onPutBook(e, book.id, image, title, subtitle, publisher,
               copies, copiesAvailable, isbn10, isbn13, description,
               edition, genre, yearPublished, author)}
           >
-            <div className="col-12">
-              <div className="row no-gutters">
-                <div className="col-3">
-                  <div className="mb-2 font-weight-bold">Image Preview:</div>
-                  <img src={image} className="img-fluid" alt="bookImg" />
+            <div className="row no-gutters">
+              <div className="col-sm-12 col-md-4 col-lg-3">
+                <div className="mb-2 font-weight-bold">Image Preview:</div>
+                <img src={image} className="img-fluid mx-auto d-block w-75" alt="bookImg" />
+              </div>
+              <div className="col-sm-12 col-md-8 col-lg-9">
+                <div className="col-12 mb-2 mt-2 font-weight-bold">Book ID: {book.id}</div>
+                <div className="col-12 mb-2">
+                  <div className="mb-2 font-weight-bold">Book Title:</div>
+                  <Form.Control
+                    value={title || ''}
+                    type="text"
+                    className="bookTitleInput"
+                    placeholder="Book Title"
+                    required
+                    onChange={(e) => setTitle(e.target.value)}
+                  />
                 </div>
-                <div className="col-9">
-                  <div className="col-12 mb-2 mt-2 font-weight-bold">Book ID: {book.id}</div>
-                  <div className="col-12 mb-2">
-                    <div className="mb-2 font-weight-bold">Book Title:</div>
-                    <Form.Control
-                      value={title || ''}
-                      type="text"
-                      className="bookTitleInput"
-                      placeholder="Book Title"
-                      required
-                      onChange={(e) => setTitle(e.target.value)}
-                    />
-                  </div>
-                  <div className="col-12 mb-2">
-                    <div className="mb-2 font-weight-bold">Book Subtitle:</div>
-                    <Form.Control
-                      value={subtitle || ''}
-                      type="text"
-                      className="bookSubtitleInput"
-                      placeholder="Book Subtitle"
-                      onChange={(e) => setSubtitle(e.target.value)}
-                    />
-                  </div>
-                  <div className="col-12 mt-auto font-weight-bold mb-2">
-                    <div className="mb-2 font-weight-bold">Book Image:</div>
-                    <Form.Control
-                      value={image || ''}
-                      type="text"
-                      placeholder="Book Image"
-                      as="textarea"
-                      rows="3"
-                      onChange={(e) => setImage(e.target.value)}
-                    />
-                  </div>
-                  <div className="col-12 mb-2">
-                    <div className="mb-2 font-weight-bold">Book Publisher:</div>
-                    <Form.Control
-                      value={publisher || ''}
-                      type="text"
-                      className="bookPublisherInput"
-                      placeholder="Book Publisher"
-                      required
-                      onChange={(e) => setPublisher(e.target.value)}
-                    />
-                  </div>
-                  <div className="col-12 mb-2">
-                    <div className="mb-2 font-weight-bold">Total Copies:</div>
-                    <Form.Control
-                      value={copies || ''}
-                      type="text"
-                      className="bookCopiesInput"
-                      placeholder="Total Copies"
-                      required
-                      onChange={(e) => setCopies(e.target.value)}
-                    />
-                  </div>
-                  <div className="col-12 mb-2">
-                    <div className="mb-2 font-weight-bold">Available Copies:</div>
-                    <Form.Control
-                      value={copiesAvailable || ''}
-                      type="text"
-                      className="bookAvailableCopiesInput"
-                      placeholder="Available Copies"
-                      required
-                      onChange={(e) => setCopiesAvailable(e.target.value)}
-                    />
-                  </div>
+                <div className="col-12 mb-2">
+                  <div className="mb-2 font-weight-bold">Book Subtitle:</div>
+                  <Form.Control
+                    value={subtitle || ''}
+                    type="text"
+                    className="bookSubtitleInput"
+                    placeholder="Book Subtitle"
+                    onChange={(e) => setSubtitle(e.target.value)}
+                  />
+                </div>
+                <div className="col-12 mt-auto font-weight-bold mb-2">
+                  <div className="mb-2 font-weight-bold">Book Image:</div>
+                  <Form.Control
+                    value={image || ''}
+                    type="text"
+                    placeholder="Book Image"
+                    as="textarea"
+                    rows="3"
+                    onChange={(e) => setImage(e.target.value)}
+                  />
+                </div>
+                <div className="col-12 mb-2">
+                  <div className="mb-2 font-weight-bold">Book Publisher:</div>
+                  <Form.Control
+                    value={publisher || ''}
+                    type="text"
+                    className="bookPublisherInput"
+                    placeholder="Book Publisher"
+                    required
+                    onChange={(e) => setPublisher(e.target.value)}
+                  />
+                </div>
+                <div className="col-12 mb-2">
+                  <div className="mb-2 font-weight-bold">Total Copies:</div>
+                  <Form.Control
+                    value={copies || ''}
+                    type="text"
+                    className="bookCopiesInput"
+                    placeholder="Total Copies"
+                    required
+                    onChange={(e) => setCopies(e.target.value)}
+                  />
+                </div>
+                <div className="col-12 mb-2">
+                  <div className="mb-2 font-weight-bold">Available Copies:</div>
+                  <Form.Control
+                    value={copiesAvailable || ''}
+                    type="text"
+                    className="bookAvailableCopiesInput"
+                    placeholder="Available Copies"
+                    required
+                    onChange={(e) => setCopiesAvailable(e.target.value)}
+                  />
                 </div>
               </div>
             </div>
@@ -212,7 +209,7 @@ function BookEditPage(props) {
                 onChange={(e) => setYearPublished(e.target.value)}
               />
             </div>
-            <div className="mb-2 font-weight-bold">
+            <div className="col-12 mb-2 font-weight-bold">
               <Button className="editBookButton" variant="primary" type="submit">
                 Save Edits
               </Button>

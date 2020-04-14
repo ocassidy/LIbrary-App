@@ -32,7 +32,7 @@ function AdminAnalytics(props) {
 
 const mapDispatchToProps = (dispatch) => ({
   gotoBookAnalytics: () => {
-    dispatch(push('/admin/analytics/books'));
+    dispatch(push('/admin/analytics'));
   },
 });
 

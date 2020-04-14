@@ -64,11 +64,11 @@ export function BooksList(props) {
         border="dark"
         key={book.id}
       >
-        <div className="row no-gutters card-body justify-content-center">
-          <div className="col-auto align-self-center mr-5">
-            <img src={book.image} className="img-thumbnail rounded w-50" alt="bookImg" />
+        <div className="row no-gutters justify-content-center align-items-center">
+          <div className="col-sm-12 col-md-4 col-lg-3">
+            <img src={book.image} className="img-thumbnail rounded mx-auto d-block w-75 mt-2" alt="bookImg" />
           </div>
-          <div className="col-auto">
+          <div className="col-sm-12 col-md-8 col-lg-9 mt-4 p-3">
             <div className="card-title h4">{book.name}</div>
             <div className="card-text mt-4">
               <span className="font-weight-bold">Book ID: </span>
@@ -90,47 +90,45 @@ export function BooksList(props) {
               <span className="font-weight-bold">Genre: </span>
               {book.genre}
             </div>
-          </div>
-          <div className="col-auto">
             <div className="card-text mt-4">
               <span className="font-weight-bold">Description: </span>
               {book.description}
             </div>
-          </div>
 
-          <div className="row no-gutters mt-auto ml-auto">
-            <div className="col-auto m-2">
-              <Button
-                onClick={() => handleGotoBookPage(book)}
-                variant="success"
-              >
-                View Book
-              </Button>
+            <div className="row no-gutters justify-content-end mt-2">
+              <div className="col-auto ml-2">
+                <Button
+                  onClick={() => handleGotoBookPage(book)}
+                  variant="success"
+                >
+                  View Book
+                </Button>
+              </div>
+              {adminMode
+                ? (
+                  <div className="row no-gutters">
+                    <div className="col-auto ml-2">
+                      <Button
+                        onClick={() => handleGotoBookEditPage(book)}
+                        variant="info"
+                      >
+                        Edit Book
+                      </Button>
+                    </div>
+                    <div className="col-auto ml-2">
+                      <Button
+                        onClick={() => {
+                          setShowModal(!showModal);
+                          setBookToDelete(book);
+                        }}
+                        variant="danger"
+                      >
+                        Delete Book
+                      </Button>
+                    </div>
+                  </div>
+                ) : null}
             </div>
-            {adminMode
-              ? (
-                <div className="row no-gutters">
-                  <div className="col-auto m-2">
-                    <Button
-                      onClick={() => handleGotoBookEditPage(book)}
-                      variant="info"
-                    >
-                      Edit Book
-                    </Button>
-                  </div>
-                  <div className="col-auto m-2">
-                    <Button
-                      onClick={() => {
-                        setShowModal(!showModal);
-                        setBookToDelete(book);
-                      }}
-                      variant="danger"
-                    >
-                      Delete Book
-                    </Button>
-                  </div>
-                </div>
-              ) : null}
           </div>
         </div>
         <div className="card-footer col-auto text-right">

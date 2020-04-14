@@ -1,32 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Button } from 'react-bootstrap';
 import LoanDetailsBarChart from '../BarCharts/LoanDetailsBarChart';
-import { getBookAnalytics } from '../../../redux/actions';
+import { getBookAnalytics, getBookDateRangeAnalytics } from '../../../redux/actions';
 import QuickStats from '../QuickStats/QuickStats';
-import './Analytics.css';
+import CustomLineChart from '../LineCharts/CustomLineChart';
 
 function Analytics(props) {
-  const { bookAnalyticsList } = props;
+  const [showBookAnalytics, setShowBookAnalytics] = useState(false);
+  const [showUserAnalytics, setShowUserAnalytics] = useState(false);
+  const [showAllActiveAuthorLoans, setShowAllActiveAuthorLoans] = useState(true);
+  const [showActiveAuthorLoans, setShowActiveAuthorLoans] = useState(true);
+  const [showActiveGenreLoans, setShowActiveGenreLoans] = useState(true);
+  const [showActiveEditionLoans, setShowActiveEditionLoans] = useState(true);
+  const [showDateRangeActive, setShowDateRangeActive] = useState(true);
+  const { bookAnalyticsList, bookDateRangeList } = props;
 
   return (
-    <div>
+    <div className="container-fluid">
       {bookAnalyticsList
         ? (
-          <div className="container-fluid">
-            <div className="row no-gutters justify-content-center">
-              <QuickStats data={bookAnalyticsList} />
-              <div className="analyticsTogglesContainer col-auto m-2">
-                <h3 className="m-3">Toggles:</h3>
-                <div className="col-auto">
+          <div className="row no-gutters justify-content-center m-2">
+            <div className="col-sm-12 col-md-4 col-lg-5 border border-dark rounded m-2">
+              <div className="h3 m-3">Toggles:</div>
+              <div className="row no-gutters m-3 justify-content-center">
+                <div className="col-auto mr-2 mb-2">
                   <Button
-                    className="analyticsToggleButtons"
                     variant="light"
+                    onClick={() => {
+                      setShowBookAnalytics(!showBookAnalytics);
+                      setShowUserAnalytics(false);
+                    }}
                   >
                     Show Book Analytics
                   </Button>
+                </div>
+                <div className="col-auto mr-2 mb-2">
                   <Button
-                    className="analyticsToggleButtons"
                     variant="light"
                   >
                     Show User Analytics
@@ -34,23 +44,159 @@ function Analytics(props) {
                 </div>
               </div>
             </div>
-            <LoanDetailsBarChart
-              chartTitle="All Loans"
-              barColourFill="#80eb34"
-              yAxisDataKey="numberOfLoans"
-              xAxisDataKey="bookName"
-              barDataKey="numberOfLoans"
-              data={bookAnalyticsList.allLoanDetailsList}
-            />
+            <div className="col-sm-12 col-md-6 col-lg-5 m-2">
+              <QuickStats data={bookAnalyticsList} />
+            </div>
 
-            <LoanDetailsBarChart
-              chartTitle="All Active Loans"
-              barColourFill="#329ea8"
-              yAxisDataKey="numberOfLoans"
-              xAxisDataKey="bookName"
-              barDataKey="numberOfLoans"
-              data={bookAnalyticsList.allActiveLoansDetailsList}
-            />
+            {showBookAnalytics
+              ? (
+                <div className="col-12">
+                  {showAllActiveAuthorLoans && bookAnalyticsList.allLoanDetailsList.length > 0
+                    ? (
+                      <LoanDetailsBarChart
+                        chartTitle="All Loans"
+                        barColourFill="#80eb34"
+                        yAxisDataKey="numberOfLoans"
+                        xAxisDataKey="bookName"
+                        xAxisDataLabel="Books"
+                        yAxisDataLabel="Number Of Loans"
+                        barDataKey="numberOfLoans"
+                        setShowActiveLoans={setShowAllActiveAuthorLoans}
+                        showActiveLoans={showAllActiveAuthorLoans}
+                        data={bookAnalyticsList.allLoanDetailsList}
+                      />
+                    )
+                    : (
+                      <LoanDetailsBarChart
+                        chartTitle="All Active Loans"
+                        barColourFill="#329ea8"
+                        yAxisDataKey="numberOfLoans"
+                        xAxisDataKey="bookName"
+                        xAxisDataLabel="Books"
+                        yAxisDataLabel="Number Of Loans"
+                        barDataKey="numberOfLoans"
+                        setShowActiveLoans={setShowAllActiveAuthorLoans}
+                        showActiveLoans={showAllActiveAuthorLoans}
+                        data={bookAnalyticsList.allActiveLoansDetailsList}
+                      />
+                    )}
+
+                  {showActiveAuthorLoans && bookAnalyticsList.numOfLoansByAuthor.length > 0
+                    ? (
+                      <LoanDetailsBarChart
+                        chartTitle="Total Number of Loans by Author"
+                        barColourFill="#329ea8"
+                        yAxisDataKey="numberOfLoans"
+                        xAxisDataKey="bookAuthor"
+                        xAxisDataLabel="Author"
+                        yAxisDataLabel="Number Of Loans"
+                        barDataKey="numberOfLoans"
+                        setShowActiveLoans={setShowActiveAuthorLoans}
+                        showActiveLoans={showActiveAuthorLoans}
+                        data={bookAnalyticsList.numOfLoansByAuthor}
+                      />
+                    )
+                    : (
+                      <LoanDetailsBarChart
+                        chartTitle="Number of Active Loans by Author"
+                        barColourFill="#329ea8"
+                        yAxisDataKey="numberOfLoans"
+                        xAxisDataKey="bookAuthor"
+                        xAxisDataLabel="Author"
+                        yAxisDataLabel="Number Of Loans"
+                        barDataKey="numberOfLoans"
+                        setShowActiveLoans={setShowActiveAuthorLoans}
+                        showActiveLoans={showActiveAuthorLoans}
+                        data={bookAnalyticsList.numOfActiveLoansByAuthor}
+                      />
+                    )}
+
+                  {showActiveGenreLoans && bookAnalyticsList.numOfLoansByGenre.length > 0
+                    ? (
+                      <LoanDetailsBarChart
+                        chartTitle="Total Number of Loans by Genre"
+                        barColourFill="#329ea8"
+                        yAxisDataKey="numberOfLoans"
+                        xAxisDataKey="bookGenre"
+                        xAxisDataLabel="Genre"
+                        yAxisDataLabel="Number Of Loans"
+                        barDataKey="numberOfLoans"
+                        setShowActiveLoans={setShowActiveGenreLoans}
+                        showActiveLoans={showActiveGenreLoans}
+                        data={bookAnalyticsList.numOfLoansByGenre}
+                      />
+                    ) : (
+                      <LoanDetailsBarChart
+                        chartTitle="Number of Active Loans by Genre"
+                        barColourFill="#329ea8"
+                        yAxisDataKey="numberOfLoans"
+                        xAxisDataKey="bookGenre"
+                        xAxisDataLabel="Genre"
+                        yAxisDataLabel="Number Of Loans"
+                        barDataKey="numberOfLoans"
+                        setShowActiveLoans={setShowActiveGenreLoans}
+                        showActiveLoans={showActiveGenreLoans}
+                        data={bookAnalyticsList.numOfActiveLoansByGenre}
+                      />
+                    )}
+
+                  {showActiveEditionLoans && bookAnalyticsList.numOfLoansByEdition.length > 0
+                    ? (
+                      <LoanDetailsBarChart
+                        chartTitle="Total Number of Loans by Edition"
+                        barColourFill="#329ea8"
+                        yAxisDataKey="numberOfLoans"
+                        xAxisDataKey="bookEdition"
+                        xAxisDataLabel="Edition"
+                        yAxisDataLabel="Number Of Loans"
+                        barDataKey="numberOfLoans"
+                        setShowActiveLoans={setShowActiveEditionLoans}
+                        showActiveLoans={showActiveEditionLoans}
+                        data={bookAnalyticsList.numOfLoansByEdition}
+                      />
+                    ) : (
+                      <LoanDetailsBarChart
+                        chartTitle="Number of Active Loans by Edition"
+                        barColourFill="#329ea8"
+                        yAxisDataKey="numberOfLoans"
+                        xAxisDataKey="bookEdition"
+                        xAxisDataLabel="Edition"
+                        yAxisDataLabel="Number Of Loans"
+                        barDataKey="numberOfLoans"
+                        setShowActiveLoans={setShowActiveEditionLoans}
+                        showActiveLoans={showActiveEditionLoans}
+                        data={bookAnalyticsList.numOfActiveLoansByEdition}
+                      />
+                    )}
+
+                  {showDateRangeActive && bookDateRangeList.getLoansInDateRange.length > 0
+                    ? (
+                      <CustomLineChart
+                        chartTitle="Range of Book Loans In Date Range"
+                        lineColourFill="#329ea8"
+                        yAxisDataKey="numberOfLoans"
+                        xAxisDataKey="dateWithdrawn"
+                        xAxisDataLabel="Date Withdrawn"
+                        yAxisDataLabel="Number Of Loans"
+                        setShowActiveLoans={setShowDateRangeActive}
+                        showActiveLoans={showDateRangeActive}
+                        data={bookDateRangeList.getLoansInDateRange}
+                      />
+                    ) : (
+                      <CustomLineChart
+                        chartTitle="Range of Active Book Loans In Date Range"
+                        lineColourFill="#329ea8"
+                        yAxisDataKey="numberOfLoans"
+                        xAxisDataKey="dateWithdrawn"
+                        xAxisDataLabel="Date Withdrawn"
+                        yAxisDataLabel="Number Of Loans"
+                        setShowActiveLoans={setShowDateRangeActive}
+                        showActiveLoans={showDateRangeActive}
+                        data={bookDateRangeList.getActiveLoansInDateRange}
+                      />
+                    )}
+                </div>
+              ) : null}
           </div>
         ) : <div>Nothing retrieved for analytics</div>}
     </div>
@@ -59,11 +205,15 @@ function Analytics(props) {
 
 const mapStateToProps = (state) => ({
   bookAnalyticsList: state.bookAnalytics.bookAnalyticsList,
+  bookDateRangeList: state.bookAnalytics.bookDateRangeList,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   handleGetBookAnalytics: () => {
     dispatch(getBookAnalytics());
+  },
+  handleGetBookDateRangeAnalytics: (startDate, endDate) => {
+    dispatch(getBookDateRangeAnalytics(startDate, endDate));
   },
 });
 

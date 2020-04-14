@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import './AdminAddBook.css';
 import axios from 'axios';
 import toastr from 'toastr';
 import { API_BASE_URL } from '../../../constants/constants';
@@ -58,75 +57,72 @@ export default function AdminAddBook() {
   return (
     <div className="container-fluid">
       <Form
-        className="row no-gutters"
         onSubmit={(e) => postAddBook(e)}
       >
-        <div className="col-12">
-          <div className="row no-gutters">
-            <div className="col-3">
-              <div className="mb-2 font-weight-bold">Image Preview:</div>
-              <img src={image} className="img-fluid" alt="Preview will appear here once address bar is filled." />
+        <div className="row no-gutters">
+          <div className="col-sm-12 col-md-4 col-lg-3">
+            <div className="mb-2 font-weight-bold">Image Preview:</div>
+            <img src={image} className="img-fluid mx-auto d-block w-75" alt="Preview will appear here once address bar is filled." />
+          </div>
+          <div className="col-sm-12 col-md-8 col-lg-9">
+            <div className="col-12 mb-2">
+              <div className="mb-2 font-weight-bold">Book Title:</div>
+              <Form.Control
+                type="text"
+                className="bookTitleInput"
+                placeholder="Book Title"
+                required
+                onChange={(e) => setTitle(e.target.value)}
+              />
             </div>
-            <div className="col-9">
-              <div className="col-12 mb-2">
-                <div className="mb-2 font-weight-bold">Book Title:</div>
-                <Form.Control
-                  type="text"
-                  className="bookTitleInput"
-                  placeholder="Book Title"
-                  required
-                  onChange={(e) => setTitle(e.target.value)}
-                />
-              </div>
-              <div className="col-12 mb-2">
-                <div className="mb-2 font-weight-bold">Book Subtitle:</div>
-                <Form.Control
-                  type="text"
-                  className="bookSubtitleInput"
-                  placeholder="Book Subtitle"
-                  onChange={(e) => setSubtitle(e.target.value)}
-                />
-              </div>
-              <div className="col-12 mt-auto font-weight-bold mb-2">
-                <div className="mb-2 font-weight-bold">Book Image:</div>
-                <Form.Control
-                  type="text"
-                  placeholder="Book Image"
-                  as="textarea"
-                  rows="3"
-                  onChange={(e) => setImage(e.target.value)}
-                />
-              </div>
-              <div className="col-12 mb-2">
-                <div className="mb-2 font-weight-bold">Book Publisher:</div>
-                <Form.Control
-                  type="text"
-                  className="bookPublisherInput"
-                  placeholder="Book Publisher"
-                  required
-                  onChange={(e) => setPublisher(e.target.value)}
-                />
-              </div>
-              <div className="col-12 mb-2">
-                <div className="mb-2 font-weight-bold">Total Copies:</div>
-                <Form.Control
-                  type="text"
-                  className="bookCopiesInput"
-                  placeholder="Total Copies"
-                  required
-                  onChange={(e) => setCopies(e.target.value)}
-                />
-              </div>
-              <div className="col-12 mb-2">
-                <div className="mb-2 font-weight-bold">Available Copies:</div>
-                <Form.Control
-                  type="text"
-                  className="bookAvailableCopiesInput"
-                  placeholder="Available Copies"
-                  required
-                  onChange={(e) => setCopiesAvailable(e.target.value)}
-                />
-              </div>
+            <div className="col-12 mb-2">
+              <div className="mb-2 font-weight-bold">Book Subtitle:</div>
+              <Form.Control
+                type="text"
+                className="bookSubtitleInput"
+                placeholder="Book Subtitle"
+                onChange={(e) => setSubtitle(e.target.value)}
+              />
+            </div>
+            <div className="col-12 mt-auto font-weight-bold mb-2">
+              <div className="mb-2 font-weight-bold">Book Image:</div>
+              <Form.Control
+                type="text"
+                placeholder="Book Image"
+                as="textarea"
+                rows="3"
+                onChange={(e) => setImage(e.target.value)}
+              />
+            </div>
+            <div className="col-12 mb-2">
+              <div className="mb-2 font-weight-bold">Book Publisher:</div>
+              <Form.Control
+                type="text"
+                className="bookPublisherInput"
+                placeholder="Book Publisher"
+                required
+                onChange={(e) => setPublisher(e.target.value)}
+              />
+            </div>
+            <div className="col-12 mb-2">
+              <div className="mb-2 font-weight-bold">Total Copies:</div>
+              <Form.Control
+                type="text"
+                className="bookCopiesInput"
+                placeholder="Total Copies"
+                required
+                onChange={(e) => setCopies(e.target.value)}
+              />
+            </div>
+            <div className="col-12 mb-2">
+              <div className="mb-2 font-weight-bold">Available Copies:</div>
+              <Form.Control
+                type="text"
+                className="bookAvailableCopiesInput"
+                placeholder="Available Copies"
+                required
+                onChange={(e) => setCopiesAvailable(e.target.value)}
+              />
             </div>
           </div>
         </div>
@@ -205,9 +201,9 @@ export default function AdminAddBook() {
             onChange={(e) => setYearPublished(e.target.value)}
           />
         </div>
-        <div className="mb-2 font-weight-bold">
+        <div className="col-12 mb-2">
           <Button className="editBookButton" variant="primary" type="submit">
-            Save Edits
+            Add Book
           </Button>
         </div>
       </Form>

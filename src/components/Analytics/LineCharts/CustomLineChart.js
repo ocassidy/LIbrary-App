@@ -1,15 +1,14 @@
 import React from 'react';
 import {
-  Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis,
+  CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis,
 } from 'recharts';
-import './LoanDetailsBarChart.css';
+import { Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
-import { Button } from 'react-bootstrap';
 
-export default function LoanDetailsBarChart(props) {
+export default function CustomLineChart(props) {
   const {
-    data, chartTitle, barColourFill, yAxisDataKey, xAxisDataKey, barDataKey,
+    data, chartTitle, lineColourFill, yAxisDataKey, xAxisDataKey,
     xAxisDataLabel, yAxisDataLabel, setShowActiveLoans, showActiveLoans,
   } = props;
 
@@ -26,18 +25,15 @@ export default function LoanDetailsBarChart(props) {
         </Button>
       </div>
       <div className="d-flex justify-content-center">
-        <ResponsiveContainer height={300}>
-          <BarChart
+        <ResponsiveContainer height={250}>
+          <LineChart
             data={data}
             margin={{
               top: 25, right: 20, bottom: 25, left: 20,
             }}
           >
-            <CartesianGrid strokeDasharray="1 0" />
-            <XAxis
-              dataKey={xAxisDataKey}
-              label={{ value: xAxisDataLabel, position: 'insideBottom', dy: 20 }}
-            />
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey={xAxisDataKey} label={{ value: xAxisDataLabel, position: 'insideBottom', dy: 15 }} />
             <YAxis
               dataKey={yAxisDataKey}
               label={{
@@ -45,8 +41,8 @@ export default function LoanDetailsBarChart(props) {
               }}
             />
             <Tooltip />
-            <Bar dataKey={barDataKey} fill={barColourFill} />
-          </BarChart>
+            <Line type="monotone" dataKey="numberOfLoans" stroke={lineColourFill} />
+          </LineChart>
         </ResponsiveContainer>
       </div>
     </div>

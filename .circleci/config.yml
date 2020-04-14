@@ -51,6 +51,7 @@ workflows:
       - deploy-staging:
           requires:
             - build
+            - test
           filters:
             branches:
               only: master
