@@ -14,6 +14,7 @@ import AdminDeleteBookConfirmModal from '../../Admin/AdminEditDeleteBook/AdminDe
 export function BooksList(props) {
   const [pagedBooks, setPagedBooks] = useState({});
   const [isSearchActive, setIsSearchActiveActive] = useState(false);
+  const [isPaginationActive, setIsPaginationActive] = useState(true);
   const [isFilterDropdownActive, setIsFilterDropdownActive] = useState(false);
   const [totalPages, setTotalPages] = useState(0);
   const [numItemsPerPage, setNumItemsPerPage] = useState(5);
@@ -49,9 +50,11 @@ export function BooksList(props) {
       filteredList = currentList.filter((book) => {
         const bookName = book.name.toLowerCase();
         const filter = e.target.value.toLowerCase();
+        setIsPaginationActive(false);
         return bookName.includes(filter);
       });
     } else {
+      setIsPaginationActive(true);
       filteredList = bookPage.content;
     }
     setPagedBooks(filteredList);
@@ -66,7 +69,7 @@ export function BooksList(props) {
       >
         <div className="row no-gutters justify-content-center align-items-center">
           <div className="col-sm-12 col-md-4 col-lg-3">
-            <img src={book.image} className="img-thumbnail rounded mx-auto d-block w-75 mt-2" alt="bookImg" />
+            <img src={book.image} className="img-fluid img-thumbnail rounded mx-auto d-block m-2" alt="bookImg" />
           </div>
           <div className="col-sm-12 col-md-8 col-lg-9 mt-4 p-3">
             <div className="card-title h4">{book.name}</div>
@@ -148,19 +151,19 @@ export function BooksList(props) {
       <FormControl
         className="m-1"
         onChange={(e) => handleSearchChange(e)}
-        placeholder="Start typing to search..."
-        aria-label="Start typing to search..."
+        placeholder="Start typing a book name to search..."
+        aria-label="Start typing a book name to search..."
         aria-describedby="search-input"
       />
     </div>
   );
 
   const paginationItemsPerPage = (
-    <div className="row no-gutters justify-content-end mb-2 align-items-center">
-      <div className="col-auto mr-2">
+    <div className="row no-gutters justify-content-end align-items-center mt-2 mb-2">
+      <div className="col-auto ml-2">
         Items Per Page:
       </div>
-      <div className="col-auto mr-2">
+      <div className="col-auto ml-2">
         <Button
           onClick={() => {
             setNumItemsPerPage(5);
@@ -171,7 +174,7 @@ export function BooksList(props) {
           5
         </Button>
       </div>
-      <div className="col-auto mr-2">
+      <div className="col-auto ml-2">
         <Button
           onClick={() => {
             setNumItemsPerPage(10);
@@ -182,7 +185,7 @@ export function BooksList(props) {
           10
         </Button>
       </div>
-      <div className="col-auto mr-2">
+      <div className="col-auto ml-2">
         <Button
           onClick={() => {
             setNumItemsPerPage(20);
@@ -258,7 +261,7 @@ export function BooksList(props) {
           </div>
         ) : null}
       {books}
-      {totalPages > 1 ? pagination : null}
+      {totalPages > 1 && isPaginationActive ? pagination : null}
       {showModal ? (
         <AdminDeleteBookConfirmModal
           handleDeleteBook={() => handleDeleteBook(bookToDelete.id)}

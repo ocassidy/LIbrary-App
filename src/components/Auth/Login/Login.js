@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import './Login.css';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import { postLogin } from '../../../redux/actions';
@@ -17,46 +16,60 @@ export function Login(props) {
   }, [currentUser, onAlreadyLoggedIn]);
 
   return (
-    <div className="loginContainer">
-      <h2>Login</h2>
-      <div className="formInfoText">
-        Please Login to use the Library System.
-      </div>
-      <div>
-        <Form className="loginForm" onSubmit={(e) => onHandleLogin(e, usernameOrEmail, password)}>
-          <Form.Label>
-            Username or Email
-            <span className="requiredStar"> * </span>
-          </Form.Label>
-          <Form.Control
-            type="username"
-            className="loginUsernameInput"
-            placeholder="Username or Email"
-            required
-            onChange={(e) => setUsernameOrEmail(e.target.value)}
-          />
-          <Form.Label>
-            Password
-            <span className="requiredStar"> * </span>
-          </Form.Label>
-          <Form.Control
-            type="password"
-            className="loginPasswordInput"
-            placeholder="Password"
-            required
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <Button className="loginButton" variant="primary" type="submit">
-            Log In
-          </Button>
-        </Form>
-        <div className="loginLinkTo">
-          Need an account?
-          <a href="/register"> Register Here</a>
+    <div className="container-fluid">
+      <div className="row no-gutters">
+        <div className="col-12">
+          <div className="h3">Login</div>
+          <div className="h5">
+            Please Login to use the Library System.
+          </div>
         </div>
-        <div className="loginLinkTo">
-          View books?
-          <a href="/books"> Click Here</a>
+      </div>
+      <Form id="loginForm" onSubmit={(e) => onHandleLogin(e, usernameOrEmail, password)}>
+        <div className="row no-gutters">
+          <div className="col-12">
+            <Form.Label>
+              Username or Email
+              <span className="requiredStar"> * </span>
+            </Form.Label>
+            <Form.Control
+              id="loginUsernameInput"
+              type="username"
+              placeholder="Username or Email"
+              required
+              onChange={(e) => setUsernameOrEmail(e.target.value)}
+            />
+            <Form.Label>
+              Password
+              <span className="requiredStar"> * </span>
+            </Form.Label>
+            <Form.Control
+              id="loginPasswordInput"
+              type="password"
+              placeholder="Password"
+              required
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+        </div>
+        <div className="row no-gutters justify-content-end mt-2">
+          <div className="col-sm-12 col-md-4 col-lg-auto">
+            <Button id="loginButton" className="btn btn-block" variant="primary" type="submit">
+              Log In
+            </Button>
+          </div>
+        </div>
+      </Form>
+      <div className="row no-gutters text-center">
+        <div className="col-12">
+          <div id="registerLinkTo" className="mt-2">
+            Need an account?
+            <a href="/register"> Register Here</a>
+          </div>
+          <div id="booksLinkTo" className="mt-2">
+            View books?
+            <a href="/books"> Click Here</a>
+          </div>
         </div>
       </div>
     </div>

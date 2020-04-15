@@ -28,11 +28,11 @@ function NavBar(props) {
           : null}
       </Nav>
       {currentUser
-        ? <Button className="navBarButton" variant="outline-dark" onClick={() => onHandleLogout()}>Logout</Button>
-        : <Button className="navBarButton" variant="outline-dark" onClick={() => gotoLogin()}>Login</Button>}
+        ? <Button className="mr-2" variant="outline-dark" onClick={() => onHandleLogout()}>Logout</Button>
+        : <Button className="mr-2" variant="outline-dark" onClick={() => gotoLogin()}>Login</Button>}
       {currentUser
         ? null
-        : <Button className="navBarButton" variant="outline-dark" onClick={() => gotoRegister()}>Register</Button>}
+        : <Button className="mr-2" variant="outline-dark" onClick={() => gotoRegister()}>Register</Button>}
     </Navbar>
   );
 }

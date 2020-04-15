@@ -13,32 +13,34 @@ export default function bookAnalyticsReducer(state = initialState, action) {
     case GET_ANALYTICS_SUCCESS:
       // eslint-disable-next-line no-return-assign
       return state = {
-        bookAnalyticsList: action.bookAnalyticsList,
         ...state,
+        bookAnalyticsList: action.bookAnalyticsList,
       };
 
     case GET_ANALYTICS_FAILURE:
       // eslint-disable-next-line no-return-assign
       return state = {
+        ...state,
         bookAnalyticsList: [],
-        //...state,
       };
 
     case GET_DATE_RANGE_ANALYTICS_SUCCESS:
       // eslint-disable-next-line no-return-assign
       return state = {
+        ...state,
         bookDateRangeList: action.bookDateRangeList,
-        //...state,
       };
 
     case GET_DATE_RANGE_ANALYTICS_FAILURE:
       // eslint-disable-next-line no-return-assign
       return state = {
-        bookDateRangeList: [],
         ...state,
+        bookDateRangeList: [],
       };
 
     default:
-      return state;
+      return {
+        ...state,
+      };
   }
 }

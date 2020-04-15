@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 import { push } from 'connected-react-router';
 import { getBook, putEditBook } from '../../../redux/actions';
-import './BookEditPage.css';
 
 function BookEditPage(props) {
   const [image, setImage] = useState();

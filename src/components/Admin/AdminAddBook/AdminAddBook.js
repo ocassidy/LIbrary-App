@@ -56,9 +56,7 @@ export default function AdminAddBook() {
 
   return (
     <div className="container-fluid">
-      <Form
-        onSubmit={(e) => postAddBook(e)}
-      >
+      <Form onSubmit={(e) => postAddBook(e)}>
         <div className="row no-gutters">
           <div className="col-sm-12 col-md-4 col-lg-3">
             <div className="mb-2 font-weight-bold">Image Preview:</div>

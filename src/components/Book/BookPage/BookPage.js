@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
+import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookOpen, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { push } from 'connected-react-router';
@@ -20,6 +20,56 @@ function BookPage(props) {
   useEffect(() => {
     handleGetBook(id);
   }, [id, handleGetBook]);
+
+  let loanButton = null;
+  if (!currentUser) {
+    loanButton = (
+      <div>
+        <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Please Login to loan a book.</Tooltip>}>
+          <span className="d-inline-block">
+            <Button
+              style={{ pointerEvents: 'none' }}
+              variant="primary"
+              className="btn"
+              disabled={currentUser === null}
+            >
+              Loan Book
+              <FontAwesomeIcon icon={faBookOpen} className="ml-2" />
+            </Button>
+          </span>
+        </OverlayTrigger>
+      </div>
+    );
+  } else if (book && book.copiesAvailable < 1) {
+    loanButton = (
+      <div>
+        <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">No Available Copies.</Tooltip>}>
+          <span className="d-inline-block">
+            <Button
+              style={{ pointerEvents: 'none' }}
+              variant="primary"
+              className="btn"
+              disabled={book.copiesAvailable < 1}
+            >
+              Loan Book
+              <FontAwesomeIcon icon={faBookOpen} className="ml-2" />
+            </Button>
+          </span>
+        </OverlayTrigger>
+      </div>
+    );
+  } else {
+    loanButton = (
+      <Button
+        onClick={() => handleLoanBook(id, currentUser.username)}
+        variant="primary"
+        className="btn"
+      >
+        Loan Book
+        <FontAwesomeIcon icon={faBookOpen} className="ml-2" />
+      </Button>
+    );
+  }
 
   return (
     <div className="container-fluid text-justify">
@@ -80,14 +130,7 @@ function BookPage(props) {
               <div className="col-sm-12 col-md-4 col-lg-auto mb-2">
                 <div className="row no-gutters mt-2 mb-2">
                   <div className="col-auto mr-2 mb-2">
-                    <Button
-                      onClick={() => handleLoanBook(id, currentUser.username)}
-                      variant="primary"
-                      className="withdrawButton"
-                    >
-                      Loan Book
-                      <FontAwesomeIcon icon={faBookOpen} className="ml-2" />
-                    </Button>
+                    {loanButton}
                   </div>
                   {isAdmin
                     ? (

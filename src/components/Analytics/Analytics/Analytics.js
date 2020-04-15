@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Button } from 'react-bootstrap';
+import moment from 'moment';
+import toastr from 'toastr';
 import LoanDetailsBarChart from '../BarCharts/LoanDetailsBarChart';
 import { getBookAnalytics, getBookDateRangeAnalytics } from '../../../redux/actions';
 import QuickStats from '../QuickStats/QuickStats';
-import CustomLineChart from '../LineCharts/CustomLineChart';
+import DateRangeLineChart from '../LineCharts/DateRangeLineChart';
 
 function Analytics(props) {
   const [showBookAnalytics, setShowBookAnalytics] = useState(false);
@@ -14,7 +16,7 @@ function Analytics(props) {
   const [showActiveGenreLoans, setShowActiveGenreLoans] = useState(true);
   const [showActiveEditionLoans, setShowActiveEditionLoans] = useState(true);
   const [showDateRangeActive, setShowDateRangeActive] = useState(true);
-  const { bookAnalyticsList, bookDateRangeList } = props;
+  const { bookAnalyticsList, bookDateRangeList, handleGetBookDateRangeAnalytics } = props;
 
   return (
     <div className="container-fluid">
@@ -49,9 +51,11 @@ function Analytics(props) {
             </div>
 
             {showBookAnalytics
+            && bookAnalyticsList.allLoanDetailsList
+            && bookAnalyticsList.allLoanDetailsList.length > 0
               ? (
                 <div className="col-12">
-                  {showAllActiveAuthorLoans && bookAnalyticsList.allLoanDetailsList.length > 0
+                  {showAllActiveAuthorLoans
                     ? (
                       <LoanDetailsBarChart
                         chartTitle="All Loans"
@@ -81,7 +85,9 @@ function Analytics(props) {
                       />
                     )}
 
-                  {showActiveAuthorLoans && bookAnalyticsList.numOfLoansByAuthor.length > 0
+                  {showActiveAuthorLoans
+                  && bookAnalyticsList.numOfLoansByAuthor
+                  && bookAnalyticsList.numOfLoansByAuthor.length > 0
                     ? (
                       <LoanDetailsBarChart
                         chartTitle="Total Number of Loans by Author"
@@ -111,7 +117,9 @@ function Analytics(props) {
                       />
                     )}
 
-                  {showActiveGenreLoans && bookAnalyticsList.numOfLoansByGenre.length > 0
+                  {showActiveGenreLoans
+                  && bookAnalyticsList.numOfLoansByGenre
+                  && bookAnalyticsList.numOfLoansByGenre.length > 0
                     ? (
                       <LoanDetailsBarChart
                         chartTitle="Total Number of Loans by Genre"
@@ -140,7 +148,9 @@ function Analytics(props) {
                       />
                     )}
 
-                  {showActiveEditionLoans && bookAnalyticsList.numOfLoansByEdition.length > 0
+                  {showActiveEditionLoans
+                  && bookAnalyticsList.numOfLoansByEdition
+                  && bookAnalyticsList.numOfLoansByEdition.length > 0
                     ? (
                       <LoanDetailsBarChart
                         chartTitle="Total Number of Loans by Edition"
@@ -169,9 +179,13 @@ function Analytics(props) {
                       />
                     )}
 
-                  {showDateRangeActive && bookDateRangeList.getLoansInDateRange.length > 0
+                  {showDateRangeActive
+                  && bookDateRangeList.getLoansInDateRange
+                  && bookDateRangeList.getLoansInDateRange.length > 0
                     ? (
-                      <CustomLineChart
+                      <DateRangeLineChart
+                        startDate="2020-01-01"
+                        endDate="2020-12-30"
                         chartTitle="Range of Book Loans In Date Range"
                         lineColourFill="#329ea8"
                         yAxisDataKey="numberOfLoans"
@@ -181,9 +195,12 @@ function Analytics(props) {
                         setShowActiveLoans={setShowDateRangeActive}
                         showActiveLoans={showDateRangeActive}
                         data={bookDateRangeList.getLoansInDateRange}
+                        handleGetBookDateRangeAnalytics={handleGetBookDateRangeAnalytics}
                       />
                     ) : (
-                      <CustomLineChart
+                      <DateRangeLineChart
+                        startDate="2020-01-01"
+                        endDate="2020-12-30"
                         chartTitle="Range of Active Book Loans In Date Range"
                         lineColourFill="#329ea8"
                         yAxisDataKey="numberOfLoans"
@@ -193,6 +210,7 @@ function Analytics(props) {
                         setShowActiveLoans={setShowDateRangeActive}
                         showActiveLoans={showDateRangeActive}
                         data={bookDateRangeList.getActiveLoansInDateRange}
+                        handleGetBookDateRangeAnalytics={handleGetBookDateRangeAnalytics}
                       />
                     )}
                 </div>
@@ -212,8 +230,16 @@ const mapDispatchToProps = (dispatch) => ({
   handleGetBookAnalytics: () => {
     dispatch(getBookAnalytics());
   },
-  handleGetBookDateRangeAnalytics: (startDate, endDate) => {
-    dispatch(getBookDateRangeAnalytics(startDate, endDate));
+  handleGetBookDateRangeAnalytics: (e, startDate, endDate) => {
+    e.preventDefault();
+
+    if (moment(endDate).isBefore(startDate)) {
+      return toastr.error(`End date of ${moment(endDate).format('DD-MM-YYYY')} 
+      cannot be before start date of ${moment(startDate).format('DD-MM-YYYY')}.`,
+      'Error');
+    }
+
+    return dispatch(getBookDateRangeAnalytics(startDate, endDate));
   },
 });
 

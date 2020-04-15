@@ -30,6 +30,7 @@ import {
   GET_USER_INACTIVE_LOAN_DETAILS_PAGE_FAILURE,
   GET_USER_INACTIVE_LOAN_DETAILS_PAGE_SUCCESS, GET_DATE_RANGE_ANALYTICS_SUCCESS, GET_DATE_RANGE_ANALYTICS_FAILURE,
 } from './actionTypes';
+import moment from "moment";
 
 const axiosConfig = {
   headers: {
@@ -288,8 +289,8 @@ export const getBookDateRangeAnalytics = (startDate, endDate) => (dispatch) => a
       Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`,
     },
     params: {
-      startDate,
-      endDate,
+      startDate: moment(startDate).format('YYYY-MM-DD'),
+      endDate: moment(endDate).format('YYYY-MM-DD'),
     },
   })
   .then((response) => {

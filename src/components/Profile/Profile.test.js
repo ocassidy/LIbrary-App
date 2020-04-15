@@ -9,7 +9,7 @@ describe('Profile test', () => {
       userInactiveLoansDetailsPage: { totalPages: 0 },
     };
     const wrapper = shallow(<Profile {...props} />);
-    expect(wrapper.find('.profileSpinner')).toHaveLength(1);
+    expect(wrapper.find('#profileSpinner')).toHaveLength(1);
   });
 
   it('should render profile with user data', () => {

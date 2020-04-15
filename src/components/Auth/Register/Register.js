@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import toastr from 'toastr';
-import './Register.css';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import { postRegister } from '../../../redux/actions';
@@ -23,90 +22,121 @@ export function Register(props) {
   }, [currentUser, onAlreadyLoggedIn]);
 
   return (
-    <div className="registerContainer">
-      <h2>Register</h2>
-      <div>
-        <div>
-          Please Register to use the library system.
+    <div id="registerContainer" className="container-fluid">
+      <div className="row no-gutters">
+        <div className="col-12">
+          <div className="h3">Register</div>
+          <div className="h5">
+            Please Register to use the Library System.
+          </div>
         </div>
-        <Form className="registerForm" onSubmit={(e) => onHandleRegister(username, email, password, retypePassword, firstName, lastName, e)}>
-          <Form.Label>
-            Username
-            <span className="requiredStar"> * </span>
-          </Form.Label>
-          <Form.Control
-            type="username"
-            className="registerUsernameInput"
-            placeholder="Username"
-            required
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <Form.Label>
-            First Name
-            <span className="requiredStar"> * </span>
-          </Form.Label>
-          <Form.Control
-            type="username"
-            className="registerFirstNameInput"
-            placeholder="First Name"
-            required
-            onChange={(e) => setFirstName(e.target.value)}
-          />
-          <Form.Label>
-            Last Name
-            <span className="requiredStar"> * </span>
-          </Form.Label>
-          <Form.Control
-            type="username"
-            className="registerLastNameInput"
-            placeholder="Last Name"
-            required
-            onChange={(e) => setLastName(e.target.value)}
-          />
-          <Form.Label>
-            Email
-            <span className="requiredStar"> * </span>
-          </Form.Label>
-          <Form.Control
-            type="email"
-            className="registerEmailInput"
-            placeholder="Email"
-            required
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <Form.Label>
-            Password
-            <span className="requiredStar"> * </span>
-          </Form.Label>
-          <Form.Control
-            type="password"
-            className="registerPasswordInput"
-            placeholder="Password"
-            required
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <Form.Label>
-            Retype Password
-            <span className="requiredStar"> * </span>
-          </Form.Label>
-          <Form.Control
-            type="password"
-            className="registerRetypePasswordInput"
-            placeholder="Retype Password"
-            required
-            onChange={(e) => setRetypePassword(e.target.value)}
-          />
-          <Button className="registerFormButton" variant="primary" type="submit">
-            Register
-          </Button>
-        </Form>
-        <div className="registerLinkTo">
-          Already have an account?
-          <a href="/login"> Sign in</a>
+      </div>
+      {/* eslint-disable-next-line max-len */}
+      <Form id="registerForm" onSubmit={(e) => onHandleRegister(username, email, password, retypePassword, firstName, lastName, e)}>
+        <div className="row no-gutters">
+          <div className="col-12">
+            <Form.Label>
+              Username
+              <span className="requiredStar"> * </span>
+            </Form.Label>
+            <Form.Control
+              id="registerUsernameInput"
+              type="text"
+              className="registerUsernameInput"
+              placeholder="Username"
+              required
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </div>
+          <div className="col-sm-12 col-md-5 col-lg-5 mr-auto">
+            <Form.Label>
+              First Name
+              <span className="requiredStar"> * </span>
+            </Form.Label>
+            <Form.Control
+              id="registerFirstNameInput"
+              type="text"
+              className="registerFirstNameInput"
+              placeholder="First Name"
+              required
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+          </div>
+          <div className="col-sm-12 col-md-5 col-lg-5">
+            <Form.Label>
+              Last Name
+              <span className="requiredStar"> * </span>
+            </Form.Label>
+            <Form.Control
+              id="registerLastNameInput"
+              type="text"
+              className="registerLastNameInput"
+              placeholder="Last Name"
+              required
+              onChange={(e) => setLastName(e.target.value)}
+            />
+          </div>
+          <div className="col-12">
+            <Form.Label>
+              Email
+              <span className="requiredStar"> * </span>
+            </Form.Label>
+            <Form.Control
+              id="registerEmailInput"
+              type="email"
+              className="registerEmailInput"
+              placeholder="Email"
+              required
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div className="col-12">
+            <Form.Label>
+              Password
+              <span className="requiredStar"> * </span>
+            </Form.Label>
+            <Form.Control
+              id="registerPasswordInput"
+              type="password"
+              className="registerPasswordInput"
+              placeholder="Password"
+              required
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <div className="col-12">
+            <Form.Label>
+              Retype Password
+              <span className="requiredStar"> * </span>
+            </Form.Label>
+            <Form.Control
+              id="registerRetypePasswordInput"
+              type="password"
+              className="registerRetypePasswordInput"
+              placeholder="Retype Password"
+              required
+              onChange={(e) => setRetypePassword(e.target.value)}
+            />
+          </div>
         </div>
-        <div className="registerLinkTo">
-          View books?
-          <a href="/books"> Click Here</a>
+        <div className="row no-gutters justify-content-end mt-2">
+          <div className="col-sm-12 col-md-4 col-lg-auto">
+            <Button id="registerFormButton" className="btn btn-primary btn-block" variant="primary" type="submit">
+              Register
+            </Button>
+          </div>
+        </div>
+      </Form>
+      <div className="row no-gutters text-center">
+        <div className="col-12">
+          <div id="loginLinkTo" className="mt-2">
+            Have an account?
+            <a href="/login"> Login Here</a>
+          </div>
+          <div id="bookLinkTo" className="mt-2">
+            View books?
+            <a href="/books"> Click Here</a>
+          </div>
         </div>
       </div>
     </div>
