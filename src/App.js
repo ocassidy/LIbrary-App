@@ -7,7 +7,12 @@ import { connect } from 'react-redux';
 import AuthenticatedRoute from './components/AuthenticatedRoutes/AuthenticatedRoute';
 import NotFound from './components/Shared/NotFound';
 import {
-  getBookAnalytics, getBookDateRangeAnalytics, getBookList, getBookPage, getCurrentUser,
+  getBookAnalytics,
+  getBookDateRangeAnalytics,
+  getBookList,
+  getBookPage,
+  getCurrentUser, getReturnsDateRangeAnalytics,
+  getUserAnalytics,
 } from './redux/actions';
 import { RegisterContainer } from './components/Auth/Register/Register';
 import { BookListContainer } from './components/Book/BooksList/BooksList';
@@ -36,6 +41,8 @@ function App(props) {
     handleGetBookAnalytics,
     handleGetBookDateRangeAnalytics,
     handleGetBookPage,
+    handleGetUserAnalytics,
+    handleGetReturnDateRangeAnalytics,
   } = props;
 
   useEffect(() => {
@@ -44,7 +51,9 @@ function App(props) {
     checkForCurrentUser();
     if (isAdmin) {
       handleGetBookAnalytics();
+      handleGetUserAnalytics(1);
       handleGetBookDateRangeAnalytics('2020-01-01', '2020-12-30');
+      handleGetReturnDateRangeAnalytics('2020-01-01', '2020-12-30');
     }
   }, [
     isAuthenticated,
@@ -55,6 +64,8 @@ function App(props) {
     handleGetBookAnalytics,
     handleGetBookPage,
     handleGetBookDateRangeAnalytics,
+    handleGetUserAnalytics,
+    handleGetReturnDateRangeAnalytics,
   ]);
 
   return (
@@ -197,6 +208,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   handleGetBookDateRangeAnalytics: (startDate, endDate) => {
     dispatch(getBookDateRangeAnalytics(startDate, endDate));
+  },
+  handleGetReturnDateRangeAnalytics: (startDate, endDate) => {
+    dispatch(getReturnsDateRangeAnalytics(startDate, endDate));
+  },
+  handleGetUserAnalytics: (loanNumber) => {
+    dispatch(getUserAnalytics(loanNumber));
   },
 });
 

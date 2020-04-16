@@ -1,11 +1,15 @@
 import {
   GET_ANALYTICS_FAILURE,
-  GET_ANALYTICS_SUCCESS, GET_DATE_RANGE_ANALYTICS_FAILURE, GET_DATE_RANGE_ANALYTICS_SUCCESS,
+  GET_ANALYTICS_SUCCESS,
+  GET_DATE_RANGE_ANALYTICS_FAILURE,
+  GET_DATE_RANGE_ANALYTICS_SUCCESS, GET_RETURNS_RANGE_ANALYTICS_FAILURE,
+  GET_RETURNS_RANGE_ANALYTICS_SUCCESS,
 } from '../actionTypes';
 
 const initialState = {
   bookAnalyticsList: [],
   bookDateRangeList: [],
+  returnsDateRangeList: [],
 };
 
 export default function bookAnalyticsReducer(state = initialState, action) {
@@ -36,6 +40,20 @@ export default function bookAnalyticsReducer(state = initialState, action) {
       return state = {
         ...state,
         bookDateRangeList: [],
+      };
+
+    case GET_RETURNS_RANGE_ANALYTICS_SUCCESS:
+      // eslint-disable-next-line no-return-assign
+      return state = {
+        ...state,
+        returnsDateRangeList: action.returnsDateRangeList,
+      };
+
+    case GET_RETURNS_RANGE_ANALYTICS_FAILURE:
+      // eslint-disable-next-line no-return-assign
+      return state = {
+        ...state,
+        returnsDateRangeList: [],
       };
 
     default:

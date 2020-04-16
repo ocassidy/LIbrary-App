@@ -8,13 +8,13 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faExchangeAlt, faSync } from '@fortawesome/free-solid-svg-icons';
 
-export default function DateRangeLineChart(props) {
+export default function LoansDateRangeLineChart(props) {
   const [stateStartDate, setStateStartDate] = useState('');
   const [stateEndDate, setStateEndDate] = useState('');
   const {
     data, chartTitle, lineColourFill, yAxisDataKey, xAxisDataKey,
     xAxisDataLabel, yAxisDataLabel, setShowActiveLoans, showActiveLoans,
-    startDate, endDate, handleGetBookDateRangeAnalytics,
+    startDate, endDate, handleGetRangeAnalytics, returnRange,
   } = props;
 
   useEffect(() => {
@@ -27,19 +27,21 @@ export default function DateRangeLineChart(props) {
   return (
     <div className="container-fluid">
       <div className="text-center font-weight-bold m-2">{chartTitle}</div>
-      <div className="row justify-content-end">
-        <div className="col-auto mt-2 align-self-end">
-          <Button
-            onClick={() => setShowActiveLoans(!showActiveLoans)}
-            variant="light"
-          >
-            {showActiveLoans ? 'Show Only Active Loans' : 'Show All Loans'}
-            <FontAwesomeIcon icon={faEdit} className="ml-2" />
-          </Button>
+      {!returnRange ? (
+        <div className="row justify-content-end">
+          <div className="col-auto mt-2 align-self-end">
+            <Button
+              onClick={() => setShowActiveLoans(!showActiveLoans)}
+              variant="light"
+            >
+              {showActiveLoans ? 'Show Only Active Loans' : 'Show All Loans'}
+              <FontAwesomeIcon icon={faEdit} className="ml-2" />
+            </Button>
+          </div>
         </div>
-      </div>
+      ) : null}
       <Form
-        onSubmit={(e) => handleGetBookDateRangeAnalytics(e, stateStartDate, stateEndDate)}
+        onSubmit={(e) => handleGetRangeAnalytics(e, stateStartDate, stateEndDate)}
       >
         <div className="row justify-content-center">
           <div className="col-sm-12 col-md-3 col-lg-auto mt-2">
@@ -74,7 +76,7 @@ export default function DateRangeLineChart(props) {
           <div className="col-sm-12 col-md-auto col-lg-auto align-self-end mt-2">
             <Button
               onClick={(e) => {
-                handleGetBookDateRangeAnalytics(e, '2020-01-01', '2020-12-30');
+                handleGetRangeAnalytics(e, '2020-01-01', '2020-12-30');
                 setStateStartDate(startDate);
                 setStateEndDate(endDate);
               }}
@@ -105,7 +107,7 @@ export default function DateRangeLineChart(props) {
                   }}
                 />
                 <Tooltip />
-                <Line type="monotone" dataKey="numberOfLoans" stroke={lineColourFill} />
+                <Line type="monotone" dataKey={yAxisDataKey} stroke={lineColourFill} />
               </LineChart>
             </ResponsiveContainer>
           )

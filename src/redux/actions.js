@@ -1,6 +1,7 @@
 import axios from 'axios';
 import toastr from 'toastr';
 import { push } from 'connected-react-router';
+import moment from 'moment';
 import { API_BASE_URL } from '../constants/constants';
 import {
   GET_CURRENT_USER_FAILURE,
@@ -28,9 +29,14 @@ import {
   GET_USER_ACTIVE_LOAN_DETAILS_PAGE_FAILURE,
   GET_USER_ACTIVE_LOAN_DETAILS_PAGE_SUCCESS,
   GET_USER_INACTIVE_LOAN_DETAILS_PAGE_FAILURE,
-  GET_USER_INACTIVE_LOAN_DETAILS_PAGE_SUCCESS, GET_DATE_RANGE_ANALYTICS_SUCCESS, GET_DATE_RANGE_ANALYTICS_FAILURE,
+  GET_USER_INACTIVE_LOAN_DETAILS_PAGE_SUCCESS,
+  GET_DATE_RANGE_ANALYTICS_SUCCESS,
+  GET_DATE_RANGE_ANALYTICS_FAILURE,
+  GET_USER_ANALYTICS_SUCCESS,
+  GET_USER_ANALYTICS_FAILURE,
+  GET_RETURNS_RANGE_ANALYTICS_SUCCESS,
+  GET_RETURNS_RANGE_ANALYTICS_FAILURE,
 } from './actionTypes';
-import moment from "moment";
 
 const axiosConfig = {
   headers: {
@@ -136,11 +142,11 @@ export const postRegisterFailure = (message) => ({
 
 export const postRegister = (registerRequest) => (dispatch) => axios.post(`${API_BASE_URL}/auth/register`,
   {
-    username: registerRequest.username.trim(),
+    username: registerRequest.username.trim().toLowerCase(),
     firstName: registerRequest.firstName.trim(),
     lastName: registerRequest.lastName.trim(),
     password: registerRequest.password.trim(),
-    email: registerRequest.email.trim(),
+    email: registerRequest.email.trim().toLowerCase(),
   },
   axiosConfig)
   .then((response) => {
@@ -257,7 +263,7 @@ export const getBookAnalyticsFailure = (message) => ({
   message,
 });
 
-export const getBookAnalytics = () => (dispatch) => axios.get(`${API_BASE_URL}/analytics/all`,
+export const getBookAnalytics = () => (dispatch) => axios.get(`${API_BASE_URL}/analytics/all-books`,
   {
     headers: {
       'Content-Type': 'application/json',
@@ -272,6 +278,34 @@ export const getBookAnalytics = () => (dispatch) => axios.get(`${API_BASE_URL}/a
     dispatch(getBookAnalyticsFailure(error.message));
   });
 
+export const getUserAnalyticsSuccess = (userAnalyticsList) => ({
+  type: GET_USER_ANALYTICS_SUCCESS,
+  userAnalyticsList,
+});
+
+export const getUserAnalyticsFailure = (message) => ({
+  type: GET_USER_ANALYTICS_FAILURE,
+  message,
+});
+
+export const getUserAnalytics = (loanNumber) => (dispatch) => axios.get(`${API_BASE_URL}/analytics/all-users`,
+  {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`,
+    },
+    params: {
+      loanNumber,
+    },
+  })
+  .then((response) => {
+    dispatch(getUserAnalyticsSuccess(response.data));
+  })
+  .catch((error) => {
+    toastr.error(error.message, 'Error');
+    dispatch(getUserAnalyticsFailure(error.message));
+  });
+
 export const getBookDateRangeAnalyticsSuccess = (bookDateRangeList) => ({
   type: GET_DATE_RANGE_ANALYTICS_SUCCESS,
   bookDateRangeList,
@@ -282,7 +316,7 @@ export const getBookDateRangeAnalyticsFailure = (message) => ({
   message,
 });
 
-export const getBookDateRangeAnalytics = (startDate, endDate) => (dispatch) => axios.get(`${API_BASE_URL}/analytics/date-range`,
+export const getBookDateRangeAnalytics = (startDate, endDate) => (dispatch) => axios.get(`${API_BASE_URL}/analytics/loans-date-range`,
   {
     headers: {
       'Content-Type': 'application/json',
@@ -299,6 +333,35 @@ export const getBookDateRangeAnalytics = (startDate, endDate) => (dispatch) => a
   .catch((error) => {
     toastr.error(error.message, 'Error');
     dispatch(getBookDateRangeAnalyticsFailure(error.message));
+  });
+
+export const getReturnsDateRangeAnalyticsSuccess = (returnsDateRangeList) => ({
+  type: GET_RETURNS_RANGE_ANALYTICS_SUCCESS,
+  returnsDateRangeList,
+});
+
+export const getReturnsDateRangeAnalyticsFailure = (message) => ({
+  type: GET_RETURNS_RANGE_ANALYTICS_FAILURE,
+  message,
+});
+
+export const getReturnsDateRangeAnalytics = (startDate, endDate) => (dispatch) => axios.get(`${API_BASE_URL}/analytics/returns-date-range`,
+  {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`,
+    },
+    params: {
+      startDate: moment(startDate).format('YYYY-MM-DD'),
+      endDate: moment(endDate).format('YYYY-MM-DD'),
+    },
+  })
+  .then((response) => {
+    dispatch(getReturnsDateRangeAnalyticsSuccess(response.data));
+  })
+  .catch((error) => {
+    toastr.error(error.message, 'Error');
+    dispatch(getReturnsDateRangeAnalyticsFailure(error.message));
   });
 
 export const postLoanRequestSuccess = (token) => ({

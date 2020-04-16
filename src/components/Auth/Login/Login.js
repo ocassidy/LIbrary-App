@@ -30,7 +30,7 @@ export function Login(props) {
           <div className="col-12">
             <Form.Label>
               Username or Email
-              <span className="requiredStar"> * </span>
+              <span className="text-danger"> * </span>
             </Form.Label>
             <Form.Control
               id="loginUsernameInput"
@@ -41,7 +41,7 @@ export function Login(props) {
             />
             <Form.Label>
               Password
-              <span className="requiredStar"> * </span>
+              <span className="text-danger"> * </span>
             </Form.Label>
             <Form.Control
               id="loginPasswordInput"

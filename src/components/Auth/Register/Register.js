@@ -37,7 +37,7 @@ export function Register(props) {
           <div className="col-12">
             <Form.Label>
               Username
-              <span className="requiredStar"> * </span>
+              <span className="text-danger"> * </span>
             </Form.Label>
             <Form.Control
               id="registerUsernameInput"
@@ -51,7 +51,7 @@ export function Register(props) {
           <div className="col-sm-12 col-md-5 col-lg-5 mr-auto">
             <Form.Label>
               First Name
-              <span className="requiredStar"> * </span>
+              <span className="text-danger"> * </span>
             </Form.Label>
             <Form.Control
               id="registerFirstNameInput"
@@ -65,7 +65,7 @@ export function Register(props) {
           <div className="col-sm-12 col-md-5 col-lg-5">
             <Form.Label>
               Last Name
-              <span className="requiredStar"> * </span>
+              <span className="text-danger"> * </span>
             </Form.Label>
             <Form.Control
               id="registerLastNameInput"
@@ -79,7 +79,7 @@ export function Register(props) {
           <div className="col-12">
             <Form.Label>
               Email
-              <span className="requiredStar"> * </span>
+              <span className="text-danger"> * </span>
             </Form.Label>
             <Form.Control
               id="registerEmailInput"
@@ -93,7 +93,7 @@ export function Register(props) {
           <div className="col-12">
             <Form.Label>
               Password
-              <span className="requiredStar"> * </span>
+              <span className="text-danger"> * </span>
             </Form.Label>
             <Form.Control
               id="registerPasswordInput"
@@ -107,7 +107,7 @@ export function Register(props) {
           <div className="col-12">
             <Form.Label>
               Retype Password
-              <span className="requiredStar"> * </span>
+              <span className="text-danger"> * </span>
             </Form.Label>
             <Form.Control
               id="registerRetypePasswordInput"
