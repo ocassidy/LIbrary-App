@@ -5,8 +5,10 @@ import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookOpen, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { push } from 'connected-react-router';
-import { deleteBook, getBook, postLoanRequest } from '../../../redux/actions';
 import AdminDeleteBookConfirmModal from '../../Admin/AdminEditDeleteBook/AdminDeleteBookConfirmModal';
+import { getBook } from '../../../redux/actions/BookActions';
+import { postLoanRequest } from '../../../redux/actions/UserActions';
+import { deleteBook } from '../../../redux/actions/AdminActions';
 
 function BookPage(props) {
   const { id } = useParams();

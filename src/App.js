@@ -6,14 +6,6 @@ import { ConnectedRouter } from 'connected-react-router';
 import { connect } from 'react-redux';
 import AuthenticatedRoute from './components/AuthenticatedRoutes/AuthenticatedRoute';
 import NotFound from './components/Shared/NotFound';
-import {
-  getBookAnalytics,
-  getBookDateRangeAnalytics,
-  getBookList,
-  getBookPage,
-  getCurrentUser, getReturnsDateRangeAnalytics,
-  getUserAnalytics,
-} from './redux/actions';
 import { RegisterContainer } from './components/Auth/Register/Register';
 import { BookListContainer } from './components/Book/BooksList/BooksList';
 import BookAnalytics from './components/Analytics/Analytics/Analytics';
@@ -27,6 +19,18 @@ import AdminAddBook from './components/Admin/AdminAddBook/AdminAddBook';
 import NavBar from './components/Shared/NavBar';
 import BookEditPage from './components/Book/BookEditPage/BookEditPage';
 import AdminEditDeleteBook from './components/Admin/AdminEditDeleteBook/AdminEditDeleteBook';
+import { getBookList, getBookPage } from './redux/actions/BookActions';
+import { getCurrentUser } from './redux/actions/AuthActions';
+import {
+  getBookAnalytics,
+  getBookDateRangeAnalytics,
+  getReturnsDateRangeAnalytics,
+  getUserLoansAnalytics,
+  getUserReturnsAnalytics,
+} from './redux/actions/AnalyticsActions';
+import { getUserPage } from './redux/actions/AdminActions';
+import AdminUser from "./components/Admin/AdminUser/AdminUser";
+import AdminUserDetails from "./components/Admin/AdminUser/AdminUserDetails";
 
 function App(props) {
   const {
@@ -41,17 +45,21 @@ function App(props) {
     handleGetBookAnalytics,
     handleGetBookDateRangeAnalytics,
     handleGetBookPage,
-    handleGetUserAnalytics,
+    handleGetUserLoansAnalytics,
     handleGetReturnDateRangeAnalytics,
+    handleGetUserReturnsAnalytics,
+    handleGetUserPage,
   } = props;
 
   useEffect(() => {
     handleGetBookList();
     handleGetBookPage(0, 5);
+    handleGetUserPage(0, 10);
     checkForCurrentUser();
     if (isAdmin) {
       handleGetBookAnalytics();
-      handleGetUserAnalytics(1);
+      handleGetUserLoansAnalytics(1);
+      handleGetUserReturnsAnalytics(1);
       handleGetBookDateRangeAnalytics('2020-01-01', '2020-12-30');
       handleGetReturnDateRangeAnalytics('2020-01-01', '2020-12-30');
     }
@@ -64,8 +72,10 @@ function App(props) {
     handleGetBookAnalytics,
     handleGetBookPage,
     handleGetBookDateRangeAnalytics,
-    handleGetUserAnalytics,
+    handleGetUserLoansAnalytics,
     handleGetReturnDateRangeAnalytics,
+    handleGetUserReturnsAnalytics,
+    handleGetUserPage,
   ]);
 
   return (
@@ -73,7 +83,7 @@ function App(props) {
       {isLoading
         ? (
           <div className="appSpinnerDiv">
-            <Spinner animation="border" role="status" className="isLoadingSpinner" />
+            <Spinner animation="border" role="status" className="text-center" style={{ marginTop: '250px' }}/>
             <div>
               Loading Please Wait...
             </div>
@@ -155,6 +165,20 @@ function App(props) {
                 id="authenticatedAdminRouteToBookAdminDeleteBook"
                 authProps={{ currentUser, isAuthenticated, isAdmin }}
               />
+              <AuthenticatedAdminRoute
+                exact
+                path="/admin/users"
+                component={() => <AdminUser />}
+                id="authenticatedAdminRouteToBookAdminUsers"
+                authProps={{ currentUser, isAuthenticated, isAdmin }}
+              />
+              <AuthenticatedAdminRoute
+                exact
+                path="/admin/user/:username"
+                component={() => <AdminUserDetails />}
+                id="authenticatedAdminRouteToBookAdminUsers"
+                authProps={{ currentUser, isAuthenticated, isAdmin }}
+              />
               <Route
                 exact
                 path="/forbidden"
@@ -212,8 +236,14 @@ const mapDispatchToProps = (dispatch) => ({
   handleGetReturnDateRangeAnalytics: (startDate, endDate) => {
     dispatch(getReturnsDateRangeAnalytics(startDate, endDate));
   },
-  handleGetUserAnalytics: (loanNumber) => {
-    dispatch(getUserAnalytics(loanNumber));
+  handleGetUserLoansAnalytics: (loanNumber) => {
+    dispatch(getUserLoansAnalytics(loanNumber));
+  },
+  handleGetUserReturnsAnalytics: (loanNumber) => {
+    dispatch(getUserReturnsAnalytics(loanNumber));
+  },
+  handleGetUserPage: (page, size) => {
+    dispatch(getUserPage(page, size));
   },
 });
 

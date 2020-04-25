@@ -7,9 +7,8 @@ import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
 import moment from 'moment';
 import toastr from 'toastr';
 import axios from 'axios';
-import { getUserActiveLoanDetailsPage, getUserInactiveLoanDetailsPage } from '../../redux/actions';
-import './Profile.css';
 import { API_BASE_URL } from '../../constants/constants';
+import { getUserActiveLoanDetailsPage, getUserInactiveLoanDetailsPage } from '../../redux/actions/UserActions';
 
 export function Profile(props) {
   const [isLoading, setIsLoading] = useState(true);
@@ -67,7 +66,7 @@ export function Profile(props) {
     && userActiveLoansDetailsPage.content
     && userActiveLoansDetailsPage.content.length > 0)
     ? userActiveLoansDetailsPage.content.map((loan) => (
-      <Card key={loan.loanId} className="m-2 text-left">
+      <Card key={loan.loanId} className="mt-2 mb-2 text-left">
         {loan.image ? <div className="m-2">{loan.image}</div> : null}
         <h5 className="card-title m-2">{loan.bookName}</h5>
         <div className="card-text m-2">
@@ -112,7 +111,7 @@ export function Profile(props) {
     && userInactiveLoansDetailsPage.content
     && userInactiveLoansDetailsPage.content.length > 0)
     ? userInactiveLoansDetailsPage.content.map((loan) => (
-      <Card key={loan.loanId} className="m-2 text-left">
+      <Card key={loan.loanId} className="mt-2 mb-2 text-left">
         {loan.image ? <div className="m-2">{loan.image}</div> : null}
         <h5 className="card-title m-2">{loan.bookName}</h5>
         <div className="card-text m-2">
@@ -158,7 +157,7 @@ export function Profile(props) {
   }
 
   const activeLoanPagination = (
-    <div className="userLoansPagination">
+    <div>
       <Pagination>{paginationActiveLoans}</Pagination>
     </div>
   );
@@ -186,7 +185,7 @@ export function Profile(props) {
     <div id="profileContainer" className="container-fluid">
       {isLoading && !currentUser
         ? (
-          <div id="profileSpinner" className="text-center">
+          <div id="profileSpinner" className="text-center" style={{ marginTop: '250px' }}>
             <Spinner animation="border" role="status" />
             <div>
               Loading Please Wait...
@@ -194,26 +193,35 @@ export function Profile(props) {
           </div>
         )
         : (
-          <div className="row no-gutters">
+          <div className="row no-gutters justify-content-sm-center justify-content-md-center justify-content-lg-start">
             {currentUser
               ? (
-                <div id="userDetailsContainer" className="col-auto mr-4">
-                  <h2 id="userDetailsUsername">Hi {currentUser.username}</h2>
-                  <div id="userDetailsTitle">Your user details:</div>
-                  <div id="userDetailsFirstName">Firstname: {currentUser.firstName}</div>
-                  <div id="userDetailsLastName">Lastname: {currentUser.lastName}</div>
-                  <div id="userDetailsEmail">Email: {currentUser.email}</div>
-                </div>
-              )
-              : null}
-            <div className="col-auto">
-              <h2 className="col-auto">Your Loan Details:</h2>
-              <div className="row no-gutters">
-                <div className="col-auto">
+                <div id="userDetailsContainer" className="col-sm-12 col-md-6 col-lg-auto">
+                  <div id="userDetailsUsername" className="h2 mb-2">Hi {currentUser.username}</div>
+                  <div id="userDetailsTitle" className="mb-2">Your user details:</div>
+                  <div id="userDetailsFirstName" className="mb-2">Firstname: {currentUser.firstName}</div>
+                  <div id="userDetailsLastName" className="mb-2">Lastname: {currentUser.lastName}</div>
+                  <div id="userDetailsEmail" className="mb-2">Email: {currentUser.email}</div>
+                  <div className="mb-2">
+                    <Button
+                      variant="success"
+                      className="btn btn-block"
+                    >
+                      Change Password
+                    </Button>
+                  </div>
+                  <div className="mb-2">
+                    <Button
+                      variant="danger"
+                      className="btn btn-block"
+                    >
+                      Delete Account
+                    </Button>
+                  </div>
                   <Button
                     onClick={() => setShowActiveLoans(!showActiveLoans)}
-                    variant="light"
-                    className="m-2"
+                    variant="info"
+                    className="btn btn-block"
                   >
                     {showActiveLoans ? 'Close Active Loans' : 'See Active Loans'}
                     {showActiveLoans
@@ -222,17 +230,15 @@ export function Profile(props) {
                   </Button>
                   {showActiveLoans ? (
                     <div>
-                      {userActiveLoansList ? <h5 className="text-left m-2">Your Active Loans:</h5> : null}
+                      {userActiveLoansList ? <h5 className="text-left mt-2 mb-2">Your Active Loans:</h5> : null}
                       {userActiveLoansList}
                       {totalActiveLoanPages > 1 ? activeLoanPagination : null}
                     </div>
                   ) : null}
-                </div>
-                <div className="col-auto">
                   <Button
                     onClick={() => setShowInactiveLoans(!showInactiveLoans)}
-                    variant="light"
-                    className="m-2"
+                    variant="secondary"
+                    className="btn btn-block"
                   >
                     {showInactiveLoans ? 'Close Inactive Loans' : 'See Inactive Loans'}
                     {showInactiveLoans
@@ -242,14 +248,14 @@ export function Profile(props) {
                   {showInactiveLoans
                     ? (
                       <div>
-                        {userInactiveLoansList ? <h5 className="text-left m-2">Your Inactive Loans:</h5> : null}
+                        {userInactiveLoansList ? <h5 className="text-left mt-2 mb-2">Your Inactive Loans:</h5> : null}
                         {userInactiveLoansList}
                         {totalInactiveLoanPages > 1 ? inactiveLoanPagination : null}
                       </div>
                     ) : null}
                 </div>
-              </div>
-            </div>
+              )
+              : null}
           </div>
         )}
     </div>

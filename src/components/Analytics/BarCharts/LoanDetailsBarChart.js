@@ -12,7 +12,7 @@ export default function LoanDetailsBarChart(props) {
   const {
     data, chartTitle, barColourFill, yAxisDataKey, xAxisDataKey, barDataKey,
     xAxisDataLabel, yAxisDataLabel, setShowActiveLoans, showActiveLoans,
-    handleGetUserAnalytics, numOfLoans, numOfLoansForm,
+    handleGetUserAnalytics, numOfLoans, numOfLoansForm, showActiveLoansButton
   } = props;
 
   useEffect(() => {
@@ -24,15 +24,18 @@ export default function LoanDetailsBarChart(props) {
   return (
     <div className="container-fluid">
       <div className="text-center font-weight-bold m-2">{chartTitle}</div>
-      <div className="mr-3 d-flex justify-content-end">
-        <Button
-          onClick={() => setShowActiveLoans(!showActiveLoans)}
-          variant="light"
-        >
-          {showActiveLoans ? 'Show Only Active Loans' : 'Show All Loans'}
-          <FontAwesomeIcon icon={faEdit} className="ml-2" />
-        </Button>
-      </div>
+      {showActiveLoansButton
+        ? (
+          <div className="mr-3 d-flex justify-content-end">
+            <Button
+              onClick={() => setShowActiveLoans(!showActiveLoans)}
+              variant="light"
+            >
+              {showActiveLoans ? 'Show Only Active Loans' : 'Show All Loans'}
+              <FontAwesomeIcon icon={faEdit} className="ml-2" />
+            </Button>
+          </div>
+        ) : null}
       {numOfLoansForm
         ? (
           <Form
@@ -100,7 +103,7 @@ export default function LoanDetailsBarChart(props) {
               </BarChart>
             </ResponsiveContainer>
           )
-          : <div className="h4 m-4">No data found users with loans equal to or above {stateNumOfLoans}. Please try again.</div>}
+          : <div className="h4 m-4">No data found users with data equal to or above {stateNumOfLoans}. Please try again.</div>}
       </div>
     </div>
   );

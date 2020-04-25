@@ -50,7 +50,7 @@ export default function AdminAddBook() {
         return response.data;
       })
       .catch((error) => {
-        toastr.error(error.message, 'Error');
+        toastr.error(error.response.date.message, 'Error');
       });
   };
 

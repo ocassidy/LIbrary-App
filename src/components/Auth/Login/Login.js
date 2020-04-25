@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
-import { postLogin } from '../../../redux/actions';
+import { postLogin } from "../../../redux/actions/AuthActions";
 
 export function Login(props) {
   const [usernameOrEmail, setUsernameOrEmail] = useState('');

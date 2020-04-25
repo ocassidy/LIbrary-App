@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Button, NavDropdown } from 'react-bootstrap';
 import { push } from 'connected-react-router';
-import { logout } from '../../redux/actions';
+import { logout } from "../../redux/actions/AuthActions";
 
 function NavBar(props) {
   const {

@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 import { push } from 'connected-react-router';
-import { getBook, putEditBook } from '../../../redux/actions';
+import { putEditBook } from '../../../redux/actions/AdminActions';
+import { getBook } from '../../../redux/actions/BookActions';
 
 function BookEditPage(props) {
   const [image, setImage] = useState();

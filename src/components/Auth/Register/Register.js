@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import toastr from 'toastr';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
-import { postRegister } from '../../../redux/actions';
+import { postRegister } from '../../../redux/actions/AuthActions';
 
 export function Register(props) {
   const [username, setUsername] = useState('');
@@ -13,6 +13,11 @@ export function Register(props) {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [retypePassword, setRetypePassword] = useState('');
+  const [address1, setAddress1] = useState('');
+  const [address2, setAddress2] = useState('');
+  const [gender, setGender] = useState('M');
+  const [city, setCity] = useState('');
+  const [contactNumber, setContactNumber] = useState('');
   const { currentUser, onHandleRegister, onAlreadyLoggedIn } = props;
 
   useEffect(() => {
@@ -31,9 +36,15 @@ export function Register(props) {
           </div>
         </div>
       </div>
-      {/* eslint-disable-next-line max-len */}
-      <Form id="registerForm" onSubmit={(e) => onHandleRegister(username, email, password, retypePassword, firstName, lastName, e)}>
-        <div className="row no-gutters">
+      <Form
+        id="registerForm"
+        onSubmit={(e) => onHandleRegister(
+          e, username, email, password,
+          retypePassword, firstName, lastName,
+          address1, address2, city, contactNumber, gender,
+        )}
+      >
+        <div className="row">
           <div className="col-12">
             <Form.Label>
               Username
@@ -48,7 +59,7 @@ export function Register(props) {
               onChange={(e) => setUsername(e.target.value)}
             />
           </div>
-          <div className="col-sm-12 col-md-5 col-lg-5 mr-auto">
+          <div className="col-sm-12 col-md-6 col-lg-6">
             <Form.Label>
               First Name
               <span className="text-danger"> * </span>
@@ -62,7 +73,7 @@ export function Register(props) {
               onChange={(e) => setFirstName(e.target.value)}
             />
           </div>
-          <div className="col-sm-12 col-md-5 col-lg-5">
+          <div className="col-sm-12 col-md-6 col-lg-6">
             <Form.Label>
               Last Name
               <span className="text-danger"> * </span>
@@ -90,6 +101,52 @@ export function Register(props) {
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
+          <div className="col-sm-12 col-md-6 col-lg-6 mb-2">
+            <div className="mb-2 font-weight-bold">User Address 1:</div>
+            <Form.Control
+              type="text"
+              placeholder="User Address 1..."
+              required
+              onChange={(e) => setAddress1(e.target.value)}
+            />
+          </div>
+          <div className="col-sm-12 col-md-6 col-lg-6 mb-2">
+            <div className="mb-2 font-weight-bold">User Address 2:</div>
+            <Form.Control
+              type="text"
+              placeholder="User Address 2..."
+              onChange={(e) => setAddress2(e.target.value)}
+            />
+          </div>
+          <div className="col-12">
+            <div className="mb-2 font-weight-bold">City:</div>
+            <Form.Control
+              type="text"
+              placeholder="City..."
+              onChange={(e) => setCity(e.target.value)}
+            />
+          </div>
+          <div className="col-6">
+            <div className="mb-2 font-weight-bold">Gender:</div>
+            <Form.Control
+              as="select"
+              type="text"
+              placeholder="Gender..."
+              required
+              onChange={(e) => setGender(e.target.value)}
+            >
+              <option>M</option>
+              <option>F</option>
+            </Form.Control>
+          </div>
+          <div className="col-6">
+            <div className="mb-2 font-weight-bold">Contact Number:</div>
+            <Form.Control
+              type="text"
+              placeholder="Contact Number..."
+              onChange={(e) => setContactNumber(e.target.value)}
+            />
+          </div>
           <div className="col-12">
             <Form.Label>
               Password
@@ -99,7 +156,7 @@ export function Register(props) {
               id="registerPasswordInput"
               type="password"
               className="registerPasswordInput"
-              placeholder="Password"
+              placeholder="Password..."
               required
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -113,7 +170,7 @@ export function Register(props) {
               id="registerRetypePasswordInput"
               type="password"
               className="registerRetypePasswordInput"
-              placeholder="Retype Password"
+              placeholder="Retype Password..."
               required
               onChange={(e) => setRetypePassword(e.target.value)}
             />
@@ -148,8 +205,11 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onHandleRegister: (username, email, password, retypePassword, firstName, lastName, e) => {
+  onHandleRegister: (e, username, email, password,
+    retypePassword, firstName, lastName, address1,
+    address2, city, contactNumber, gender) => {
     e.preventDefault();
+
     if (password !== retypePassword) {
       return toastr.error('Passwords do not match!', 'Error', { timeOut: 5000 });
     }
@@ -160,6 +220,11 @@ const mapDispatchToProps = (dispatch) => ({
       lastName,
       password,
       email,
+      address1,
+      address2,
+      city,
+      contactNumber,
+      gender,
     };
 
     return dispatch(postRegister(registerRequest));

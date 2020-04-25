@@ -3,22 +3,26 @@ import { connect } from 'react-redux';
 import { Button } from 'react-bootstrap';
 import moment from 'moment';
 import toastr from 'toastr';
+import QuickStats from '../QuickStats/QuickStats';
+import BookAnalytics from './BookAnalytics';
+import UserAnalytics from './UserAnalytics';
 import {
   getBookAnalytics,
   getBookDateRangeAnalytics,
   getReturnsDateRangeAnalytics,
-  getUserAnalytics,
-} from '../../../redux/actions';
-import QuickStats from '../QuickStats/QuickStats';
-import BookAnalytics from './BookAnalytics';
-import UserAnalytics from './UserAnalytics';
+  getUserLoansAnalytics,
+  getUserReturnsAnalytics,
+} from '../../../redux/actions/AnalyticsActions';
 
 function Analytics(props) {
   const [showBookAnalytics, setShowBookAnalytics] = useState(false);
   const [showUserAnalytics, setShowUserAnalytics] = useState(false);
   const {
-    bookAnalyticsList, bookDateRangeList, handleGetBookDateRangeAnalytics, userAnalyticsList,
-    handleGetUserAnalytics, handleGetReturnDateRangeAnalytics, returnsDateRangeList,
+    bookAnalyticsList, bookDateRangeList,
+    handleGetBookDateRangeAnalytics, userLoansAnalyticsList,
+    userReturnsAnalyticsList, handleGetUserLoansAnalytics,
+    handleGetReturnDateRangeAnalytics, returnsDateRangeList,
+    handleGetUserReturnsAnalytics,
   } = props;
 
   return (
@@ -70,8 +74,10 @@ function Analytics(props) {
       {showUserAnalytics && !showBookAnalytics
         ? (
           <UserAnalytics
-            userAnalyticsList={userAnalyticsList}
-            handleGetUserAnalytics={handleGetUserAnalytics}
+            userLoansAnalyticsList={userLoansAnalyticsList}
+            handleGetUserLoansAnalytics={handleGetUserLoansAnalytics}
+            userReturnsAnalyticsList={userReturnsAnalyticsList}
+            handleGetUserReturnsAnalytics={handleGetUserReturnsAnalytics}
           />
         )
         : null}
@@ -82,22 +88,32 @@ function Analytics(props) {
 const mapStateToProps = (state) => ({
   bookAnalyticsList: state.bookAnalytics.bookAnalyticsList,
   bookDateRangeList: state.bookAnalytics.bookDateRangeList,
-  userAnalyticsList: state.userAnalytics.userAnalyticsList,
+  userLoansAnalyticsList: state.userAnalytics.userLoansAnalyticsList,
   returnsDateRangeList: state.bookAnalytics.returnsDateRangeList,
+  userReturnsAnalyticsList: state.userAnalytics.userReturnsAnalyticsList,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   handleGetBookAnalytics: () => {
     dispatch(getBookAnalytics());
   },
-  handleGetUserAnalytics: (e, loanNumber) => {
+  handleGetUserLoansAnalytics: (e, loanNumber) => {
     e.preventDefault();
 
     if (loanNumber < 1) {
       return toastr.error('Loan Number Cannot be less than 1.', 'Error');
     }
 
-    return dispatch(getUserAnalytics(loanNumber));
+    return dispatch(getUserLoansAnalytics(loanNumber));
+  },
+  handleGetUserReturnsAnalytics: (e, loanNumber) => {
+    e.preventDefault();
+
+    if (loanNumber < 1) {
+      return toastr.error('Loan Number Cannot be less than 1.', 'Error');
+    }
+
+    return dispatch(getUserReturnsAnalytics(loanNumber));
   },
   handleGetBookDateRangeAnalytics: (e, startDate, endDate) => {
     e.preventDefault();

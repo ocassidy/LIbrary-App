@@ -7,9 +7,10 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilter, faSearch, faSync } from '@fortawesome/free-solid-svg-icons';
 import { push } from 'connected-react-router';
-import { deleteBook, getBookList, getBookPage } from '../../../redux/actions';
 import BooksListFilters from './BookListFilters';
 import AdminDeleteBookConfirmModal from '../../Admin/AdminEditDeleteBook/AdminDeleteBookConfirmModal';
+import { getBookList, getBookPage } from '../../../redux/actions/BookActions';
+import { deleteBook } from '../../../redux/actions/AdminActions';
 
 export function BooksList(props) {
   const [pagedBooks, setPagedBooks] = useState({});
