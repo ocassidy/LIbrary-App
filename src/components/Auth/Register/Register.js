@@ -46,7 +46,7 @@ export function Register(props) {
       >
         <div className="row">
           <div className="col-12">
-            <Form.Label>
+            <Form.Label className="mb-2 font-weight-bold">
               Username
               <span className="text-danger"> * </span>
             </Form.Label>
@@ -60,7 +60,7 @@ export function Register(props) {
             />
           </div>
           <div className="col-sm-12 col-md-6 col-lg-6">
-            <Form.Label>
+            <Form.Label className="mb-2 font-weight-bold">
               First Name
               <span className="text-danger"> * </span>
             </Form.Label>
@@ -74,7 +74,7 @@ export function Register(props) {
             />
           </div>
           <div className="col-sm-12 col-md-6 col-lg-6">
-            <Form.Label>
+            <Form.Label className="mb-2 font-weight-bold">
               Last Name
               <span className="text-danger"> * </span>
             </Form.Label>
@@ -88,7 +88,7 @@ export function Register(props) {
             />
           </div>
           <div className="col-12">
-            <Form.Label>
+            <Form.Label className="mb-2 font-weight-bold">
               Email
               <span className="text-danger"> * </span>
             </Form.Label>
@@ -102,7 +102,10 @@ export function Register(props) {
             />
           </div>
           <div className="col-sm-12 col-md-6 col-lg-6 mb-2">
-            <div className="mb-2 font-weight-bold">User Address 1:</div>
+            <Form.Label className="mb-2 font-weight-bold">
+              User Address 1
+              <span className="text-danger"> * </span>
+            </Form.Label>
             <Form.Control
               type="text"
               placeholder="User Address 1..."
@@ -119,15 +122,22 @@ export function Register(props) {
             />
           </div>
           <div className="col-12">
-            <div className="mb-2 font-weight-bold">City:</div>
+            <Form.Label className="mb-2 font-weight-bold">
+              City:
+              <span className="text-danger"> * </span>
+            </Form.Label>
             <Form.Control
               type="text"
               placeholder="City..."
               onChange={(e) => setCity(e.target.value)}
+              required
             />
           </div>
           <div className="col-6">
-            <div className="mb-2 font-weight-bold">Gender:</div>
+            <Form.Label className="mb-2 font-weight-bold">
+              Gender
+              <span className="text-danger"> * </span>
+            </Form.Label>
             <Form.Control
               as="select"
               type="text"
@@ -145,10 +155,11 @@ export function Register(props) {
               type="text"
               placeholder="Contact Number..."
               onChange={(e) => setContactNumber(e.target.value)}
+              required
             />
           </div>
           <div className="col-12">
-            <Form.Label>
+            <Form.Label className="mb-2 font-weight-bold">
               Password
               <span className="text-danger"> * </span>
             </Form.Label>
@@ -162,7 +173,7 @@ export function Register(props) {
             />
           </div>
           <div className="col-12">
-            <Form.Label>
+            <Form.Label className="mb-2 font-weight-bold">
               Retype Password
               <span className="text-danger"> * </span>
             </Form.Label>

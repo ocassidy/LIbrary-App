@@ -27,11 +27,11 @@ function Analytics(props) {
 
   return (
     <div className="container-fluid">
-      <div className="row no-gutters justify-content-center m-2">
-        <div className="col-sm-12 col-md-4 col-lg-5 border border-dark rounded m-2">
-          <div className="h3 m-3">Toggles:</div>
-          <div className="row no-gutters m-3 justify-content-center">
-            <div className="col-auto mr-2 mb-2">
+      <div className="row justify-content-center align-content-center">
+        <div className="col-sm-12 col-md-5 col-lg-5 border border-dark rounded m-2">
+          <div className="row justify-content-center align-content-center">
+            <div className="col-12 h3">Toggles:</div>
+            <div className="col-auto mb-2">
               <Button
                 variant="light"
                 onClick={() => {
@@ -42,7 +42,7 @@ function Analytics(props) {
                 Show Book Analytics
               </Button>
             </div>
-            <div className="col-auto mr-2 mb-2">
+            <div className="col-auto mb-2">
               <Button
                 variant="light"
                 onClick={() => {
@@ -55,7 +55,7 @@ function Analytics(props) {
             </div>
           </div>
         </div>
-        <div className="col-sm-12 col-md-6 col-lg-5 m-2">
+        <div className="col-sm-12 col-md-5 col-lg-5 m-2">
           <QuickStats data={bookAnalyticsList} />
         </div>
       </div>

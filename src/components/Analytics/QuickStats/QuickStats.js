@@ -4,30 +4,34 @@ export default function QuickStats(props) {
   const { data } = props;
 
   return (
-    <div className="border border-dark rounded">
-      <div className="m-3 h3">Quick Stats:</div>
+    <div>
       {data
         ? (
-          <div className="row no-gutters m-2 justify-content-center">
-            <div className="col-auto m-1 h5">
-              Total books:
-              <div className="text-center m-1">{data.totalNumOfBooks}</div>
+          <div className="row justify-content-start align-content-center border border-dark rounded">
+            <div className="col-12 h3">Quick Stats:</div>
+            <div className="col-auto h5">
+              Total Books:
+              <span className="text-center ml-1">{data.totalNumOfBooks}</span>
             </div>
-            <div className="col-auto m-1 h5">
-              Total users:
-              <div className="text-center m-1">{data.totalNumOfUsers}</div>
+            <div className="col-auto h5">
+              Total Users:
+              <span className="text-center ml-1">{data.totalNumOfUsers}</span>
             </div>
-            <div className="col-auto m-1 h5">
-              Total loans:
-              <div className="text-center m-1">{data.totalNumOfLoans}</div>
+            <div className="col-auto h5">
+              Total Loans:
+              <span className="text-center ml-1">{data.totalNumOfLoans}</span>
             </div>
-            <div className="col-auto m-1 h5">
+            <div className="col-auto h5">
+              Total Extensions:
+              <span className="text-center ml-1">{data.totalNumberOfExtensions}</span>
+            </div>
+            <div className="col-auto h5">
               Total Fines:
-              <div className="text-center m-1">{data.totalNumOfFines}</div>
+              <span className="text-center ml-1">{data.totalNumOfFines}</span>
             </div>
-            <div className="col-auto m-1 h5">
+            <div className="col-auto h5">
               Total Missing:
-              <div className="text-center m-1">{data.totalNumOfBooksMissing}</div>
+              <span className="text-center ml-1">{data.totalNumOfBooksMissing}</span>
             </div>
           </div>
         )

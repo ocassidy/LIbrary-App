@@ -28,9 +28,9 @@ import {
   getUserLoansAnalytics,
   getUserReturnsAnalytics,
 } from './redux/actions/AnalyticsActions';
-import { getUserPage } from './redux/actions/AdminActions';
-import AdminUser from "./components/Admin/AdminUser/AdminUser";
-import AdminUserDetails from "./components/Admin/AdminUser/AdminUserDetails";
+import { getUserList, getUserPage } from './redux/actions/AdminActions';
+import AdminUser from './components/Admin/AdminUser/AdminUser';
+import AdminUserDetails from './components/Admin/AdminUser/AdminUserDetails';
 
 function App(props) {
   const {
@@ -49,12 +49,13 @@ function App(props) {
     handleGetReturnDateRangeAnalytics,
     handleGetUserReturnsAnalytics,
     handleGetUserPage,
+    handleGetUserList,
   } = props;
 
   useEffect(() => {
     handleGetBookList();
     handleGetBookPage(0, 5);
-    handleGetUserPage(0, 10);
+    handleGetUserPage(0, 5);
     checkForCurrentUser();
     if (isAdmin) {
       handleGetBookAnalytics();
@@ -62,6 +63,7 @@ function App(props) {
       handleGetUserReturnsAnalytics(1);
       handleGetBookDateRangeAnalytics('2020-01-01', '2020-12-30');
       handleGetReturnDateRangeAnalytics('2020-01-01', '2020-12-30');
+      handleGetUserList();
     }
   }, [
     isAuthenticated,
@@ -76,6 +78,7 @@ function App(props) {
     handleGetReturnDateRangeAnalytics,
     handleGetUserReturnsAnalytics,
     handleGetUserPage,
+    handleGetUserList,
   ]);
 
   return (
@@ -83,7 +86,7 @@ function App(props) {
       {isLoading
         ? (
           <div className="appSpinnerDiv">
-            <Spinner animation="border" role="status" className="text-center" style={{ marginTop: '250px' }}/>
+            <Spinner animation="border" role="status" className="text-center" style={{ marginTop: '250px' }} />
             <div>
               Loading Please Wait...
             </div>
@@ -244,6 +247,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   handleGetUserPage: (page, size) => {
     dispatch(getUserPage(page, size));
+  },
+  handleGetUserList: () => {
+    dispatch(getUserList());
   },
 });
 

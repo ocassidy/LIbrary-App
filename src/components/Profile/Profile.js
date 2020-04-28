@@ -62,16 +62,44 @@ export function Profile(props) {
       });
   };
 
+  const postLoanExtendRequest = (bookId, loanId, username, lengthOfExtension) => {
+    axios.post(`${API_BASE_URL}/book/loan-extend`, {
+      bookId, loanId, username, lengthOfExtension,
+    },
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`,
+      },
+    })
+      .then((response) => {
+        console.log(loanId)
+        toastr.success(response.data.message, 'Success', { timeOut: 100000 });
+        window.location.reload();
+        return response.data;
+      })
+      .catch((error) => {
+        if (error.response === undefined) {
+          return toastr.error('Failed to connect to server, please try again later', 'Error');
+        }
+        return toastr.error(error.response.data.message);
+      });
+  };
+
   const userActiveLoansList = (userActiveLoansDetailsPage
     && userActiveLoansDetailsPage.content
     && userActiveLoansDetailsPage.content.length > 0)
     ? userActiveLoansDetailsPage.content.map((loan) => (
       <Card key={loan.loanId} className="mt-2 mb-2 text-left">
         {loan.image ? <div className="m-2">{loan.image}</div> : null}
-        <h5 className="card-title m-2">{loan.bookName}</h5>
+        <div className="card-title m-2 h5">{loan.bookName}</div>
         <div className="card-text m-2">
           <span className="font-weight-bold">Book ID: </span>
           {loan.bookId}
+        </div>
+        <div className="card-text m-2">
+          <span className="font-weight-bold">Loan ID: </span>
+          {loan.loanId}
         </div>
         <div className="m-2">
           <span className="font-weight-bold">Date Withdrawn: </span>
@@ -91,6 +119,46 @@ export function Profile(props) {
           ) : null}
         {loan.overdueBy ? <div className="m-2">Overdue by (days): {loan.overdueBy}</div> : null}
         <div className="m-2">Loan Active</div>
+        <div className="m-2">{loan.beenExtended ? 'Loan Has Extension' : null}</div>
+        {!loan.beenExtended
+          ? (
+            <Button
+              className="m-2"
+              variant="success"
+              type="submit"
+              onClick={() => postLoanExtendRequest(
+                loan.bookId, loan.loanId, currentUser.username, 1,
+              )}
+            >
+              Extend Loan by 1 Month
+            </Button>
+          ) : null}
+        {!loan.beenExtended
+          ? (
+            <Button
+              className="m-2"
+              variant="success"
+              type="submit"
+              onClick={() => postLoanExtendRequest(
+                loan.bookId, loan.loanId, currentUser.username, 2,
+              )}
+            >
+              Extend Loan by 2 Months
+            </Button>
+          ) : null}
+        {!loan.beenExtended
+          ? (
+            <Button
+              className="m-2"
+              variant="success"
+              type="submit"
+              onClick={() => postLoanExtendRequest(
+                loan.bookId, loan.loanId, currentUser.username, 3,
+              )}
+            >
+              Extend Loan by 3 Months
+            </Button>
+          ) : null}
         <Button
           className="m-2"
           variant="success"
@@ -117,6 +185,10 @@ export function Profile(props) {
         <div className="card-text m-2">
           <span className="font-weight-bold">Book ID: </span>
           {loan.bookId}
+        </div>
+        <div className="card-text m-2">
+          <span className="font-weight-bold">Loan ID: </span>
+          {loan.loanId}
         </div>
         <div className="m-2">
           <span className="font-weight-bold">Date Withdrawn: </span>

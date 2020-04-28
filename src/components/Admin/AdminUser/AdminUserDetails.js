@@ -41,21 +41,29 @@ function AdminUserDetails(props) {
             address1, address2, city, contactNumber, gender)}
           >
             <div className="row justify-content-start align-content-start">
-              <div className="col-sm-12 col-md-4 col-lg-4 mb-2 h4">
+              <div className="col-sm-12 col-md-auto col-lg-auto mb-2 h4">
                 <span className="mb-2 font-weight-bold">User ID: </span>
                 <span>{user.id}</span>
               </div>
-              <div className="col-sm-12 col-md-4 col-lg-4 mb-2 h4">
+              <div className="col-sm-12 col-md-auto col-lg-auto mb-2 h4">
                 <span className="mb-2 font-weight-bold">Username: </span>
                 <span>{user.username}</span>
               </div>
-              <div className="col-sm-12 col-md-4 col-lg-4 mb-2 h4">
+              <div className="col-sm-12 col-md-auto col-lg-auto mb-2 h4">
                 <span className="mb-2 font-weight-bold">Email: </span>
                 <span>{user.email}</span>
               </div>
               <div className="col-sm-12 col-md-12 col-lg-12 mb-2 h4">
                 <span className="mb-2 font-weight-bold">Registration Date: </span>
                 <span>{moment(user.registrationDate).format('DD-MM-YYYY')}</span>
+              </div>
+              <div className="col-sm-12 col-md-12 col-lg-12 mb-2 h4">
+                <span className="font-weight-bold h5">User Roles: </span>
+                {user.roles.map((role, index) => (
+                  <span key={role.id} className="ml-2">
+                    <span>{index + 1}. {role.role}</span>
+                  </span>
+                ))}
               </div>
               <div className="col-sm-12 col-md-6 col-lg-6 mb-2">
                 <div className="mb-2 font-weight-bold">User Firstname:</div>
@@ -101,6 +109,7 @@ function AdminUserDetails(props) {
                   type="text"
                   placeholder="Contact Number..."
                   onChange={(e) => setCity(e.target.value)}
+                  required
                 />
               </div>
               <div className="col-6">
@@ -124,6 +133,7 @@ function AdminUserDetails(props) {
                   type="text"
                   placeholder="Contact Number..."
                   onChange={(e) => setContactNumber(e.target.value)}
+                  required
                 />
               </div>
               <div className="col-sm-12 col-md-6 col-lg-2 mt-2">

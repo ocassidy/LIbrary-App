@@ -5,7 +5,7 @@ import { API_BASE_URL } from '../../constants/constants';
 import {
   DELETE_BOOK_FAILURE,
   DELETE_BOOK_SUCCESS,
-  GET_USER_FAILURE,
+  GET_USER_FAILURE, GET_USER_LIST_FAILURE, GET_USER_LIST_SUCCESS,
   GET_USER_PAGE_FAILURE,
   GET_USER_PAGE_SUCCESS,
   GET_USER_SUCCESS,
@@ -88,6 +88,30 @@ export const deleteBook = (id) => (dispatch) => axios.delete(`${API_BASE_URL}/bo
   .catch((error) => {
     toastr.error(error.message, 'Error');
     dispatch(deleteBookFailure(error.message));
+  });
+
+export const getUserListSuccess = (userList) => ({
+  type: GET_USER_LIST_SUCCESS,
+  userList,
+});
+
+export const getUserListFailure = (message) => ({
+  type: GET_USER_LIST_FAILURE,
+  message,
+});
+
+export const getUserList = () => (dispatch) => axios.get(`${API_BASE_URL}/users`,
+  {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`,
+    },
+  })
+  .then((response) => {
+    dispatch(getUserListSuccess(response.data));
+  })
+  .catch((error) => {
+    dispatch(getUserListFailure(error.message));
   });
 
 export const getUserPageSuccess = (userPage) => ({

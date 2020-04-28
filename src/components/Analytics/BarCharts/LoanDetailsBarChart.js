@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import {
   Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis,
 } from 'recharts';
-import './LoanDetailsBarChart.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faExchangeAlt, faSync } from '@fortawesome/free-solid-svg-icons';
 import { Button, Form, FormLabel } from 'react-bootstrap';
