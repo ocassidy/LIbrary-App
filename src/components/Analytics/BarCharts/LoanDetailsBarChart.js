@@ -11,7 +11,7 @@ export default function LoanDetailsBarChart(props) {
   const {
     data, chartTitle, barColourFill, yAxisDataKey, xAxisDataKey, barDataKey,
     xAxisDataLabel, yAxisDataLabel, setShowActiveLoans, showActiveLoans,
-    handleGetUserAnalytics, numOfLoans, numOfLoansForm, showActiveLoansButton
+    handleGetUserAnalytics, numOfLoans, numOfLoansForm, showActiveLoansButton,
   } = props;
 
   useEffect(() => {
