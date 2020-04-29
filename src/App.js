@@ -10,15 +10,17 @@ import { RegisterContainer } from './components/Auth/Register/Register';
 import { BookListContainer } from './components/Book/BooksList/BooksList';
 import BookAnalytics from './components/Analytics/Analytics/Analytics';
 import { ProfileContainer } from './components/Profile/Profile';
-import BooksPage from './components/Book/BookPage/BookPage';
 import AdminDashboard from './components/Admin/AdminDashboard/AdminDashboard';
 import Forbidden from './components/Shared/Forbidden';
 import AuthenticatedAdminRoute from './components/AuthenticatedRoutes/AuthenticatedAdminRoute';
 import { LoginContainer } from './components/Auth/Login/Login';
 import AdminAddBook from './components/Admin/AdminAddBook/AdminAddBook';
 import NavBar from './components/Shared/NavBar';
-import BookEditPage from './components/Book/BookEditPage/BookEditPage';
+import { BookEditContainer } from './components/Book/BookEditPage/BookEdit';
 import AdminEditDeleteBook from './components/Admin/AdminEditDeleteBook/AdminEditDeleteBook';
+import AdminUser from './components/Admin/AdminUser/AdminUser';
+import AdminUserDetails from './components/Admin/AdminUser/AdminUserDetails';
+import { BookPageContainer } from './components/Book/BookPage/BookPage';
 import { getBookList, getBookPage } from './redux/actions/BookActions';
 import { getCurrentUser } from './redux/actions/AuthActions';
 import {
@@ -29,8 +31,6 @@ import {
   getUserReturnsAnalytics,
 } from './redux/actions/AnalyticsActions';
 import { getUserList, getUserPage } from './redux/actions/AdminActions';
-import AdminUser from './components/Admin/AdminUser/AdminUser';
-import AdminUserDetails from './components/Admin/AdminUser/AdminUserDetails';
 
 function App(props) {
   const {
@@ -123,13 +123,13 @@ function App(props) {
               <Route
                 exact
                 path="/book/:id"
-                component={() => <BooksPage />}
+                component={() => <BookPageContainer />}
                 id="baseRouteToBookPage"
               />
               <AuthenticatedAdminRoute
                 exact
                 path="/book/edit/:id"
-                component={() => <BookEditPage />}
+                component={() => <BookEditContainer />}
                 id="baseRouteToBookPage"
                 authProps={{ currentUser, isAuthenticated, isAdmin }}
               />

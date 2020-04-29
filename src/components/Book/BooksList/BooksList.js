@@ -67,41 +67,43 @@ export function BooksList(props) {
         className="card mb-2"
         border="dark"
         key={book.id}
+        id="card"
       >
         <div className="row no-gutters justify-content-center align-items-center">
           <div className="col-sm-12 col-md-4 col-lg-3">
-            <img src={book.image} className="img-fluid img-thumbnail rounded mx-auto d-block m-2" alt="bookImg" />
+            <img id="cardBookImage" src={book.image} className="img-fluid img-thumbnail rounded mx-auto d-block m-2" alt="bookImg" />
           </div>
           <div className="col-sm-12 col-md-8 col-lg-9 mt-4 p-3">
-            <div className="card-title h4">{book.name}</div>
+            <div className="card-title h4" id="cardBookName">{book.name}</div>
             <div className="card-text mt-4">
-              <span className="font-weight-bold">Book ID: </span>
+              <span className="font-weight-bold" id="cardBookId">Book ID: </span>
               {book.id}
             </div>
             <div className="card-text mt-4">
-              <span className="font-weight-bold">Edition: </span>
+              <span className="font-weight-bold" id="cardBookEdition">Edition: </span>
               {book.edition}
             </div>
             <div className="card-text mt-4">
-              <span className="font-weight-bold">Author: </span>
+              <span className="font-weight-bold" id="cardBookAuthor">Author: </span>
               {book.author}
             </div>
             <div className="card-text mt-4">
-              <span className="font-weight-bold">Year Published: </span>
+              <span className="font-weight-bold" id="cardBookYearPublished">Year Published: </span>
               {book.yearPublished}
             </div>
             <div className="card-text mt-4">
-              <span className="font-weight-bold">Genre: </span>
+              <span className="font-weight-bold" id="cardBookGenre">Genre: </span>
               {book.genre}
             </div>
             <div className="card-text mt-4">
-              <span className="font-weight-bold">Description: </span>
+              <span className="font-weight-bold" id="cardBookDescription">Description: </span>
               {book.description}
             </div>
 
             <div className="row no-gutters justify-content-end mt-2">
               <div className="col-auto ml-2">
                 <Button
+                  id={`gotoId${book.id + book.name}Button`}
                   onClick={() => handleGotoBookPage(book)}
                   variant="success"
                 >
@@ -113,6 +115,7 @@ export function BooksList(props) {
                   <div className="row no-gutters">
                     <div className="col-auto ml-2">
                       <Button
+                        id={`gotoEditId${book.id + book.name}Button`}
                         onClick={() => handleGotoBookEditPage(book)}
                         variant="info"
                       >
@@ -121,6 +124,7 @@ export function BooksList(props) {
                     </div>
                     <div className="col-auto ml-2">
                       <Button
+                        id={`deleteId${book.id + book.name}Button`}
                         onClick={() => {
                           setShowModal(!showModal);
                           setBookToDelete(book);
@@ -135,13 +139,13 @@ export function BooksList(props) {
             </div>
           </div>
         </div>
-        <div className="card-footer col-auto text-right">
+        <div className="card-footer col-auto text-right" id="cardBookPubliser">
           Publisher: {book.publisher}
         </div>
       </Card>
     ))
     : (
-      <div className="text-center">
+      <div className="text-center" id="noBooksFound">
         No books found, please try again.
       </div>
     );
@@ -217,7 +221,7 @@ export function BooksList(props) {
   );
 
   return (
-    <div className="container-fluid text-justify">
+    <div className="container-fluid text-justify" id="bookListContainer">
       {bookPage
         ? (
           <div className="row no-gutters">
@@ -226,6 +230,7 @@ export function BooksList(props) {
                 onClick={() => setIsSearchActiveActive(!isSearchActive)}
                 variant="light"
                 className="mr-2"
+                id="searchButton"
               >
                 Search
                 <FontAwesomeIcon icon={faSearch} className="ml-2" />
@@ -234,6 +239,7 @@ export function BooksList(props) {
                 onClick={() => setIsFilterDropdownActive(!isFilterDropdownActive)}
                 variant="light"
                 className="mr-2"
+                id="filterButton"
               >
                 Filters
                 <FontAwesomeIcon icon={faFilter} className="ml-2" />
@@ -245,6 +251,7 @@ export function BooksList(props) {
                 }}
                 variant="light"
                 className="mr-2"
+                id="refreshButton"
               >
                 Refresh
                 <FontAwesomeIcon icon={faSync} className="ml-2" />
@@ -257,14 +264,15 @@ export function BooksList(props) {
                 </div>
               )
               : null}
-            <div className="col-12">{paginationItemsPerPage}</div>
-            <div className="col-12">{isSearchActive ? search : null}</div>
+            <div className="col-12" id="paginationItemsPerPage">{paginationItemsPerPage}</div>
+            <div className="col-12" id="isSearchActive">{isSearchActive ? search : null}</div>
           </div>
         ) : null}
       {books}
       {totalPages > 1 && isPaginationActive ? pagination : null}
       {showModal ? (
         <AdminDeleteBookConfirmModal
+          id="adminDeleteBookConfirmModal"
           handleDeleteBook={() => handleDeleteBook(bookToDelete.id)}
           bookToDelete={bookToDelete}
           show={showModal}

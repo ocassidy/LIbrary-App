@@ -10,7 +10,7 @@ import { getBook } from '../../../redux/actions/BookActions';
 import { postLoanRequest } from '../../../redux/actions/UserActions';
 import { deleteBook } from '../../../redux/actions/AdminActions';
 
-function BookPage(props) {
+export default function BookPage(props) {
   const { id } = useParams();
   const [showModal, setShowModal] = useState(false);
   const [bookToDelete, setBookToDelete] = useState(null);
@@ -74,7 +74,7 @@ function BookPage(props) {
   }
 
   return (
-    <div className="container-fluid text-justify">
+    <div className="container-fluid text-justify" id="bookPageContainer">
       {book
         ? (
           <div className="row no-gutters justify-content-center align-items-center">
@@ -175,7 +175,7 @@ function BookPage(props) {
               : null}
           </div>
         ) : (
-          <div>
+          <div id="bookNotFoundText">
             Book details not found, please try again.
           </div>
         )}
@@ -201,4 +201,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(BookPage);
+export const BookPageContainer = connect(mapStateToProps, mapDispatchToProps)(BookPage);
